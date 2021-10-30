@@ -198,7 +198,9 @@ try:
 except Exception as e:
     print(e)
     print(date)
-    st.write('Data for the selected date does not exist. Please choose another date')
+#     st.write('Data for the selected date does not exist. Please choose another date')
+    st.error("Data for the selected date does not exist. Please choose another date")
+    st.stop()
 
 st.sidebar.markdown(download_aws_object(bucket, file_name), unsafe_allow_html=True)
     
