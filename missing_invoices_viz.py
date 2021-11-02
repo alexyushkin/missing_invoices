@@ -395,4 +395,6 @@ tabs = Tabs(tabs=[cust_panel, hea_panel, wx_panel, hvac_panel])
 st.bokeh_chart(tabs, use_container_width=False)
 
 show(tabs)
-
+with open('report.html', 'rb') as f:
+	st.sidebar.download_button('Download Report', f, file_name=f'Report - {month}.{day}.{year}.html')
+    
