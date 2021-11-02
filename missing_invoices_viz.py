@@ -112,6 +112,8 @@ def download_aws_object(bucket, key):
     )
     return dl_link
 
+output_file(filename="report.html", title="Report")
+
 plot_height = 500
 plot_width = 800
 
@@ -391,3 +393,6 @@ tabs = Tabs(tabs=[cust_panel, hea_panel, wx_panel, hvac_panel])
 
 # Show the tabbed layout
 st.bokeh_chart(tabs, use_container_width=False)
+
+save(tabs)
+
