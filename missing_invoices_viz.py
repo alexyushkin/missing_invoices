@@ -397,7 +397,7 @@ show(tabs)
 with open('report.html', 'rb') as f:
 	st.sidebar.download_button('Download Report', f, file_name=f'Report - {month}.{day}.{year}.html')
     
-if st.sidebar.download_button(data='report.html'):
+if st.sidebar.download_button('Download Report', data='report.html'):
 	st.write('Report downloaded')
 	
 st.sidebar.markdown(download_aws_object(bucket, file_name), unsafe_allow_html=True)
