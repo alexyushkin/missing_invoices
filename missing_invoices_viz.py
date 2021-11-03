@@ -201,16 +201,8 @@ except Exception as e:
     print(e)
     print(date)
 #     st.write('Data for the selected date does not exist. Please choose another date')
-    st.error("Data for the selected date does not exist. Please choose another date")
+    st.error("Data for the selected date does not exist. Please choose another date.")
     st.stop()
-
-with open('report.html', 'rb') as f:
-	st.sidebar.download_button('Download Report', f, file_name=f'Report - {month}.{day}.{year}.html')
-    
-if st.download_button(...):
-	st.write('Report downloaded')
-	
-st.sidebar.markdown(download_aws_object(bucket, file_name), unsafe_allow_html=True)
     
 try:
     temp_df = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='customers', parse_dates=['Time_Stamp_HEA_Performed__c'])
@@ -401,3 +393,11 @@ tabs = Tabs(tabs=[cust_panel, hea_panel, wx_panel, hvac_panel])
 st.bokeh_chart(tabs, use_container_width=False)
 
 show(tabs)
+
+with open('report.html', 'rb') as f:
+	st.sidebar.download_button('Download Report', f, file_name=f'Report - {month}.{day}.{year}.html')
+    
+if st.download_button(...):
+	st.write('Report downloaded')
+	
+st.sidebar.markdown(download_aws_object(bucket, file_name), unsafe_allow_html=True)
