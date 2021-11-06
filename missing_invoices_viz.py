@@ -205,7 +205,7 @@ except Exception as e:
     st.stop()
     
 try:
-    temp_df = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='customers', parse_dates=['Time_Stamp_HEA_Performed__c'])
+    temp_df = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='customers', parse_dates=['Date'])
 except Exception as e:
     print(e)
 
@@ -234,9 +234,9 @@ fig_1 = figure(plot_height=plot_height, plot_width=plot_width,
                tools=TOOLS,
                toolbar_location='above')
 
-width = 0.2 * (max(temp_df['Time_Stamp_HEA_Performed__c']) - min(temp_df['Time_Stamp_HEA_Performed__c'])).total_seconds() * 1000 / len(temp_df['Time_Stamp_HEA_Performed__c'])
+width = 0.2 * (max(temp_df['Date']) - min(temp_df['Date'])).total_seconds() * 1000 / len(temp_df['Date'])
 
-fig_1.vbar(x=temp_df.Time_Stamp_HEA_Performed__c, top=temp_df.attributes, width=width)
+fig_1.vbar(x=temp_df.Date, top=temp_df.attributes, width=width)
 
 fig_1.y_range.start = 0
 fig_1.xgrid.grid_line_color = None
