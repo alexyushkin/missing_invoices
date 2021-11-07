@@ -60,8 +60,8 @@ def download_aws_object(bucket, key):
 
     prim_color = st.config.get_option('theme.primaryColor') or '#f43365'
     bg_color = st.config.get_option('theme.backgroundColor') or '#000000'
-    btn_bg_color = '#f3f6fc'
-    border_color = '#dadfe7'
+    btn_bg_color = st.config.get_option('theme.buttonBackgroundColor') or '#f3f6fc'
+    border_color = st.config.get_option('theme.buttonBorderColor') or '#dadfe7'
     sbg_color = st.config.get_option('theme.secondaryBackgroundColor') or '#f1f3f6'
     txt_color = st.config.get_option('theme.textColor') or '#000000' 
     font = st.config.get_option('theme.font') or 'sans serif'  
