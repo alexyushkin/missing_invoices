@@ -255,6 +255,7 @@ except Exception as e:
     print(e)
 
 try:
+    obj = s3.get_object(Bucket=bucket, Key=file_name)
     df1 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='customers_raw_data', parse_dates=['Date'])
 except Exception as e:
     print(e)
