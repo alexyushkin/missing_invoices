@@ -280,6 +280,7 @@ try:
 except Exception as e:
     print(e)
 
+df1 = df1.loc[df1['Created'] == 'N']
 source = ColumnDataSource(df1)
 TOOLS = "hover, pan, box_zoom, reset, wheel_zoom, tap"
 fig_1 = figure(plot_height=int(plot_height/2), plot_width=plot_width, 
@@ -302,7 +303,7 @@ fig_1.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 fig_1.select_one(HoverTool).tooltips = [('Number of Customers', '@top{int}')]
 
 columns = [
-        TableColumn(field="Date", title="Date", formatter=DateFormatter(), width=int(plot_width/4)),
+#         TableColumn(field="Date", title="Date", formatter=DateFormatter(), width=int(plot_width/4)),
 	TableColumn(field="link", title="Link", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>"><%= value %>'), width=int(plot_width*3/4))
     ]
 data_table = DataTable(source=source, columns=columns, width=plot_width, height=int(plot_height/2))
