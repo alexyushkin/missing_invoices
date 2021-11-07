@@ -61,6 +61,7 @@ def download_aws_object(bucket, key):
     prim_color = st.config.get_option('theme.primaryColor') or '#F43365'
 #     bg_color = st.config.get_option('theme.backgroundColor') or '#000000'
     bg_color = '#f3f6fc'
+    border_color = '#767676'
     sbg_color = st.config.get_option('theme.secondaryBackgroundColor') or '#f1f3f6'
     txt_color = st.config.get_option('theme.textColor') or '#000000' 
     font = st.config.get_option('theme.font') or 'sans serif'  
@@ -76,7 +77,7 @@ def download_aws_object(bucket, key):
                 border-radius: 0.25rem;
                 border-width: 1px;
                 border-style: solid;
-                border-color: {bg_color};
+                border-color: {border_color};
                 border-image: initial;
                 filter: brightness(105%);
                 justify-content: center;
