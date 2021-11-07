@@ -282,7 +282,9 @@ except Exception as e:
     print(e)
 
 df1 = df1.loc[df1['Created'] == 'N']
-df1.index = np.arange(1, len(df1) + 1)
+df1.reset_index(inplace=True, drop=True)
+print(df1)
+df1.index = df1.index + 1
 
 source = ColumnDataSource(df1)
 TOOLS = "hover, pan, box_zoom, reset, wheel_zoom, tap"
