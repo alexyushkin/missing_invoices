@@ -11,7 +11,7 @@ from bokeh.models.widgets import Tabs, Panel
 from bokeh.models import ColumnDataSource, CategoricalColorMapper, BasicTickFormatter, NumeralTickFormatter, HoverTool, DatetimeTickFormatter
 # from bokeh.io import curdoc
 # from bokeh.models import ColumnDataSource, Grid, LinearAxis, Plot, VBar
-from bokeh.models import DataTable, DateFormatter, TableColumn
+from bokeh.models import DataTable, DateFormatter, TableColumn, HTMLTemplateFormatter
 import datetime
 import boto3
 import io
@@ -302,8 +302,8 @@ fig_1.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 fig_1.select_one(HoverTool).tooltips = [('Number of Customers', '@top{int}')]
 
 columns = [
-        TableColumn(field="Date", title="Date", formatter=DateFormatter()),
-        TableColumn(field="link", title="Link"),
+        TableColumn(field="Date", title="Date", formatter=DateFormatter(), width=int(plot_width/4)),
+	TableColumn(field="link", title="Link", formatter=HTMLTemplateFormatter(template='<%= value %>'), width=int(plot_width*3/4))
     ]
 data_table = DataTable(source=source, columns=columns, width=plot_width, height=int(plot_height/2))
 
