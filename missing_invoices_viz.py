@@ -283,8 +283,8 @@ except Exception as e:
 
 df1 = df1.loc[df1['Created'] == 'N']
 df1.reset_index(inplace=True, drop=True)
-print(df1)
 df1.index = df1.index + 1
+print(df1)
 
 source = ColumnDataSource(df1)
 TOOLS = "hover, pan, box_zoom, reset, wheel_zoom, tap"
