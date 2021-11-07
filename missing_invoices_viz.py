@@ -4,6 +4,7 @@
 # http://52.55.244.224:8501/
 
 import pandas as pd
+import numpy as np
 from bokeh.io import output_file, output_notebook
 from bokeh.plotting import figure, show
 from bokeh.layouts import row, column, gridplot
@@ -281,6 +282,8 @@ except Exception as e:
     print(e)
 
 df1 = df1.loc[df1['Created'] == 'N']
+df1.index = np.arange(1, len(df1) + 1)
+
 source = ColumnDataSource(df1)
 TOOLS = "hover, pan, box_zoom, reset, wheel_zoom, tap"
 fig_1 = figure(plot_height=int(plot_height/2), plot_width=plot_width, 
