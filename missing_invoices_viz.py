@@ -9,6 +9,8 @@ from bokeh.plotting import figure, show
 from bokeh.layouts import row, column, gridplot
 from bokeh.models.widgets import Tabs, Panel
 from bokeh.models import ColumnDataSource, CategoricalColorMapper, BasicTickFormatter, NumeralTickFormatter, HoverTool, DatetimeTickFormatter
+from bokeh.io import curdoc
+from bokeh.models import ColumnDataSource, Grid, LinearAxis, Plot, VBar
 import datetime
 import boto3
 import io
@@ -253,6 +255,11 @@ except Exception as e:
     print(e)
 
 try:
+    df1 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='customers_raw_data', parse_dates=['Date'])
+except Exception as e:
+    print(e)
+
+try:
     obj = s3.get_object(Bucket=bucket, Key=file_name)
     df2 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='hea_invoices', parse_dates=['TS_HEA_Invoice_Submitted__c', 
                                                                                                                    'Activity_Date__c'])
@@ -271,8 +278,9 @@ try:
 except Exception as e:
     print(e)
 
+source = ColumnDataSource(df1)
 TOOLS = "hover, pan, box_zoom, reset, wheel_zoom, tap"
-fig_1 = figure(plot_height=plot_height, plot_width=plot_width, 
+fig_1 = figure(plot_height=int(plot_height/2), plot_width=plot_width, 
                title="Number of Missing Customers by Dates",
                tools=TOOLS,
                toolbar_location='above')
@@ -290,6 +298,12 @@ fig_1.yaxis.axis_label = 'Customers'
 fig_1.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
                                               months="%b %d, %Y",)
 fig_1.select_one(HoverTool).tooltips = [('Number of Customers', '@top{int}')]
+
+columns = [
+        TableColumn(field="Date", title="Date", formatter=DateFormatter()),
+        TableColumn(field="link", title="Link"),
+    ]
+data_table = DataTable(source=source, columns=columns, width=plot_width, height=int(plot_height/2))
 
 # Store the data in a ColumnDataSource
 data_cds = ColumnDataSource(df2)
@@ -424,7 +438,7 @@ hvac_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
                                                  months="%b %d, %Y",)
 
 # Create four panels
-cust_panel = Panel(child=gridplot([[fig_1], ], sizing_mode='stretch_both'), title='Customers')
+cust_panel = Panel(child=gridplot([[fig_1], [data_table]], sizing_mode='stretch_both'), title='Customers')
 hea_panel = Panel(child=gridplot([[amountFig], [revenueFig]], sizing_mode='stretch_both'), title='HEA')
 wx_panel = Panel(child=gridplot([[wx_lv_Fig], [wx_cust_Fig]], sizing_mode='stretch_both'), title='Wx')
 hvac_panel = Panel(child=gridplot([[hvac_Fig], ], sizing_mode='stretch_both'), title='HVAC')
