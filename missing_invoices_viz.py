@@ -282,6 +282,7 @@ except Exception as e:
     print(e)
 
 df1 = df1.loc[df1['Created'] == 'N']
+df1 = df1.sort_values('Date')
 df1.reset_index(inplace=True, drop=True)
 df1.index = df1.index + 1
 df1.reset_index(inplace=True)
