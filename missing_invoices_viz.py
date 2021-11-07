@@ -284,7 +284,7 @@ except Exception as e:
 df1 = df1.loc[df1['Created'] == 'N']
 df1.reset_index(inplace=True, drop=True)
 df1.index = df1.index + 1
-print(df1)
+df1.reset_index(inplace=True)
 
 source = ColumnDataSource(df1)
 TOOLS = "hover, pan, box_zoom, reset, wheel_zoom, tap"
@@ -308,8 +308,9 @@ fig_1.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 fig_1.select_one(HoverTool).tooltips = [('Number of Customers', '@top{int}')]
 
 columns = [
-        TableColumn(field="Date", title="Date", formatter=DateFormatter(), width=int(plot_width/4)),
-	TableColumn(field="link", title="Link", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*3/4))
+	TableColumn(field="index", title="#", width=int(plot_width/8)),
+        TableColumn(field="Date", title="Date", formatter=DateFormatter(), width=int(plot_width*2/8)),
+	TableColumn(field="link", title="Link", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*5/8))
     ]
 data_table = DataTable(source=source, columns=columns, width=plot_width, height=int(plot_height/2), index_position=None)
 
