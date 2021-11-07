@@ -60,8 +60,6 @@ def download_aws_object(bucket, key):
 
     prim_color = st.config.get_option('theme.primaryColor') or '#f43365'
     bg_color = st.config.get_option('theme.backgroundColor') or '#000000'
-    bbg_color = st.config.get_option('theme.buttonBackgroundColor') or '#f3f6fc'
-    border_color = st.config.get_option('theme.borderColor') or '#dadfe7'
     sbg_color = st.config.get_option('theme.secondaryBackgroundColor') or '#f1f3f6'
     txt_color = st.config.get_option('theme.textColor') or '#000000' 
     font = st.config.get_option('theme.font') or 'sans serif'  
@@ -69,7 +67,7 @@ def download_aws_object(bucket, key):
     custom_css = f"""
         <style>
             #{button_id} {{
-                background-color: {bbg_color};
+                background-color: {sbg_color};
                 color: {txt_color};
                 padding: 0.25rem 0.75rem;
                 position: relative;
@@ -77,7 +75,7 @@ def download_aws_object(bucket, key):
                 border-radius: 0.25rem;
                 border-width: 1px;
                 border-style: solid;
-                border-color: {border_color};
+                border-color: rgb(230, 234, 241);
                 border-image: initial;
                 filter: brightness(105%);
                 justify-content: center;
