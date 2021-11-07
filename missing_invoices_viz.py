@@ -311,7 +311,7 @@ columns = [
         TableColumn(field="Date", title="Date", formatter=DateFormatter(), width=int(plot_width/4)),
 	TableColumn(field="link", title="Link", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*3/4))
     ]
-data_table = DataTable(source=source, columns=columns, width=plot_width, height=int(plot_height/2))
+data_table = DataTable(source=source, columns=columns, width=plot_width, height=int(plot_height/2), index_position=None)
 
 # Store the data in a ColumnDataSource
 data_cds = ColumnDataSource(df2)
