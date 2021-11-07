@@ -33,80 +33,80 @@ def download_aws_object(bucket, key):
     button_uuid = str(uuid.uuid4()).replace("-", "")
     button_id = re.sub("\d+", "", button_uuid)
 
-#     custom_css = f""" 
-#         <style>
-#             #{button_id} {{
-#                 background-color: rgb(255, 255, 255);
-#                 color: rgb(38, 39, 48);
-#                 padding: 0.25em 0.38em;
-#                 position: relative;
-#                 text-decoration: none;
-#                 border-radius: 4px;
-#                 border-width: 1px;
-#                 border-style: solid;
-#                 border-color: rgb(230, 234, 241);
-#                 border-image: initial;
-#             }} 
-#             #{button_id}:hover {{
-#                 border-color: rgb(246, 51, 102);
-#                 color: rgb(246, 51, 102);
-#             }}
-#             #{button_id}:active {{
-#                 box-shadow: none;
-#                 background-color: rgb(246, 51, 102);
-#                 color: white;
-#                 }}
-#         </style> """
-
-    prim_color = st.config.get_option('theme.primaryColor') or '#F43365'
-#     bg_color = st.config.get_option('theme.backgroundColor') or '#000000'
-    btn_bg_color = '#F3F6FC'
-    border_color = '#DADFE7'
-    sbg_color = st.config.get_option('theme.secondaryBackgroundColor') or '#f1f3f6'
-    txt_color = st.config.get_option('theme.textColor') or '#000000' 
-    font = st.config.get_option('theme.font') or 'sans serif'  
-
-    custom_css = f"""
+    custom_css = f""" 
         <style>
             #{button_id} {{
-                background-color: {btn_bg_color};
-                color: {txt_color};
-                padding: 0.25rem 0.75rem;
+                background-color: rgb(255, 255, 255);
+                color: rgb(38, 39, 48);
+                padding: 0.25em 0.38em;
                 position: relative;
-                line-height: 1.6;
-                border-radius: 0.25rem;
+                text-decoration: none;
+                border-radius: 4px;
                 border-width: 1px;
                 border-style: solid;
-                border-color: {border_color};
+                border-color: rgb(230, 234, 241);
                 border-image: initial;
-                filter: brightness(105%);
-                justify-content: center;
-                margin: 0px;
-                width: auto;
-                appearance: button;
-                display: inline-flex;
-                family-font: {font};
-                font-weight: 400;
-                letter-spacing: normal;
-                word-spacing: normal;
-                text-align: center;
-                text-rendering: auto;
-                text-transform: none;
-                text-indent: 0px;
-                text-shadow: none;
-                text-decoration: none;
-            }}
+            }} 
             #{button_id}:hover {{
-                
-                border-color: {prim_color};
-                color: {prim_color};
+                border-color: rgb(246, 51, 102);
+                color: rgb(246, 51, 102);
             }}
             #{button_id}:active {{
                 box-shadow: none;
-                background-color: {prim_color};
-                color: {sbg_color};
+                background-color: rgb(246, 51, 102);
+                color: white;
                 }}
         </style> """
+
+#     prim_color = st.config.get_option('theme.primaryColor') or '#F43365'
+# #     bg_color = st.config.get_option('theme.backgroundColor') or '#000000'
+#     btn_bg_color = '#f3f6fc'
+#     border_color = '#DADFE7'
+#     sbg_color = st.config.get_option('theme.secondaryBackgroundColor') or '#f1f3f6'
+#     txt_color = st.config.get_option('theme.textColor') or '#000000' 
+#     font = st.config.get_option('theme.font') or 'sans serif'  
+
+#     custom_css = f"""
+#         <style>
+#             #{button_id} {{
+#                 background-color: {btn_bg_color};
+#                 color: {txt_color};
+#                 padding: 0.25rem 0.75rem;
+#                 position: relative;
+#                 line-height: 1.6;
+#                 border-radius: 0.25rem;
+#                 border-width: 1px;
+#                 border-style: solid;
+#                 border-color: {border_color};
+#                 border-image: initial;
+#                 filter: brightness(105%);
+#                 justify-content: center;
+#                 margin: 0px;
+#                 width: auto;
+#                 appearance: button;
+#                 display: inline-flex;
+#                 family-font: {font};
+#                 font-weight: 400;
+#                 letter-spacing: normal;
+#                 word-spacing: normal;
+#                 text-align: center;
+#                 text-rendering: auto;
+#                 text-transform: none;
+#                 text-indent: 0px;
+#                 text-shadow: none;
+#                 text-decoration: none;
+#             }}
+#             #{button_id}:hover {{
+                
+#                 border-color: {prim_color};
+#                 color: {prim_color};
+#             }}
+#             #{button_id}:active {{
+#                 box-shadow: none;
+#                 background-color: {prim_color};
+#                 color: {sbg_color};
+#                 }}
+#         </style> """
 
     dl_link = (
         custom_css
