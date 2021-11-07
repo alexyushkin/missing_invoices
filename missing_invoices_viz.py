@@ -65,11 +65,11 @@ def download_aws_object(bucket, key):
     sbg_color = st.config.get_option('theme.secondaryBackgroundColor') or '#f1f3f6'
     txt_color = st.config.get_option('theme.textColor') or '#000000' 
     font = st.config.get_option('theme.font') or 'sans serif'  
-
+	
     custom_css = f"""
         <style>
             #{button_id} {{
-                background-color: {bg_color};
+                background-color: {sbg_color};
                 color: {txt_color};
                 padding: 0.25rem 0.75rem;
                 position: relative;
@@ -107,6 +107,48 @@ def download_aws_object(bucket, key):
                 color: {sbg_color};
                 }}
         </style> """
+
+#     custom_css = f"""
+#         <style>
+#             #{button_id} {{
+#                 background-color: {bg_color};
+#                 color: {txt_color};
+#                 padding: 0.25rem 0.75rem;
+#                 position: relative;
+#                 line-height: 1.6;
+#                 border-radius: 0.25rem;
+#                 border-width: 1px;
+#                 border-style: solid;
+#                 border-color: {border_color};
+#                 border-image: initial;
+#                 filter: brightness(105%);
+#                 justify-content: center;
+#                 margin: 0px;
+#                 width: auto;
+#                 appearance: button;
+#                 display: inline-flex;
+#                 family-font: {font};
+#                 font-weight: 400;
+#                 letter-spacing: normal;
+#                 word-spacing: normal;
+#                 text-align: center;
+#                 text-rendering: auto;
+#                 text-transform: none;
+#                 text-indent: 0px;
+#                 text-shadow: none;
+#                 text-decoration: none;
+#             }}
+#             #{button_id}:hover {{
+                
+#                 border-color: {prim_color};
+#                 color: {prim_color};
+#             }}
+#             #{button_id}:active {{
+#                 box-shadow: none;
+#                 background-color: {prim_color};
+#                 color: {sbg_color};
+#                 }}
+#         </style> """
 
     dl_link = (
         custom_css
