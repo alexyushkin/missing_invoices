@@ -293,11 +293,9 @@ fig_1 = figure(plot_height=int(plot_height/2), plot_width=plot_width,
                tools=TOOLS,
                toolbar_location='above')
 
-# width = 0.2 * (max(temp_df['Date']) - min(temp_df['Date'])).total_seconds() * 1000 / len(temp_df['Date'])
-width = 0.2 * (max(df1['Date']) - min(df1['Date'])).total_seconds() * 1000 / len(df1['Date'])
+width = 0.2 * (max(temp_df['Date']) - min(temp_df['Date'])).total_seconds() * 1000 / len(temp_df['Date'])
 
-# fig_1.vbar(x=temp_df.Date, top=temp_df.attributes, width=width)
-fig_1.vbar(x='Date', top='Id', source=source, width=width)
+fig_1.vbar(x=temp_df.Date, top=temp_df.attributes, width=width)
 
 fig_1.y_range.start = 0
 fig_1.xgrid.grid_line_color = None
@@ -361,7 +359,9 @@ revenueFig = figure(title='Total Revenues', x_axis_type='datetime',
 # Draw with square markers
 revenueFig.square(x='Activity_Date__c', y='HEA_Revenue_Total__c', 
                   source=data_cds, size=5, fill_alpha=0.6,
-                  color=dict(field='Created', transform=created_mapper))
+                  color=dict(field='Created', transform=created_mapper), legend_field="Created")
+revenueFig.legend.orientation = "horizontal"
+revenueFig.legend.location = "top_center"
 revenueFig.xgrid.grid_line_color = None
 revenueFig.axis.minor_tick_line_color = None
 revenueFig.outline_line_color = None
