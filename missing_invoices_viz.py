@@ -361,9 +361,9 @@ revenueFig = figure(title='Total Revenues', x_axis_type='datetime',
 revenueFig.square(x='Activity_Date__c', y='HEA_Revenue_Total__c', 
                   source=data_cds, size=5, fill_alpha=0.6,
                   color=dict(field='Created', transform=created_mapper), legend_field="Created")
-revenueFig.legend.orientation = "horizontal"
+revenueFig.legend.orientation = "vertical"
 revenueFig.legend.location = "top_left"
-revenueFig.legend.click_policy="hide"
+# revenueFig.legend.click_policy="hide"
 revenueFig.xgrid.grid_line_color = None
 revenueFig.axis.minor_tick_line_color = None
 revenueFig.outline_line_color = None
