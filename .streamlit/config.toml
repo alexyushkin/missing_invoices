@@ -2,5 +2,7 @@
 primaryColor="#2214c7"
 backgroundColor="#ffffff"
 secondaryBackgroundColor="#e8eef9"
+buttonBackgroundColor="#f3f6fc"
+borderColor="#dadfe7"
 textColor="#000000"
 font="sans serif"
