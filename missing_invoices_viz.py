@@ -69,7 +69,7 @@ def download_aws_object(bucket, key):
     custom_css = f"""
         <style>
             #{button_id} {{
-                background-color: #f3f6fc;
+                background-color: rgb(243,246,252);
                 color: {txt_color};
                 padding: 0.25rem 0.75rem;
                 position: relative;
@@ -77,7 +77,7 @@ def download_aws_object(bucket, key):
                 border-radius: 0.25rem;
                 border-width: 1px;
                 border-style: solid;
-                border-color: #dadfe7;
+                border-color: rgb(218,223,231);
                 border-image: initial;
                 filter: brightness(105%);
                 justify-content: center;
