@@ -461,7 +461,7 @@ hvac_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 
 # Create four panels
 cust_panel = Panel(child=gridplot([[fig_1], [data_table]], sizing_mode='stretch_both'), title='Customers')
-hea_panel = Panel(child=gridplot([[amountFig], [revenueFig], [data_table_hea], sizing_mode='stretch_both'), title='HEA')
+hea_panel = Panel(child=gridplot([[amountFig], [revenueFig], [data_table_hea]], sizing_mode='stretch_both'), title='HEA')
 wx_panel = Panel(child=gridplot([[wx_lv_Fig], [wx_cust_Fig]], sizing_mode='stretch_both'), title='Wx')
 hvac_panel = Panel(child=gridplot([[hvac_Fig], ], sizing_mode='stretch_both'), title='HVAC')
 
