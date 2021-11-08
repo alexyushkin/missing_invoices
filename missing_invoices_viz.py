@@ -288,7 +288,7 @@ df1.index = df1.index + 1
 df1.reset_index(inplace=True)
 
 source = ColumnDataSource(df1)
-TOOLS = "hover, pan, box_zoom, reset, wheel_zoom, tap"
+TOOLS = "box_select, poly_select, hover, pan, box_zoom, reset, wheel_zoom, tap, undo, redo, zoom_in, crosshair"
 fig_1 = figure(plot_height=int(plot_height/2), plot_width=plot_width, 
                title="Number of Missing Customers by Dates",
                tools=TOOLS,
