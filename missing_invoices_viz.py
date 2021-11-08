@@ -320,7 +320,7 @@ data_cds = ColumnDataSource(df2)
 
 # Create a CategoricalColorMapper that assigns specific colors to Y and N
 created_mapper = CategoricalColorMapper(factors=['Y', 'N'], 
-                                        palette=['Green', 'Red'])
+                                        palette=['#008000', '#FF0000'])
 
 # Specify the tools
 toolList = ['hover', 'pan', 'box_zoom', 'reset', 'wheel_zoom', 'tap', 'lasso_select']
