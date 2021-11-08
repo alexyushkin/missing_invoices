@@ -376,6 +376,15 @@ hover_r.formatters = {"$x": "datetime"}
 
 revenueFig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
                                                    months="%b %d, %Y",)
+
+columns_hea = [
+# 	TableColumn(field="index", title="#", width=int(plot_width/16)),
+        TableColumn(field="Activity_Date__c", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
+	TableColumn(field="HEA_Invoice_Amount__c", title="Amount", width=int(plot_width/16)),
+	TableColumn(field="link", title="Link", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*13/16))
+    ]
+data_table_hea = DataTable(source=data_cds, columns=columns_hea, width=plot_width, height=int(plot_height/2), index_position=None)
+
 # Store the data in a ColumnDataSource
 data_cds = ColumnDataSource(df3)
 
@@ -452,7 +461,7 @@ hvac_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 
 # Create four panels
 cust_panel = Panel(child=gridplot([[fig_1], [data_table]], sizing_mode='stretch_both'), title='Customers')
-hea_panel = Panel(child=gridplot([[amountFig], [revenueFig]], sizing_mode='stretch_both'), title='HEA')
+hea_panel = Panel(child=gridplot([[amountFig], [revenueFig], [data_table_hea], sizing_mode='stretch_both'), title='HEA')
 wx_panel = Panel(child=gridplot([[wx_lv_Fig], [wx_cust_Fig]], sizing_mode='stretch_both'), title='Wx')
 hvac_panel = Panel(child=gridplot([[hvac_Fig], ], sizing_mode='stretch_both'), title='HVAC')
 
