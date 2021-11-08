@@ -386,6 +386,7 @@ columns_hea = [
     ]
 data_table_hea = DataTable(source=data_cds, columns=columns_hea, width=plot_width, height=int(plot_height/2), index_position=None)
 
+df3 = df3.sort_values('Completion_Walk_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
 data_cds = ColumnDataSource(df3)
 
@@ -434,6 +435,16 @@ hover_r.formatters = {"$x": "datetime"}
 wx_cust_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
                                                     months="%b %d, %Y",)
 
+columns_wx = [
+# 	TableColumn(field="index", title="#", width=int(plot_width/16)),
+        TableColumn(field="Completion_Walk_Date__c", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
+	TableColumn(field="Total_Cost_to_RISE__c", title="LV Invoice Amount", width=int(plot_width*2/16)),
+	TableColumn(field="Wx_Gross_Sale__c", title="Customer Invoice Amount", width=int(plot_width*2/16)),
+	TableColumn(field="link", title="Link", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*10/16))
+    ]
+data_table_hea = DataTable(source=data_cds, columns=columns_wx, width=plot_width, height=int(plot_height/2), index_position=None)
+
+df4 = df4.sort_values('Last_Install_Completion_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
 data_cds = ColumnDataSource(df4)
 
@@ -459,6 +470,14 @@ hover.formatters = {"$x": "datetime"}
 
 hvac_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
                                                  months="%b %d, %Y",)
+
+columns_hvac = [
+# 	TableColumn(field="index", title="#", width=int(plot_width/16)),
+        TableColumn(field="Last_Install_Completion_Date__c", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
+	TableColumn(field="Final_Contract_Price__c", title="Amount", width=int(plot_width/16)),
+	TableColumn(field="link", title="Link", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*13/16))
+    ]
+data_table_hea = DataTable(source=data_cds, columns=columns_hvac, width=plot_width, height=int(plot_height/2), index_position=None)
 
 # Create four panels
 cust_panel = Panel(child=gridplot([[fig_1], [data_table]], sizing_mode='stretch_both'), title='Customers')
