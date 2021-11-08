@@ -442,7 +442,7 @@ columns_wx = [
 	TableColumn(field="Wx_Gross_Sale__c", title="Customer Invoice Amount", width=int(plot_width*2/16)),
 	TableColumn(field="link", title="Link", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*10/16))
     ]
-data_table_hea = DataTable(source=data_cds, columns=columns_wx, width=plot_width, height=int(plot_height/2), index_position=None)
+data_table_wx = DataTable(source=data_cds, columns=columns_wx, width=plot_width, height=int(plot_height/2), index_position=None)
 
 df4 = df4.sort_values('Last_Install_Completion_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
@@ -477,13 +477,13 @@ columns_hvac = [
 	TableColumn(field="Final_Contract_Price__c", title="Amount", width=int(plot_width/16)),
 	TableColumn(field="link", title="Link", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*13/16))
     ]
-data_table_hea = DataTable(source=data_cds, columns=columns_hvac, width=plot_width, height=int(plot_height/2), index_position=None)
+data_table_hvac = DataTable(source=data_cds, columns=columns_hvac, width=plot_width, height=int(plot_height/2), index_position=None)
 
 # Create four panels
 cust_panel = Panel(child=gridplot([[fig_1], [data_table]], sizing_mode='stretch_both'), title='Customers')
 hea_panel = Panel(child=gridplot([[amountFig], [revenueFig], [data_table_hea]], sizing_mode='stretch_both'), title='HEA')
-wx_panel = Panel(child=gridplot([[wx_lv_Fig], [wx_cust_Fig]], sizing_mode='stretch_both'), title='Wx')
-hvac_panel = Panel(child=gridplot([[hvac_Fig], ], sizing_mode='stretch_both'), title='HVAC')
+wx_panel = Panel(child=gridplot([[wx_lv_Fig], [wx_cust_Fig], [data_table_wx]], sizing_mode='stretch_both'), title='Wx')
+hvac_panel = Panel(child=gridplot([[hvac_Fig], [data_table_hvac]], sizing_mode='stretch_both'), title='HVAC')
 
 # Assign the panels to Tabs
 tabs = Tabs(tabs=[cust_panel, hea_panel, wx_panel, hvac_panel])
