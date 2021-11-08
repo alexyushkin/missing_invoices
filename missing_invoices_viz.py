@@ -315,6 +315,7 @@ columns = [
     ]
 data_table = DataTable(source=source, columns=columns, width=plot_width, height=int(plot_height/2), index_position=None)
 
+df2 = df2.sort_values('Activity_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
 data_cds = ColumnDataSource(df2)
 
