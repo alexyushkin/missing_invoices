@@ -474,8 +474,8 @@ hvac_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 columns_hvac = [
 # 	TableColumn(field="index", title="#", width=int(plot_width/16)),
         TableColumn(field="Last_Install_Completion_Date__c", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
-	TableColumn(field="Final_Contract_Price__c", title="Amount", width=int(plot_width/16)),
-	TableColumn(field="link", title="Link", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*13/16))
+	TableColumn(field="Final_Contract_Price__c", title="Amount", width=int(plot_width*2/16)),
+	TableColumn(field="link", title="Link", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*12/16))
     ]
 data_table_hvac = DataTable(source=data_cds, columns=columns_hvac, width=plot_width, height=int(plot_height/2), index_position=None)
 
