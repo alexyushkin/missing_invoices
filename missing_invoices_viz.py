@@ -288,7 +288,7 @@ df1.index = df1.index + 1
 df1.reset_index(inplace=True)
 
 source = ColumnDataSource(df1)
-TOOLS = "box_select, hover, pan, box_zoom, reset, wheel_zoom, tap, poly_select, undo, redo, zoom_in, zoom_out, crosshair"
+TOOLS = "box_select, hover, box_zoom, reset, tap"
 fig_1 = figure(plot_height=int(plot_height/2), plot_width=plot_width, 
                title="Number of Missing Customers by Dates",
                tools=TOOLS,
@@ -324,7 +324,7 @@ created_mapper = CategoricalColorMapper(factors=['Y', 'N'],
                                         palette=['#008000', '#FF0000'])
 
 # Specify the tools
-toolList = ['hover', 'pan', 'box_zoom', 'reset', 'wheel_zoom', 'tap', 'poly_select', 'undo', 'redo', 'zoom_in', 'zoom_out', 'crosshair']
+toolList = ['hover', 'box_zoom', 'reset', 'tap', 'box_select']
 
 # Create a figure 
 amountFig = figure(title='Invoice Amounts', x_axis_type='datetime',
