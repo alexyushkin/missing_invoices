@@ -483,7 +483,7 @@ data_table_hvac = DataTable(source=data_cds, columns=columns_hvac, width=plot_wi
 
 # Create four panels
 cust_panel = Panel(child=gridplot([[fig_1], [data_table]], sizing_mode='stretch_both'), title='Customers')
-hea_panel = Panel(child=gridplot([[amountFig], [revenueFig], [data_table_hea]], sizing_mode='stretch_with'), title='HEA')
+hea_panel = Panel(child=gridplot([[amountFig], [revenueFig], [data_table_hea]], sizing_mode='stretch_width'), title='HEA')
 wx_panel = Panel(child=gridplot([[wx_lv_Fig], [wx_cust_Fig], [data_table_wx]], sizing_mode='scale_width'), title='Wx')
 hvac_panel = Panel(child=gridplot([[hvac_Fig], [data_table_hvac]], sizing_mode='stretch_both'), title='HVAC')
 
