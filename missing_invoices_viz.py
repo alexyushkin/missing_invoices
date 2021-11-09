@@ -361,9 +361,11 @@ revenueFig = figure(title='Total Revenues', x_axis_type='datetime',
 # Draw with square markers
 revenueFig.square(x='Activity_Date__c', y='HEA_Revenue_Total__c', 
                   source=data_cds, size=5, fill_alpha=0.6,
-                  color=dict(field='Created', transform=created_mapper), legend_field="Created")
-revenueFig.legend.orientation = "vertical"
-revenueFig.legend.location = "top_left"
+                  color=dict(field='Created', transform=created_mapper)
+# 		  , legend_field="Created"
+		 )
+# revenueFig.legend.orientation = "vertical"
+# revenueFig.legend.location = "top_left"
 # revenueFig.legend.click_policy="hide"
 revenueFig.xgrid.grid_line_color = None
 revenueFig.axis.minor_tick_line_color = None
@@ -481,8 +483,8 @@ data_table_hvac = DataTable(source=data_cds, columns=columns_hvac, width=plot_wi
 
 # Create four panels
 cust_panel = Panel(child=gridplot([[fig_1], [data_table]], sizing_mode='stretch_both'), title='Customers')
-hea_panel = Panel(child=gridplot([[amountFig], [revenueFig], [data_table_hea]], sizing_mode='stretch_both'), title='HEA')
-wx_panel = Panel(child=gridplot([[wx_lv_Fig], [wx_cust_Fig], [data_table_wx]], sizing_mode='stretch_both'), title='Wx')
+hea_panel = Panel(child=gridplot([[amountFig], [revenueFig], [data_table_hea]], sizing_mode='stretch_with'), title='HEA')
+wx_panel = Panel(child=gridplot([[wx_lv_Fig], [wx_cust_Fig], [data_table_wx]], sizing_mode='scale_width'), title='Wx')
 hvac_panel = Panel(child=gridplot([[hvac_Fig], [data_table_hvac]], sizing_mode='stretch_both'), title='HVAC')
 
 # Assign the panels to Tabs
