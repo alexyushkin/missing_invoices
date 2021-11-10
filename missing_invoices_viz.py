@@ -426,7 +426,9 @@ wx_cust_Fig = figure(title='Customer Invoice Amounts', x_axis_type='datetime',
 # 		     tools=toolList,
                      x_axis_label='Date', y_axis_label='Customer Invoice Amount',
 		     toolbar_location=None, 
-            	     x_range=wx_lv_Fig.x_range, y_range=wx_lv_Fig.y_range)
+            	     x_range=wx_lv_Fig.x_range, 
+# 		     y_range=wx_lv_Fig.y_range
+		    )
 
 # Draw with square markers
 wx_cust_Fig.square(x='Completion_Walk_Date__c', y='Wx_Gross_Sale__c', 
