@@ -295,8 +295,8 @@ fig_1 = figure(plot_height=int(plot_height), plot_width=plot_width,
                tools=TOOLS,
                toolbar_location='above')
 
-# width = 0.2 * (max(temp_df['Date']) - min(temp_df['Date'])).total_seconds() * 1000 / len(temp_df['Date'])
-width = 0.9
+width = 0.2 * (max(temp_df['Date']) - min(temp_df['Date'])).total_seconds() * 1000 / len(temp_df['Date'])
+# width = 0.9
 
 fig_1.vbar(x=temp_df.Date, top=temp_df.attributes, width=width)
 
@@ -326,7 +326,7 @@ created_mapper = CategoricalColorMapper(factors=['Y', 'N'],
                                         palette=['#008000', '#FF0000'])
 
 # Specify the tools
-toolList = ['hover', 'box_zoom', 'reset', 'tap', 'box_select']
+toolList = ['hover', 'box_zoom', 'box_select', 'reset', 'tap']
 
 # Create a figure 
 amountFig = figure(title='Invoice Amounts', x_axis_type='datetime',
@@ -422,8 +422,11 @@ wx_lv_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 
 # Create a figure 
 wx_cust_Fig = figure(title='Customer Invoice Amounts', x_axis_type='datetime', 
-                     plot_height=int(plot_height/2), plot_width=plot_width, tools=toolList,
-                     x_axis_label='Date', y_axis_label='Customer Invoice Amount')
+                     plot_height=int(plot_height/2), plot_width=plot_width, 
+# 		     tools=toolList,
+                     x_axis_label='Date', y_axis_label='Customer Invoice Amount',
+		     toolbar_location=None, 
+            	     x_range=wx_lv_Fig.x_range, y_range=wx_lv_Fig.y_range)
 
 # Draw with square markers
 wx_cust_Fig.square(x='Completion_Walk_Date__c', y='Wx_Gross_Sale__c', 
