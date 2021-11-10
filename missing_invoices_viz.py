@@ -13,6 +13,7 @@ from bokeh.models import ColumnDataSource, CategoricalColorMapper, BasicTickForm
 # from bokeh.io import curdoc
 # from bokeh.models import ColumnDataSource, Grid, LinearAxis, Plot, VBar
 from bokeh.models import DataTable, DateFormatter, TableColumn, HTMLTemplateFormatter
+from bokeh.models import ResetTool, BoxZoomTool, TapTool, BoxSelectTool
 import datetime
 import boto3
 import io
@@ -328,10 +329,12 @@ created_mapper = CategoricalColorMapper(factors=['Y', 'N'],
 # Specify the tools
 toolList = ['hover', 'box_zoom', 'box_select', 'reset', 'tap']
 
+toolList2 = [ResetTool(), BoxZoomTool(), TapTool(), BoxSelectTool()]
+
 # Create a figure 
 amountFig = figure(title='Invoice Amounts', x_axis_type='datetime',
                    plot_height=int(plot_height/2), plot_width=plot_width, 
-                   tools=toolList, toolbar_location="right",
+                   tools=toolList2, toolbar_location="right",
 #                    aspect_ratio=16/9,
                    x_axis_label='Date', y_axis_label='Invoice Amount')
 
@@ -358,13 +361,13 @@ amountFig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 # Create a figure relating the totals
 revenueFig = figure(title='Total Revenues', x_axis_type='datetime', 
                     plot_height=int(plot_height/2), plot_width=plot_width, 
-# 		    tools=toolList,
+		    tools=toolList2,
                     x_axis_label='Date', y_axis_label='Total Revenue',
 		    toolbar_location=None, 
             	    x_range=amountFig.x_range, y_range=amountFig.y_range)
 
 # Draw with square markers
-revenueFig.circle(x='Activity_Date__c', y='HEA_Revenue_Total__c', 
+revenueFig.square(x='Activity_Date__c', y='HEA_Revenue_Total__c', 
                   source=data_cds, size=5, fill_alpha=0.6,
                   color=dict(field='Created', transform=created_mapper)
 # 		  , legend_field="Created"
@@ -399,7 +402,7 @@ data_cds = ColumnDataSource(df3)
 
 # Create a figure 
 wx_lv_Fig = figure(title='LV Invoice Amounts', x_axis_type='datetime',
-                   plot_height=int(plot_height/2), plot_width=plot_width, tools=toolList, 
+                   plot_height=int(plot_height/2), plot_width=plot_width, tools=toolList2, 
                    x_axis_label='Date', y_axis_label='LV Invoice Amount')
 
 # Draw with circle markers
@@ -423,15 +426,15 @@ wx_lv_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 # Create a figure 
 wx_cust_Fig = figure(title='Customer Invoice Amounts', x_axis_type='datetime', 
                      plot_height=int(plot_height/2), plot_width=plot_width, 
-# 		     tools=toolList,
+		     tools=toolList2,
                      x_axis_label='Date', y_axis_label='Customer Invoice Amount',
 		     toolbar_location=None, 
             	     x_range=wx_lv_Fig.x_range, 
 # 		     y_range=wx_lv_Fig.y_range
 		    )
 
-# Draw with square markers
-wx_cust_Fig.square(x='Completion_Walk_Date__c', y='Wx_Gross_Sale__c', 
+# Draw with circle markers
+wx_cust_Fig.circle(x='Completion_Walk_Date__c', y='Wx_Gross_Sale__c', 
                    source=data_cds, size=5, fill_alpha=0.6,
                    color=dict(field='Created', transform=created_mapper))
 wx_cust_Fig.xgrid.grid_line_color = None
