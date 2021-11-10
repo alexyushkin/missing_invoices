@@ -331,7 +331,7 @@ toolList = ['hover', 'box_zoom', 'box_select', 'reset', 'tap']
 # Create a figure 
 amountFig = figure(title='Invoice Amounts', x_axis_type='datetime',
                    plot_height=int(plot_height/2), plot_width=plot_width, 
-                   tools=toolList, 
+                   tools=toolList, toolbar_location="right",
 #                    aspect_ratio=16/9,
                    x_axis_label='Date', y_axis_label='Invoice Amount')
 
