@@ -288,13 +288,15 @@ df1.index = df1.index + 1
 df1.reset_index(inplace=True)
 
 source = ColumnDataSource(df1)
-TOOLS = "box_select, hover, box_zoom, reset, tap"
+
+TOOLS = "hover, box_zoom, box_select, reset, tap"
 fig_1 = figure(plot_height=int(plot_height), plot_width=plot_width, 
                title="Number of Missing Customers by Dates",
                tools=TOOLS,
                toolbar_location='above')
 
-width = 0.2 * (max(temp_df['Date']) - min(temp_df['Date'])).total_seconds() * 1000 / len(temp_df['Date'])
+# width = 0.2 * (max(temp_df['Date']) - min(temp_df['Date'])).total_seconds() * 1000 / len(temp_df['Date'])
+width = 0.9
 
 fig_1.vbar(x=temp_df.Date, top=temp_df.attributes, width=width)
 
@@ -359,7 +361,7 @@ revenueFig = figure(title='Total Revenues', x_axis_type='datetime',
                     x_axis_label='Date', y_axis_label='Total Revenue')
 
 # Draw with square markers
-revenueFig.square(x='Activity_Date__c', y='HEA_Revenue_Total__c', 
+revenueFig.circle(x='Activity_Date__c', y='HEA_Revenue_Total__c', 
                   source=data_cds, size=5, fill_alpha=0.6,
                   color=dict(field='Created', transform=created_mapper)
 # 		  , legend_field="Created"
