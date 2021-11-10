@@ -357,8 +357,11 @@ amountFig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 
 # Create a figure relating the totals
 revenueFig = figure(title='Total Revenues', x_axis_type='datetime', 
-                    plot_height=int(plot_height/2), plot_width=plot_width, tools=toolList,
-                    x_axis_label='Date', y_axis_label='Total Revenue')
+                    plot_height=int(plot_height/2), plot_width=plot_width, 
+# 		    tools=toolList,
+                    x_axis_label='Date', y_axis_label='Total Revenue',
+		    toolbar_location=None, 
+            	    x_range=amountFig.x_range, y_range=amountFig.y_range)
 
 # Draw with square markers
 revenueFig.circle(x='Activity_Date__c', y='HEA_Revenue_Total__c', 
