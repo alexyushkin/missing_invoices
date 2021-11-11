@@ -287,7 +287,7 @@ df1 = df1.sort_values('Date')
 df1.reset_index(inplace=True, drop=True)
 df1.index = df1.index + 1
 df1.reset_index(inplace=True)
-print(df1)
+# print(df1)
 
 source = ColumnDataSource(df1)
 
