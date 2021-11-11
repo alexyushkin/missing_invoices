@@ -330,7 +330,7 @@ created_mapper = CategoricalColorMapper(factors=['Y', 'N'],
                                         palette=['#008000', '#FF0000'])
 
 # Specify the tools
-toolList = ['hover', 'box_zoom', 'box_select', 'reset', 'tap']
+toolList = ["lasso_select", 'hover', 'box_zoom', 'box_select', 'reset', 'tap']
 
 toolList2 = [ResetTool(), BoxZoomTool(), TapTool(), BoxSelectTool(), HoverTool()]
 
