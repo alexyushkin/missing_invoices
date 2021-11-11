@@ -418,18 +418,24 @@ s1.selected.js_on_change(
         var d2 = s2.data;
         d2['x'] = []
         d2['y'] = []
+	d2['z'] = []
+	d2['a'] = []
+	d2['b'] = []
         for (var i = 0; i < inds.length; i++) {
             d2['x'].push(d1['x'][inds[i]])
             d2['y'].push(d1['y'][inds[i]])
+	    d2['z'].push(d1['z'][inds[i]])
+	    d2['a'].push(d1['a'][inds[i]])
+	    d2['b'].push(d1['b'][inds[i]])
         }
         s2.change.emit();
         table.change.emit();
 
         var inds = source_data.selected.indices;
         var data = source_data.data;
-        var out = "x, y\\n";
+        var out = "x, y, z, a, b\\n";
         for (i = 0; i < inds.length; i++) {
-            out += data['x'][inds[i]] + "," + data['y'][inds[i]] + "\\n";
+            out += data['x'][inds[i]] + "," + data['y'][inds[i]] + "," + data['z'][inds[i]] + "," + data['a'][inds[i]] + "," + data['b'][inds[i]]+ "\\n";
         }
         var file = new Blob([out], {type: 'text/plain'});
 
