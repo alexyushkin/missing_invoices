@@ -9,7 +9,7 @@ from bokeh.io import output_file, output_notebook
 from bokeh.plotting import figure, show
 from bokeh.layouts import row, column, gridplot
 from bokeh.models.widgets import Tabs, Panel
-from bokeh.models import ColumnDataSource, CategoricalColorMapper, BasicTickFormatter, NumeralTickFormatter, HoverTool, DatetimeTickFormatter
+from bokeh.models import ColumnDataSource, CategoricalColorMapper, BasicTickFormatter, NumeralTickFormatter, HoverTool, DatetimeTickFormatter, CustomJS
 # from bokeh.io import curdoc
 # from bokeh.models import ColumnDataSource, Grid, LinearAxis, Plot, VBar
 from bokeh.models import DataTable, DateFormatter, TableColumn, HTMLTemplateFormatter
