@@ -13,7 +13,7 @@ from bokeh.models import ColumnDataSource, CategoricalColorMapper, BasicTickForm
 # from bokeh.io import curdoc
 # from bokeh.models import ColumnDataSource, Grid, LinearAxis, Plot, VBar
 from bokeh.models import DataTable, DateFormatter, TableColumn, HTMLTemplateFormatter
-from bokeh.models import ResetTool, BoxZoomTool, TapTool, BoxSelectTool
+from bokeh.models import ResetTool, BoxZoomTool, TapTool, BoxSelectTool, HoverTool
 import datetime
 import boto3
 import io
@@ -320,7 +320,8 @@ data_table = DataTable(source=source, columns=columns, width=plot_width, height=
 
 df2 = df2.sort_values('Activity_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
-data_cds = ColumnDataSource(df2)
+s1 = ColumnDataSource(df2)
+s2 = ColumnDataSource(df2)
 
 # Create a CategoricalColorMapper that assigns specific colors to Y and N
 created_mapper = CategoricalColorMapper(factors=['Y', 'N'], 
@@ -329,18 +330,19 @@ created_mapper = CategoricalColorMapper(factors=['Y', 'N'],
 # Specify the tools
 toolList = ['hover', 'box_zoom', 'box_select', 'reset', 'tap']
 
-toolList2 = [ResetTool(), BoxZoomTool(), TapTool(), BoxSelectTool()]
+toolList2 = [ResetTool(), BoxZoomTool(), TapTool(), BoxSelectTool(), HoverTool()]
 
 # Create a figure 
 amountFig = figure(title='Invoice Amounts', x_axis_type='datetime',
                    plot_height=int(plot_height/2), plot_width=plot_width, 
-                   tools=toolList2, toolbar_location="right",
+                   tools=toolList2, 
+# 		   toolbar_location="right",
 #                    aspect_ratio=16/9,
                    x_axis_label='Date', y_axis_label='Invoice Amount')
 
 # Draw with circle markers
 amountFig.circle(x='Activity_Date__c', y='HEA_Invoice_Amount__c', 
-                 source=data_cds,  fill_alpha=0.6,
+                 source=s1,  fill_alpha=0.6,
                  size=5, color=dict(field='Created', 
                                     transform=created_mapper))
 amountFig.xgrid.grid_line_color = None
@@ -368,7 +370,7 @@ revenueFig = figure(title='Total Revenues', x_axis_type='datetime',
 
 # Draw with square markers
 revenueFig.square(x='Activity_Date__c', y='HEA_Revenue_Total__c', 
-                  source=data_cds, size=5, fill_alpha=0.6,
+                  source=s1, size=5, fill_alpha=0.6,
                   color=dict(field='Created', transform=created_mapper)
 # 		  , legend_field="Created"
 		 )
@@ -394,7 +396,36 @@ columns_hea = [
 	TableColumn(field="HEA_Invoice_Amount__c", title="Amount", width=int(plot_width/16)),
 	TableColumn(field="link", title="Link", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*13/16))
     ]
-data_table_hea = DataTable(source=data_cds, columns=columns_hea, width=plot_width, height=int(plot_height/2), index_position=None)
+data_table_hea = DataTable(source=s2, columns=columns_hea, width=plot_width, height=int(plot_height/2), index_position=None)
+
+s1.selected.js_on_change(
+    "indices",
+    CustomJS(
+        args=dict(s1=s1, s2=s2, table=data_table_hea),
+        code="""
+        var inds = cb_obj.indices;
+        var d1 = s1.data;
+        var d2 = s2.data;
+        d2['x'] = []
+        d2['y'] = []
+        for (var i = 0; i < inds.length; i++) {
+            d2['x'].push(d1['x'][inds[i]])
+            d2['y'].push(d1['y'][inds[i]])
+        }
+        s2.change.emit();
+        table.change.emit();
+
+        var inds = source_data.selected.indices;
+        var data = source_data.data;
+        var out = "x, y\\n";
+        for (i = 0; i < inds.length; i++) {
+            out += data['x'][inds[i]] + "," + data['y'][inds[i]] + "\\n";
+        }
+        var file = new Blob([out], {type: 'text/plain'});
+
+    """,
+    ),
+)
 
 df3 = df3.sort_values('Completion_Walk_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
