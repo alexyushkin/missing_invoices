@@ -321,9 +321,11 @@ data_table = DataTable(source=source, columns=columns, width=plot_width, height=
 df2 = df2.sort_values('Activity_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
 s1 = ColumnDataSource(data=dict(x=df2['Activity_Date__c'], y=df2['HEA_Invoice_Amount__c'], z=df2['Created'],
-			       a=df2['HEA_Revenue_Total__c'], b=df2['link']))
-s2 = ColumnDataSource(data=dict(x=df2['Activity_Date__c'], y=df2['HEA_Invoice_Amount__c'], z=df2['Created'],
-			       a=df2['HEA_Revenue_Total__c'], b=df2['link']))
+			        a=df2['HEA_Revenue_Total__c'], b=df2['link']))
+# s2 = ColumnDataSource(data=dict(x=df2['Activity_Date__c'], y=df2['HEA_Invoice_Amount__c'], z=df2['Created'],
+# 			         a=df2['HEA_Revenue_Total__c'], b=df2['link']))
+s2 = ColumnDataSource(data=dict(x=[], y=[], z=[],
+			        a=[], b=[]))
 
 # Create a CategoricalColorMapper that assigns specific colors to Y and N
 created_mapper = CategoricalColorMapper(factors=['Y', 'N'], 
