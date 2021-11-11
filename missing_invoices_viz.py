@@ -287,6 +287,7 @@ df1 = df1.sort_values('Date')
 df1.reset_index(inplace=True, drop=True)
 df1.index = df1.index + 1
 df1.reset_index(inplace=True)
+print(df1)
 
 source = ColumnDataSource(df1)
 
@@ -300,7 +301,9 @@ fig_1 = figure(plot_height=int(plot_height), plot_width=plot_width,
 width = 0.2 * (max(df1['Date']) - min(df1['Date'])).total_seconds() * 1000 / len(df1['Date'])
 # width = 0.9
 
-fig_1.vbar(x=df1.Date, top=df1.Id, width=width)
+# fig_1.vbar(x=df1.Date, top=df1.Id, width=width)
+
+fig_1.vbar(x='Date', top='Id', source=source, width=width)
 
 fig_1.y_range.start = 0
 fig_1.xgrid.grid_line_color = None
