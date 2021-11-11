@@ -337,7 +337,7 @@ toolList2 = [ResetTool(), BoxZoomTool(), TapTool(), BoxSelectTool(), HoverTool()
 # Create a figure 
 amountFig = figure(title='Invoice Amounts', x_axis_type='datetime',
                    plot_height=int(plot_height/2), plot_width=plot_width, 
-                   tools=toolList2, 
+                   tools=toolList, 
 # 		   toolbar_location="right",
 #                    aspect_ratio=16/9,
                    x_axis_label='Date', y_axis_label='Invoice Amount')
@@ -366,9 +366,9 @@ amountFig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 # Create a figure relating the totals
 revenueFig = figure(title='Total Revenues', x_axis_type='datetime', 
                     plot_height=int(plot_height/2), plot_width=plot_width, 
-		    tools=toolList2,
+		    tools=toolList,
                     x_axis_label='Date', y_axis_label='Total Revenue',
-		    toolbar_location=None, 
+# 		    toolbar_location=None, 
             	    x_range=amountFig.x_range, y_range=amountFig.y_range)
 
 # Draw with square markers
