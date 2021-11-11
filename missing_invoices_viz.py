@@ -320,8 +320,10 @@ data_table = DataTable(source=source, columns=columns, width=plot_width, height=
 
 df2 = df2.sort_values('Activity_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
-s1 = ColumnDataSource(df2)
-s2 = ColumnDataSource(df2)
+s1 = ColumnDataSource(data=dict(x=df2['Activity_Date__c'], y=df2['HEA_Invoice_Amount__c'], z=df2['Created'],
+			       a=df2['HEA_Revenue_Total__c'], b=df2['link']))
+s2 = ColumnDataSource(data=dict(x=df2['Activity_Date__c'], y=df2['HEA_Invoice_Amount__c'], z=df2['Created'],
+			       a=df2['HEA_Revenue_Total__c'], b=df2['link']))
 
 # Create a CategoricalColorMapper that assigns specific colors to Y and N
 created_mapper = CategoricalColorMapper(factors=['Y', 'N'], 
@@ -341,9 +343,10 @@ amountFig = figure(title='Invoice Amounts', x_axis_type='datetime',
                    x_axis_label='Date', y_axis_label='Invoice Amount')
 
 # Draw with circle markers
-amountFig.circle(x='Activity_Date__c', y='HEA_Invoice_Amount__c', 
+# amountFig.circle(x='Activity_Date__c', y='HEA_Invoice_Amount__c', 
+amountFig.circle(x='x', y='y', 
                  source=s1,  fill_alpha=0.6,
-                 size=5, color=dict(field='Created', 
+                 size=5, color=dict(field='z', 
                                     transform=created_mapper))
 amountFig.xgrid.grid_line_color = None
 amountFig.axis.minor_tick_line_color = None
@@ -369,9 +372,10 @@ revenueFig = figure(title='Total Revenues', x_axis_type='datetime',
             	    x_range=amountFig.x_range, y_range=amountFig.y_range)
 
 # Draw with square markers
-revenueFig.square(x='Activity_Date__c', y='HEA_Revenue_Total__c', 
+# revenueFig.square(x='Activity_Date__c', y='HEA_Revenue_Total__c', 
+revenueFig.square(x='x', y='a', 
                   source=s1, size=5, fill_alpha=0.6,
-                  color=dict(field='Created', transform=created_mapper)
+                  color=dict(field='z', transform=created_mapper)
 # 		  , legend_field="Created"
 		 )
 # revenueFig.legend.orientation = "vertical"
@@ -390,11 +394,17 @@ hover_r.formatters = {"$x": "datetime"}
 revenueFig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
                                                    months="%b %d, %Y",)
 
+# columns_hea = [
+# # 	TableColumn(field="index", title="#", width=int(plot_width/16)),
+#         TableColumn(field="Activity_Date__c", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
+# 	TableColumn(field="HEA_Invoice_Amount__c", title="Amount", width=int(plot_width/16)),
+# 	TableColumn(field="link", title="Link", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*13/16))
+#     ]
 columns_hea = [
 # 	TableColumn(field="index", title="#", width=int(plot_width/16)),
-        TableColumn(field="Activity_Date__c", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
-	TableColumn(field="HEA_Invoice_Amount__c", title="Amount", width=int(plot_width/16)),
-	TableColumn(field="link", title="Link", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*13/16))
+        TableColumn(field="x", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
+	TableColumn(field="y", title="Amount", width=int(plot_width/16)),
+	TableColumn(field="b", title="Link", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*13/16))
     ]
 data_table_hea = DataTable(source=s2, columns=columns_hea, width=plot_width, height=int(plot_height/2), index_position=None)
 
