@@ -406,7 +406,7 @@ columns_hea = [
 	TableColumn(field="y", title="Amount", width=int(plot_width/16)),
 	TableColumn(field="b", title="Link", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*13/16))
     ]
-data_table_hea = DataTable(source=s2, columns=columns_hea, width=plot_width, height=int(plot_height/2), index_position=None)
+data_table_hea = DataTable(source=s2, columns=columns_hea, width=plot_width, height=int(plot_height/2), index_position=None, selectable=True, editable=True)
 
 s1.selected.js_on_change(
     "indices",
