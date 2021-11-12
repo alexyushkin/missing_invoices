@@ -483,7 +483,7 @@ s1.selected.js_on_change(
 df3 = df3.loc[df3['Completion_Walk_Date__c'] >= start]
 # df3 = df3.sort_values('Completion_Walk_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
-data_cds = ColumnDataSource(df3)
+data_cds3 = ColumnDataSource(df3)
 
 # Create a figure 
 wx_lv_Fig = figure(title='LV Invoice Amounts', x_axis_type='datetime',
@@ -492,7 +492,7 @@ wx_lv_Fig = figure(title='LV Invoice Amounts', x_axis_type='datetime',
 
 # Draw with circle markers
 wx_lv_Fig.circle(x='Completion_Walk_Date__c', y='Total_Cost_to_RISE__c', 
-                 source=data_cds, fill_alpha=0.6,
+                 source=data_cds3, fill_alpha=0.6,
                  size=5, color=dict(field='Created', 
                                     transform=created_mapper))
 wx_lv_Fig.xgrid.grid_line_color = None
@@ -522,7 +522,7 @@ wx_cust_Fig = figure(title='Customer Invoice Amounts', x_axis_type='datetime',
 
 # Draw with circle markers
 wx_cust_Fig.circle(x='Completion_Walk_Date__c', y='Wx_Gross_Sale__c', 
-                   source=data_cds, size=5, fill_alpha=0.6,
+                   source=data_cds3, size=5, fill_alpha=0.6,
                    color=dict(field='Created', transform=created_mapper))
 wx_cust_Fig.xgrid.grid_line_color = None
 wx_cust_Fig.axis.minor_tick_line_color = None
@@ -549,7 +549,7 @@ data_table_wx = DataTable(source=data_cds, columns=columns_wx, width=plot_width,
 df4 = df4.loc[df4['Last_Install_Completion_Date__c'] >= start]
 # df4 = df4.sort_values('Last_Install_Completion_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
-data_cds = ColumnDataSource(df4)
+data_cds4 = ColumnDataSource(df4)
 
 # Create a figure 
 hvac_Fig = figure(title='Contract Price', x_axis_type='datetime',
@@ -558,7 +558,7 @@ hvac_Fig = figure(title='Contract Price', x_axis_type='datetime',
 
 # Draw with circle markers
 hvac_Fig.circle(x='Last_Install_Completion_Date__c', y='Final_Contract_Price__c', 
-                source=data_cds, fill_alpha=0.6,
+                source=data_cds4, fill_alpha=0.6,
                 size=5, color=dict(field='Created', 
                                    transform=created_mapper))
 hvac_Fig.xgrid.grid_line_color = None
