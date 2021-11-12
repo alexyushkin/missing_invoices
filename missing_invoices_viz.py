@@ -365,6 +365,7 @@ toolList = ["lasso_select", 'hover', 'box_zoom', 'reset', 'tap']
 # toolList2 = [ResetTool(), BoxZoomTool(), TapTool(), BoxSelectTool(), HoverTool()]
 toolList2 = ['hover', 'box_zoom', 'box_select', 'reset', 'tap']
 toolList3 = ['box_zoom', 'box_select', 'reset', 'tap']
+toolList4 = ['hover', 'box_zoom', 'reset', 'tap']
 
 # Create a figure 
 amountFig = figure(title='Invoice Amounts', x_axis_type='datetime',
@@ -513,7 +514,7 @@ wx_lv_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 # Create a figure 
 wx_cust_Fig = figure(title='Customer Invoice Amounts', x_axis_type='datetime', 
                      plot_height=int(plot_height/2), plot_width=plot_width, 
-		     tools=toolList3,
+		     tools=toolList2,
                      x_axis_label='Date', y_axis_label='Customer Invoice Amount',
 		     toolbar_location=None, 
             	     x_range=wx_lv_Fig.x_range, 
@@ -568,10 +569,10 @@ hvac_Fig.axis.minor_tick_line_color = None
 hvac_Fig.outline_line_color = None
 
 hover_h = hvac_Fig.select(dict(type=HoverTool))
-tips_h = [('Date','$x{%F}'), ('Amount','$y{0.2f}')]
+tips_h = [('Date','@x{%F}'), ('Amount','@y{0.2f}')]
 hover_h.tooltips = tips_h
 hover_h.mode = 'mouse'
-hover_h.formatters = {"$x": "datetime"}
+hover_h.formatters = {"@x": "datetime"}
 
 hvac_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
                                                  months="%b %d, %Y",)
