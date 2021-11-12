@@ -190,16 +190,6 @@ st.markdown(f""" <style>
         padding-bottom: {padding}rem;
     }} </style> """, unsafe_allow_html=True)
 
-date = datetime.datetime.now()
-yesterday = date - datetime.timedelta(days=1)
-
-# print(date)
-firstOfThisMonth = yesterday.replace(day=1)
-# print(firstOfThisMonth)
-endOfLastMonth = firstOfThisMonth - datetime.timedelta(days=1)
-# print(endOfLastMonth)
-firstOfLastMonth = endOfLastMonth.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-
 bucket = "celigo-df-check"
 
 session = boto3.Session()
@@ -229,6 +219,16 @@ dates = [datetime.datetime.strptime(f"{e.split(' ')[2].split('.')[2]}-{e.split('
 # date = st.sidebar.date_input('Date', value=max(dates), min_value=min(dates), max_value=max(dates))
 date = st.sidebar.date_input('Select Syncronization Date', value=max(dates), min_value=min(dates), max_value=max(dates))
 # st.write(date)
+
+# date = datetime.datetime.now()
+# yesterday = date - datetime.timedelta(days=1)
+
+# print(date)
+firstOfThisMonth = date.replace(day=1)
+# print(firstOfThisMonth)
+endOfLastMonth = firstOfThisMonth - datetime.timedelta(days=1)
+# print(endOfLastMonth)
+firstOfLastMonth = endOfLastMonth.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
 
 # i = 0
 # while i < 10:
@@ -292,9 +292,9 @@ except Exception as e:
 
 min_date = min(df2['Activity_Date__c'].min(), df3['Completion_Walk_Date__c'].min(), df4['Last_Install_Completion_Date__c'].min())
 
-value = st.sidebar.radio('Select Period of Report', ['This and Last Months', 'All Data'])
+value = st.sidebar.radio('Select Period of Report', ['Current and Previous Months', 'All Data'])
 
-if value == 'This and Last Months':
+if value == 'Current and Previous Months':
     start = firstOfLastMonth
 else:
     start = min_date
