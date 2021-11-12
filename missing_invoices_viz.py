@@ -260,13 +260,13 @@ except Exception as e:
     st.error("Data for the selected date does not exist. Please choose another date.")
     st.stop()
     
-try:
-    temp_df = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='customers', parse_dates=['Date'])
-except Exception as e:
-    print(e)
+# try:
+#     temp_df = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='customers', parse_dates=['Date'])
+# except Exception as e:
+#     print(e)
 
 try:
-    obj = s3.get_object(Bucket=bucket, Key=file_name)
+#     obj = s3.get_object(Bucket=bucket, Key=file_name)
     df1 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='customers_raw_data', parse_dates=['Date'])
 except Exception as e:
     print(e)
