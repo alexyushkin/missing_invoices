@@ -156,7 +156,7 @@ def download_aws_object(bucket, key):
 
     dl_link = (
         custom_css
-        + f'<a download="{file_name}" id="{button_id}" href="data:file/{file_type};base64,{b64}">Download file "{file_name}"</a><br></br>'
+        + f'<a download="{file_name}" id="{button_id}" href="data:file/{file_type};base64,{b64}">Download raw data for {month}.{day}.{year}</a><br></br>'
     )
     return dl_link
 
