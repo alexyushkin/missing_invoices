@@ -556,7 +556,7 @@ data_cds4 = ColumnDataSource(df4)
 
 # Create a figure 
 hvac_Fig = figure(title='Contract Price', x_axis_type='datetime',
-                  plot_height=plot_height, plot_width=plot_width, tools=toolList2, 
+                  plot_height=plot_height, plot_width=plot_width, tools=toolList4, 
                   x_axis_label='Date', y_axis_label='Contract Price')
 
 # Draw with circle markers
