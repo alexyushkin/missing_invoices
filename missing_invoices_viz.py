@@ -487,7 +487,7 @@ data_cds = ColumnDataSource(df3)
 
 # Create a figure 
 wx_lv_Fig = figure(title='LV Invoice Amounts', x_axis_type='datetime',
-                   plot_height=int(plot_height/2), plot_width=plot_width, tools=toolList3, 
+                   plot_height=int(plot_height/2), plot_width=plot_width, tools=toolList2, 
                    x_axis_label='Date', y_axis_label='LV Invoice Amount')
 
 # Draw with circle markers
@@ -553,7 +553,7 @@ data_cds = ColumnDataSource(df4)
 
 # Create a figure 
 hvac_Fig = figure(title='Contract Price', x_axis_type='datetime',
-                  plot_height=plot_height, plot_width=plot_width, tools=toolList3, 
+                  plot_height=plot_height, plot_width=plot_width, tools=toolList2, 
                   x_axis_label='Date', y_axis_label='Contract Price')
 
 # Draw with circle markers
