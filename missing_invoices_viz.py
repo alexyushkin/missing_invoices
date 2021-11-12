@@ -12,7 +12,7 @@ from bokeh.models.widgets import Tabs, Panel
 from bokeh.models import ColumnDataSource, CategoricalColorMapper, BasicTickFormatter, NumeralTickFormatter, HoverTool, DatetimeTickFormatter, CustomJS
 # from bokeh.io import curdoc
 # from bokeh.models import ColumnDataSource, Grid, LinearAxis, Plot, VBar
-from bokeh.models import DataTable, DateFormatter, TableColumn, HTMLTemplateFormatter
+from bokeh.models import DataTable, DateFormatter, TableColumn, HTMLTemplateFormatter, NumberFormatter
 # from bokeh.models import ResetTool, BoxZoomTool, TapTool, BoxSelectTool, HoverTool
 import datetime
 import boto3
