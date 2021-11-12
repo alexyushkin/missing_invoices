@@ -190,7 +190,15 @@ st.markdown(f""" <style>
         padding-bottom: {padding}rem;
     }} </style> """, unsafe_allow_html=True)
 
-# date = datetime.datetime.now()
+date = datetime.datetime.now()
+yesterday = date - datetime.timedelta(days=1)
+
+# print(date)
+firstOfThisMonth = yesterday.replace(day=1)
+# print(firstOfThisMonth)
+endOfLastMonth = firstOfThisMonth - datetime.timedelta(days=1)
+# print(endOfLastMonth)
+firstOfLastMonth = endOfLastMonth.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
 
 bucket = "celigo-df-check"
 
@@ -217,9 +225,9 @@ dates = [datetime.datetime.strptime(f"{e.split(' ')[2].split('.')[2]}-{e.split('
 # print(dates)
 # print(max(dates))
 
-# st.sidebar.header("Select a Sync Date")
+# st.sidebar.header("Select Syncronization Date")
 # date = st.sidebar.date_input('Date', value=max(dates), min_value=min(dates), max_value=max(dates))
-date = st.sidebar.date_input('Select a Date', value=max(dates), min_value=min(dates), max_value=max(dates))
+date = st.sidebar.date_input('Select Syncronization Date', value=max(dates), min_value=min(dates), max_value=max(dates))
 # st.write(date)
 
 # i = 0
@@ -282,8 +290,16 @@ try:
 except Exception as e:
     print(e)
 
-value = st.sidebar.radio('choices', ['choice1', 'choice2', 'choice3', 'choice4'])
+min_date = min(df2['Activity_Date__c'].min(), df3['Completion_Walk_Date__c'].min(), df4['Last_Install_Completion_Date__c'].min())
 
+value = st.sidebar.radio('Select Period of Report', ['This and Last Month', 'All Data'])
+
+if value == 'This and Last Month':
+    start = firstOfLastMonth
+else:
+    start = min_date
+
+# df1 = df1.loc[df1['Date'] >= start]
 df1 = df1.loc[df1['Created'] == 'N']
 df1 = df1.sort_values('Date')
 df1.reset_index(inplace=True, drop=True)
@@ -329,6 +345,7 @@ columns = [
     ]
 data_table = DataTable(source=source, columns=columns, width=plot_width, height=int(plot_height/2), index_position=None)
 
+df2 = df2.loc[df2['Activity_Date__c'] >= start]
 df2 = df2.sort_values('Activity_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
 s1 = ColumnDataSource(data=dict(x=df2['Activity_Date__c'], y=df2['HEA_Invoice_Amount__c'], z=df2['Created'],
@@ -458,6 +475,7 @@ s1.selected.js_on_change(
     ),
 )
 
+df3 = df3.loc[df3['Completion_Walk_Date__c'] >= start]
 df3 = df3.sort_values('Completion_Walk_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
 data_cds = ColumnDataSource(df3)
@@ -521,6 +539,7 @@ columns_wx = [
     ]
 data_table_wx = DataTable(source=data_cds, columns=columns_wx, width=plot_width, height=int(plot_height/2), index_position=None)
 
+df4 = df4.loc[df4['Last_Install_Completion_Date__c'] >= start]
 df4 = df4.sort_values('Last_Install_Completion_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
 data_cds = ColumnDataSource(df4)
