@@ -556,7 +556,7 @@ data_cds4 = ColumnDataSource(df4)
 
 # Create a figure 
 hvac_Fig = figure(title='Contract Price', x_axis_type='datetime',
-                  plot_height=plot_height, plot_width=plot_width, tools=toolList, 
+                  plot_height=plot_height, plot_width=plot_width, tools=toolList2, 
                   x_axis_label='Date', y_axis_label='Contract Price')
 
 # Draw with circle markers
@@ -569,10 +569,10 @@ hvac_Fig.axis.minor_tick_line_color = None
 hvac_Fig.outline_line_color = None
 
 hover_h = hvac_Fig.select(dict(type=HoverTool))
-tips_h = [('Date','@x{%F}'), ('Amount','@y{0.2f}')]
+tips_h = [('Date','$x{%F}'), ('Amount','$y{0.2f}')]
 hover_h.tooltips = tips_h
 hover_h.mode = 'mouse'
-hover_h.formatters = {"@x": "datetime"}
+hover_h.formatters = {"$x": "datetime"}
 
 hvac_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
                                                  months="%b %d, %Y",)
@@ -608,5 +608,3 @@ with open('report.html', 'rb') as f:
 # 	st.write('Report downloaded')
 	
 st.sidebar.markdown(download_aws_object(bucket, file_name), unsafe_allow_html=True)
-
-
