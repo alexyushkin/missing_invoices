@@ -160,7 +160,7 @@ def download_aws_object(bucket, key):
     )
     return dl_link
 
-# output_file(filename="report.html", title="Report")
+output_file(filename="report.html", title="Report")
 
 plot_height = 500
 plot_width = 800
@@ -281,6 +281,8 @@ try:
     df4 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='hvac_invoices', parse_dates=['Last_Install_Completion_Date__c'])
 except Exception as e:
     print(e)
+
+value = st.sidebar.radio('choices', ['choice1', 'choice2', 'choice3', 'choice4'])
 
 df1 = df1.loc[df1['Created'] == 'N']
 df1 = df1.sort_values('Date')
@@ -578,6 +580,4 @@ with open('report.html', 'rb') as f:
 	
 st.sidebar.markdown(download_aws_object(bucket, file_name), unsafe_allow_html=True)
 
-
-value = st.sidebar.radio('choices', ['choice1', 'choice2', 'choice3', 'choice4'])
 
