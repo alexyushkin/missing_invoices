@@ -217,7 +217,7 @@ dates = [datetime.datetime.strptime(f"{e.split(' ')[2].split('.')[2]}-{e.split('
 # print(dates)
 # print(max(dates))
 
-# st.sidebar.header("Select a Date")
+# st.sidebar.header("Select a Sync Date")
 # date = st.sidebar.date_input('Date', value=max(dates), min_value=min(dates), max_value=max(dates))
 date = st.sidebar.date_input('Select a Date', value=max(dates), min_value=min(dates), max_value=max(dates))
 # st.write(date)
