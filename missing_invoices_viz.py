@@ -224,11 +224,6 @@ date = st.sidebar.date_input('Select Syncronization Date', value=max(dates), min
 # yesterday = date - datetime.timedelta(days=1)
 
 # print(date)
-firstOfThisMonth = date.replace(day=1)
-# print(firstOfThisMonth)
-endOfLastMonth = firstOfThisMonth - datetime.timedelta(days=1)
-# print(endOfLastMonth)
-firstOfLastMonth = endOfLastMonth.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
 
 # i = 0
 # while i < 10:
@@ -290,6 +285,12 @@ try:
 except Exception as e:
     print(e)
 
+date = pd.to_datetime(data)
+firstOfThisMonth = date.replace(day=1)
+# print(firstOfThisMonth)
+endOfLastMonth = firstOfThisMonth - datetime.timedelta(days=1)
+# print(endOfLastMonth)
+firstOfLastMonth = endOfLastMonth.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
 min_date = min(df2['Activity_Date__c'].min(), df3['Completion_Walk_Date__c'].min(), df4['Last_Install_Completion_Date__c'].min())
 
 value = st.sidebar.radio('Select Period of Report', ['Current and Previous Months', 'All Data'])
