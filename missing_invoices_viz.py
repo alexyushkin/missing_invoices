@@ -364,7 +364,7 @@ toolList = ["lasso_select", 'hover', 'box_zoom', 'reset', 'tap']
 
 # toolList2 = [ResetTool(), BoxZoomTool(), TapTool(), BoxSelectTool(), HoverTool()]
 toolList2 = ['hover', 'box_zoom', 'box_select', 'reset', 'tap']
-toolList3 = ['hover', 'box_zoom', 'box_select', 'reset', 'tap']
+toolList3 = ['box_zoom', 'box_select', 'reset', 'tap']
 
 # Create a figure 
 amountFig = figure(title='Invoice Amounts', x_axis_type='datetime',
@@ -487,7 +487,7 @@ data_cds = ColumnDataSource(df3)
 
 # Create a figure 
 wx_lv_Fig = figure(title='LV Invoice Amounts', x_axis_type='datetime',
-                   plot_height=int(plot_height/2), plot_width=plot_width, tools=toolList2, 
+                   plot_height=int(plot_height/2), plot_width=plot_width, tools=toolList3, 
                    x_axis_label='Date', y_axis_label='LV Invoice Amount')
 
 # Draw with circle markers
@@ -513,7 +513,7 @@ wx_lv_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 # Create a figure 
 wx_cust_Fig = figure(title='Customer Invoice Amounts', x_axis_type='datetime', 
                      plot_height=int(plot_height/2), plot_width=plot_width, 
-		     tools=toolList2,
+		     tools=toolList3,
                      x_axis_label='Date', y_axis_label='Customer Invoice Amount',
 		     toolbar_location=None, 
             	     x_range=wx_lv_Fig.x_range, 
