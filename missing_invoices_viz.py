@@ -13,7 +13,7 @@ from bokeh.models import ColumnDataSource, CategoricalColorMapper, BasicTickForm
 # from bokeh.io import curdoc
 # from bokeh.models import ColumnDataSource, Grid, LinearAxis, Plot, VBar
 from bokeh.models import DataTable, DateFormatter, TableColumn, HTMLTemplateFormatter
-from bokeh.models import ResetTool, BoxZoomTool, TapTool, BoxSelectTool, HoverTool
+# from bokeh.models import ResetTool, BoxZoomTool, TapTool, BoxSelectTool, HoverTool
 import datetime
 import boto3
 import io
@@ -565,10 +565,10 @@ hvac_Fig.axis.minor_tick_line_color = None
 hvac_Fig.outline_line_color = None
 
 hover_h = hvac_Fig.select(dict(type=HoverTool))
-tips_h = [('Date','@x{%F}'), ('Amount','@y{0.2f}')]
+tips_h = [('Date','$x{%F}'), ('Amount','$y{0.2f}')]
 hover_h.tooltips = tips_h
 hover_h.mode = 'mouse'
-hover_h.formatters = {"@x": "datetime"}
+hover_h.formatters = {"$x": "datetime"}
 
 hvac_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
                                                  months="%b %d, %Y",)
