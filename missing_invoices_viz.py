@@ -267,7 +267,7 @@ except Exception as e:
 
 try:
 #     obj = s3.get_object(Bucket=bucket, Key=file_name)
-    df1 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='customers_raw_data', parse_dates=['Date'])
+    df1 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='customers', parse_dates=['Date'])
 except Exception as e:
     print(e)
 
@@ -299,12 +299,11 @@ if value == 'This and Last Months':
 else:
     start = min_date
 
-# df1 = df1.loc[df1['Date'] >= start]
-df1 = df1.loc[df1['Created'] == 'N']
-df1 = df1.sort_values('Date')
-df1.reset_index(inplace=True, drop=True)
-df1.index = df1.index + 1
-df1.reset_index(inplace=True)
+# df1 = df1.loc[df1['Created'] == 'N']
+# df1 = df1.sort_values('Date')
+# df1.reset_index(inplace=True, drop=True)
+# df1.index = df1.index + 1
+# df1.reset_index(inplace=True)
 # print(df1)
 
 df1r = df1[['Date', 'Id']].set_index('Date')
@@ -346,7 +345,7 @@ columns = [
 data_table = DataTable(source=source, columns=columns, width=plot_width, height=int(plot_height/2), index_position=None)
 
 df2 = df2.loc[df2['Activity_Date__c'] >= start]
-df2 = df2.sort_values('Activity_Date__c', ascending=False)
+# df2 = df2.sort_values('Activity_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
 s1 = ColumnDataSource(data=dict(x=df2['Activity_Date__c'], y=df2['HEA_Invoice_Amount__c'], z=df2['Created'],
 			        a=df2['HEA_Revenue_Total__c'], b=df2['link']))
@@ -476,7 +475,7 @@ s1.selected.js_on_change(
 )
 
 df3 = df3.loc[df3['Completion_Walk_Date__c'] >= start]
-df3 = df3.sort_values('Completion_Walk_Date__c', ascending=False)
+# df3 = df3.sort_values('Completion_Walk_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
 data_cds = ColumnDataSource(df3)
 
@@ -540,7 +539,7 @@ columns_wx = [
 data_table_wx = DataTable(source=data_cds, columns=columns_wx, width=plot_width, height=int(plot_height/2), index_position=None)
 
 df4 = df4.loc[df4['Last_Install_Completion_Date__c'] >= start]
-df4 = df4.sort_values('Last_Install_Completion_Date__c', ascending=False)
+# df4 = df4.sort_values('Last_Install_Completion_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
 data_cds = ColumnDataSource(df4)
 
