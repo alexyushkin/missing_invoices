@@ -385,10 +385,11 @@ amountFig.outline_line_color = None
 hover = amountFig.select(dict(type=HoverTool))
 # tips = [('Date','$x{%F}'), ('Amount','$y{0.2f}')]
 # tips = [('Date','@Activity_Date__c{%F}'), ('Amount','@HEA_Invoice_Amount__c{0.2f}')]
-tips = [('Date','@Activity_Date__c'), ('Amount','@HEA_Invoice_Amount__c')]
+tips = [('Date','@x'), ('Amount','@y')]
 hover.tooltips = tips
 hover.mode = 'mouse'
-hover.formatters = {"$x": "datetime"}
+# hover.formatters = {"$x": "datetime"}
+hover.formatters = {"@x": "datetime"}
 
 # Format the y-axis tick labels 
 # amountFig.yaxis[0].formatter = NumeralTickFormatter(format='0000')
