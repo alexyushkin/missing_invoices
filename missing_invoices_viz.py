@@ -282,8 +282,6 @@ try:
 except Exception as e:
     print(e)
 
-value = st.sidebar.radio('choices', ['choice1', 'choice2', 'choice3', 'choice4'])
-
 df1 = df1.loc[df1['Created'] == 'N']
 df1 = df1.sort_values('Date')
 df1.reset_index(inplace=True, drop=True)
@@ -579,3 +577,7 @@ with open('report.html', 'rb') as f:
 # 	st.write('Report downloaded')
 	
 st.sidebar.markdown(download_aws_object(bucket, file_name), unsafe_allow_html=True)
+
+
+value = st.sidebar.radio('choices', ['choice1', 'choice2', 'choice3', 'choice4'])
+
