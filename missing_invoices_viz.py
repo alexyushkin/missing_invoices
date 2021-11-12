@@ -292,9 +292,9 @@ except Exception as e:
 
 min_date = min(df2['Activity_Date__c'].min(), df3['Completion_Walk_Date__c'].min(), df4['Last_Install_Completion_Date__c'].min())
 
-value = st.sidebar.radio('Select Period of Report', ['This and Last Month', 'All Data'])
+value = st.sidebar.radio('Select Period of Report', ['This and Last Months', 'All Data'])
 
-if value == 'This and Last Month':
+if value == 'This and Last Months':
     start = firstOfLastMonth
 else:
     start = min_date
