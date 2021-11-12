@@ -544,7 +544,7 @@ columns_wx = [
 	TableColumn(field="Wx_Gross_Sale__c", title="Customer Invoice Amount", width=int(plot_width*2/16)),
 	TableColumn(field="link", title="Link", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*10/16))
     ]
-data_table_wx = DataTable(source=data_cds, columns=columns_wx, width=plot_width, height=int(plot_height/2), index_position=None)
+data_table_wx = DataTable(source=data_cds3, columns=columns_wx, width=plot_width, height=int(plot_height/2), index_position=None)
 
 df4 = df4.loc[df4['Last_Install_Completion_Date__c'] >= start]
 # df4 = df4.sort_values('Last_Install_Completion_Date__c', ascending=False)
@@ -581,7 +581,7 @@ columns_hvac = [
 	TableColumn(field="link", title="HVAC Contract ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), 
 		    width=int(plot_width*8/16))
     ]
-data_table_hvac = DataTable(source=data_cds, columns=columns_hvac, width=plot_width, height=int(plot_height/2), index_position=None)
+data_table_hvac = DataTable(source=data_cds4, columns=columns_hvac, width=plot_width, height=int(plot_height/2), index_position=None)
 
 # Create four panels
 cust_panel = Panel(child=gridplot([[fig_1], [data_table]], sizing_mode='stretch_width'), title='Customers')
