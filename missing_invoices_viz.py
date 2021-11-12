@@ -362,7 +362,8 @@ created_mapper = CategoricalColorMapper(factors=['Y', 'N'],
 # Specify the tools
 toolList = ["lasso_select", 'hover', 'box_zoom', 'reset', 'tap']
 
-toolList2 = [ResetTool(), BoxZoomTool(), TapTool(), BoxSelectTool(), HoverTool()]
+# toolList2 = [ResetTool(), BoxZoomTool(), TapTool(), BoxSelectTool(), HoverTool()]
+toolList2 = ['hover', 'box_zoom', 'box_select', 'reset', 'tap']
 
 # Create a figure 
 amountFig = figure(title='Invoice Amounts', x_axis_type='datetime',
