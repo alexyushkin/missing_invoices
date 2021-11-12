@@ -282,6 +282,8 @@ try:
 except Exception as e:
     print(e)
 
+value = st.sidebar.radio(“choices”, [“choice1”, “choice2”, “choice3”, “choice4”])
+
 df1 = df1.loc[df1['Created'] == 'N']
 df1 = df1.sort_values('Date')
 df1.reset_index(inplace=True, drop=True)
