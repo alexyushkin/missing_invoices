@@ -160,7 +160,7 @@ def download_aws_object(bucket, key):
     )
     return dl_link
 
-output_file(filename="report.html", title="Report")
+# output_file(filename="report.html", title="Report")
 
 plot_height = 500
 plot_width = 800
@@ -282,7 +282,7 @@ try:
 except Exception as e:
     print(e)
 
-value = st.sidebar.radio(“choices”, [“choice1”, “choice2”, “choice3”, “choice4”])
+value = st.sidebar.radio('choices', ['choice1', 'choice2', 'choice3', 'choice4'])
 
 df1 = df1.loc[df1['Created'] == 'N']
 df1 = df1.sort_values('Date')
@@ -569,7 +569,7 @@ tabs = Tabs(tabs=[cust_panel, hea_panel, wx_panel, hvac_panel])
 # Show the tabbed layout
 st.bokeh_chart(tabs, use_container_width=False)
 
-show(tabs)
+# show(tabs)
 
 with open('report.html', 'rb') as f:
 	if st.sidebar.download_button('Download Report', f, file_name=f'Report - {month}.{day}.{year}.html'):
