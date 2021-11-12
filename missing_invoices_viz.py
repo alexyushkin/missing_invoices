@@ -388,8 +388,8 @@ hover = amountFig.select(dict(type=HoverTool))
 tips = [('Date','@x'), ('Amount','@y')]
 hover.tooltips = tips
 hover.mode = 'mouse'
-# hover.formatters = {"$x": "datetime"}
-hover.formatters = {"@x": "datetime"}
+hover.formatters = {"$x": "datetime"}
+# hover.formatters = {"@x": "datetime"}
 
 # Format the y-axis tick labels 
 # amountFig.yaxis[0].formatter = NumeralTickFormatter(format='0000')
