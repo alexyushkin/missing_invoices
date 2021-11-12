@@ -285,7 +285,7 @@ try:
 except Exception as e:
     print(e)
 
-date = pd.to_datetime(data)
+date = pd.to_datetime(date)
 firstOfThisMonth = date.replace(day=1)
 # print(firstOfThisMonth)
 endOfLastMonth = firstOfThisMonth - datetime.timedelta(days=1)
