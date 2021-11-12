@@ -498,10 +498,12 @@ wx_lv_Fig.axis.minor_tick_line_color = None
 wx_lv_Fig.outline_line_color = None
 
 hover = wx_lv_Fig.select(dict(type=HoverTool))
-tips = [('Date','@x{%F}'), ('Amount','@y{0.2f}')]
+# tips = [('Date','@x{%F}'), ('Amount','@y{0.2f}')]
+tips = [('Date','@Completion_Walk_Date__c{%F}'), ('Amount','@Total_Cost_to_RISE__c{0.2f}')]
 hover.tooltips = tips
 hover.mode = 'mouse'
-hover.formatters = {"@x": "datetime"}
+# hover.formatters = {"@x": "datetime"}
+hover.formatters = {"@Completion_Walk_Date__c": "datetime"}
 
 wx_lv_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
                                                   months="%b %d, %Y",)
