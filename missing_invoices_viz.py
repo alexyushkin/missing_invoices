@@ -564,7 +564,7 @@ hvac_Fig.axis.minor_tick_line_color = None
 hvac_Fig.outline_line_color = None
 
 hover_h = hvac_Fig.select(dict(type=HoverTool))
-tips_h = [('Date','$x{%F}'), ('Amount','$y{0.2f}')]
+tips_h = [('Date','$x{%F}'), ('Amount','@$y{0.2f}')]
 hover_h.tooltips = tips_h
 hover_h.mode = 'mouse'
 hover_h.formatters = {"$x": "datetime"}
