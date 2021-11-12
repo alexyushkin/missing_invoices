@@ -497,13 +497,13 @@ wx_lv_Fig.xgrid.grid_line_color = None
 wx_lv_Fig.axis.minor_tick_line_color = None
 wx_lv_Fig.outline_line_color = None
 
-hover = wx_lv_Fig.select(dict(type=HoverTool))
-# tips = [('Date','@x{%F}'), ('Amount','@y{0.2f}')]
-tips = [('Date','$Completion_Walk_Date__c{%F}'), ('Amount','$Total_Cost_to_RISE__c{0.2f}')]
-hover.tooltips = tips
-hover.mode = 'mouse'
-# hover.formatters = {"@x": "datetime"}
-hover.formatters = {"$Completion_Walk_Date__c": "datetime"}
+hover_l = wx_lv_Fig.select(dict(type=HoverTool))
+tips_l = [('Date','@x{%F}'), ('Amount','@y{0.2f}')]
+# tips = [('Date','$Completion_Walk_Date__c{%F}'), ('Amount','$Total_Cost_to_RISE__c{0.2f}')]
+hover_l.tooltips = tips_l
+hover_l.mode = 'mouse'
+hover_l.formatters = {"@x": "datetime"}
+# hover.formatters = {"$Completion_Walk_Date__c": "datetime"}
 
 wx_lv_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
                                                   months="%b %d, %Y",)
@@ -526,11 +526,11 @@ wx_cust_Fig.xgrid.grid_line_color = None
 wx_cust_Fig.axis.minor_tick_line_color = None
 wx_cust_Fig.outline_line_color = None
 
-hover_r = wx_cust_Fig.select(dict(type=HoverTool))
-tips_r = [('Date','$x{%F}'), ('Amount','@y{0.2f}')]
-hover_r.tooltips = tips_r
-hover_r.mode = 'mouse'
-hover_r.formatters = {"$x": "datetime"}
+hover_c = wx_cust_Fig.select(dict(type=HoverTool))
+tips_c = [('Date','@x{%F}'), ('Amount','@y{0.2f}')]
+hover_c.tooltips = tips_c
+hover_c.mode = 'mouse'
+hover_c.formatters = {"@x": "datetime"}
 
 wx_cust_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
                                                     months="%b %d, %Y",)
@@ -563,11 +563,11 @@ hvac_Fig.xgrid.grid_line_color = None
 hvac_Fig.axis.minor_tick_line_color = None
 hvac_Fig.outline_line_color = None
 
-hover = hvac_Fig.select(dict(type=HoverTool))
-tips = [('Date','@x{%F}'), ('Amount','@y{0.2f}')]
-hover.tooltips = tips
-hover.mode = 'mouse'
-hover.formatters = {"@x": "datetime"}
+hover_h = hvac_Fig.select(dict(type=HoverTool))
+tips_h = [('Date','@x{%F}'), ('Amount','@y{0.2f}')]
+hover_h.tooltips = tips_h
+hover_h.mode = 'mouse'
+hover_h.formatters = {"@x": "datetime"}
 
 hvac_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
                                                  months="%b %d, %Y",)
