@@ -364,6 +364,7 @@ toolList = ["lasso_select", 'hover', 'box_zoom', 'reset', 'tap']
 
 # toolList2 = [ResetTool(), BoxZoomTool(), TapTool(), BoxSelectTool(), HoverTool()]
 toolList2 = ['hover', 'box_zoom', 'box_select', 'reset', 'tap']
+toolList3 = ['hover', 'box_zoom', 'box_select', 'reset', 'tap']
 
 # Create a figure 
 amountFig = figure(title='Invoice Amounts', x_axis_type='datetime',
@@ -499,11 +500,11 @@ wx_lv_Fig.axis.minor_tick_line_color = None
 wx_lv_Fig.outline_line_color = None
 
 hover_l = wx_lv_Fig.select(dict(type=HoverTool))
-tips_l = [('Date','@x{%F}'), ('Amount','@y{0.2f}')]
+tips_l = [('Date','$x{%F}'), ('Amount','@y{0.2f}')]
 # tips = [('Date','$Completion_Walk_Date__c{%F}'), ('Amount','$Total_Cost_to_RISE__c{0.2f}')]
 hover_l.tooltips = tips_l
 hover_l.mode = 'mouse'
-hover_l.formatters = {"@x": "datetime"}
+hover_l.formatters = {"$x": "datetime"}
 # hover.formatters = {"$Completion_Walk_Date__c": "datetime"}
 
 wx_lv_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
@@ -552,7 +553,7 @@ data_cds = ColumnDataSource(df4)
 
 # Create a figure 
 hvac_Fig = figure(title='Contract Price', x_axis_type='datetime',
-                  plot_height=plot_height, plot_width=plot_width, tools=toolList2, 
+                  plot_height=plot_height, plot_width=plot_width, tools=toolList3, 
                   x_axis_label='Date', y_axis_label='Contract Price')
 
 # Draw with circle markers
