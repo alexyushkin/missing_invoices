@@ -289,20 +289,25 @@ df1.index = df1.index + 1
 df1.reset_index(inplace=True)
 # print(df1)
 
+df1r = df1[['Date', 'Id']].set_index('Date')
+df1r = df1r.resample('D').count()
+df1r.reset_index(inplace=True)
+
+source_1 = ColumnDataSource(df1r)
 source = ColumnDataSource(df1)
 
-TOOLS = "hover, box_zoom, box_select, reset, tap"
+TOOLS = "box_zoom, reset"
 fig_1 = figure(plot_height=int(plot_height), plot_width=plot_width, 
                title="Number of Missing Customers by Dates",
                tools=TOOLS,
                toolbar_location='above')
 
-width = 0.2 * (max(temp_df['Date']) - min(temp_df['Date'])).total_seconds() * 1000 / len(temp_df['Date'])
+# width = 0.2 * (max(temp_df['Date']) - min(temp_df['Date'])).total_seconds() * 1000 / len(temp_df['Date'])
 # width = 0.2 * (max(df1['Date']) - min(df1['Date'])).total_seconds() * 1000 / len(df1['Date'])
-# width = 0.9
+width = 0.9 * 24 * 60 * 60 * 1000
 
-fig_1.vbar(x=temp_df.Date, top=temp_df.attributes, width=width)
-
+# fig_1.vbar(x=temp_df.Date, top=temp_df.attributes, width=width)
+fig_1.vbar(x='Date', top='Id', source=source_1, width=width)
 # fig_1.vbar(x='Date', top='Id', source=source, width=width)
 
 fig_1.y_range.start = 0
@@ -313,7 +318,7 @@ fig_1.xaxis.axis_label = 'Date'
 fig_1.yaxis.axis_label = 'Customers'
 fig_1.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
                                               months="%b %d, %Y",)
-fig_1.select_one(HoverTool).tooltips = [('Number of Customers', '@top{int}')]
+# fig_1.select_one(HoverTool).tooltips = [('Number of Customers', '@top{int}')]
 
 columns = [
 	TableColumn(field="index", title="#", width=int(plot_width/16)),
