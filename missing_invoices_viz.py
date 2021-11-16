@@ -165,7 +165,7 @@ output_file(filename="report.html", title="Report")
 plot_height = 500
 plot_width = 800
 
-im = Image.open("image.jpeg")
+im = Image.open("image_60.jpeg")
 st.set_page_config(
     page_title="Missing Customers & Invoices",
     page_icon=im,
@@ -293,11 +293,9 @@ endOfLastMonth = firstOfThisMonth - datetime.timedelta(days=1)
 firstOfLastMonth = endOfLastMonth.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
 min_date = min(df2['Activity_Date__c'].min(), df3['Completion_Walk_Date__c'].min(), df4['Last_Install_Completion_Date__c'].min())
 
-value = st.sidebar.radio('Select Period of Report', ['Current Month', 'Current and Previous Month', 'All Data'])
+value = st.sidebar.radio('Select Period of Report', ['Current and Previous Month', 'All Data'])
 
-if value == 'Current Month':
-    start = firstOfThisMonth
-elif value == 'Current and Previous Month':
+if value == 'Current and Previous Month':
     start = firstOfLastMonth
 else:
     start = min_date
@@ -343,7 +341,7 @@ fig_1.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 columns = [
 	TableColumn(field="index", title="#", width=int(plot_width/16)),
         TableColumn(field="Date", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
-	TableColumn(field="link", title="Link", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*13/16))
+	TableColumn(field="link", title="Account ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), width=int(plot_width*13/16))
     ]
 data_table = DataTable(source=source, columns=columns, width=plot_width, height=int(plot_height/2), index_position=None)
 
@@ -442,8 +440,8 @@ revenueFig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 columns_hea = [
 # 	TableColumn(field="index", title="#", width=int(plot_width/16)),
         TableColumn(field="x", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
-	TableColumn(field="y", title="Amount", width=int(plot_width/16), formatter=NumberFormatter(format="0.00")),
-	TableColumn(field="b", title="Deal ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= c %></a>'), width=int(plot_width*13/16))
+	TableColumn(field="y", title="Amount", width=int(plot_width*2/16), formatter=NumberFormatter(format="0.00")),
+	TableColumn(field="b", title="Deal ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= c %></a>'), width=int(plot_width*12/16))
     ]
 data_table_hea = DataTable(source=s2, columns=columns_hea, width=plot_width, height=int(plot_height/2), 
 # 			   index_position=None, 
@@ -560,9 +558,9 @@ wx_cust_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 columns_wx = [
 # 	TableColumn(field="index", title="#", width=int(plot_width/16)),
         TableColumn(field="Completion_Walk_Date__c", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
-	TableColumn(field="Total_Cost_to_RISE__c", title="LV Invoice Amount", width=int(plot_width*2/16)),
-	TableColumn(field="Wx_Gross_Sale__c", title="Customer Invoice Amount", width=int(plot_width*2/16)),
-	TableColumn(field="link", title="Operation ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), width=int(plot_width*10/16))
+	TableColumn(field="Total_Cost_to_RISE__c", title="LV Invoice Amount", width=int(plot_width*3/16)),
+	TableColumn(field="Wx_Gross_Sale__c", title="Customer Invoice Amount", width=int(plot_width*3/16)),
+	TableColumn(field="link", title="Operation ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), width=int(plot_width*8/16))
     ]
 data_table_wx = DataTable(source=data_cds3, columns=columns_wx, width=plot_width, height=int(plot_height/2), index_position=None)
 
