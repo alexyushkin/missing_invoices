@@ -13,7 +13,7 @@ from bokeh.models import ColumnDataSource, CategoricalColorMapper, BasicTickForm
 # from bokeh.io import curdoc
 # from bokeh.models import ColumnDataSource, Grid, LinearAxis, Plot, VBar
 from bokeh.models import DataTable, DateFormatter, TableColumn, HTMLTemplateFormatter, NumberFormatter
-# from bokeh.models import ResetTool, BoxZoomTool, TapTool, BoxSelectTool, HoverTool
+from bokeh.models import ResetTool, BoxZoomTool, TapTool, BoxSelectTool, HoverTool
 import datetime
 import boto3
 import io
@@ -349,11 +349,11 @@ df2 = df2.loc[df2['Activity_Date__c'] >= start]
 # df2 = df2.sort_values('Activity_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
 s1 = ColumnDataSource(data=dict(x=df2['Activity_Date__c'], y=df2['HEA_Invoice_Amount__c'], z=df2['Created'],
-			        a=df2['HEA_Revenue_Total__c'], b=df2['link']))
+			        a=df2['HEA_Revenue_Total__c'], b=df2['link'], c=df2['Id']))
 # s2 = ColumnDataSource(data=dict(x=df2['Activity_Date__c'], y=df2['HEA_Invoice_Amount__c'], z=df2['Created'],
 # 			         a=df2['HEA_Revenue_Total__c'], b=df2['link']))
 s2 = ColumnDataSource(data=dict(x=[], y=[], z=[],
-			        a=[], b=[]))
+			        a=[], b=[], c=[]))
 
 # Create a CategoricalColorMapper that assigns specific colors to Y and N
 created_mapper = CategoricalColorMapper(factors=['Y', 'N'], 
@@ -363,9 +363,10 @@ created_mapper = CategoricalColorMapper(factors=['Y', 'N'],
 toolList = ["lasso_select", 'hover', 'box_zoom', 'reset', 'tap']
 
 # toolList2 = [ResetTool(), BoxZoomTool(), TapTool(), BoxSelectTool(), HoverTool()]
-toolList2 = ['hover', 'box_zoom', 'box_select', 'reset', 'tap']
-toolList3 = ['box_zoom', 'box_select', 'reset', 'tap']
-toolList4 = ['hover', 'box_zoom', 'reset', 'tap']
+# toolList2 = ['hover', 'box_zoom', 'box_select', 'reset', 'tap']
+# toolList3 = ['box_zoom', 'box_select', 'reset', 'tap']
+# toolList4 = ['hover', 'box_zoom', 'reset', 'tap']
+toolList3 = [ResetTool(), BoxZoomTool(), TapTool(), BoxSelectTool()]
 
 # Create a figure 
 amountFig = figure(title='Invoice Amounts', x_axis_type='datetime',
@@ -440,7 +441,7 @@ columns_hea = [
 # 	TableColumn(field="index", title="#", width=int(plot_width/16)),
         TableColumn(field="x", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
 	TableColumn(field="y", title="Amount", width=int(plot_width/16), formatter=NumberFormatter(format="0.00")),
-	TableColumn(field="b", title="Link", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*13/16))
+	TableColumn(field="b", title="Deal ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= c %></a>'), width=int(plot_width*13/16))
     ]
 data_table_hea = DataTable(source=s2, columns=columns_hea, width=plot_width, height=int(plot_height/2), 
 # 			   index_position=None, 
@@ -459,21 +460,23 @@ s1.selected.js_on_change(
 	d2['z'] = []
 	d2['a'] = []
 	d2['b'] = []
+	d2['c'] = []
         for (var i = 0; i < inds.length; i++) {
             d2['x'].push(d1['x'][inds[i]])
             d2['y'].push(d1['y'][inds[i]])
 	    d2['z'].push(d1['z'][inds[i]])
 	    d2['a'].push(d1['a'][inds[i]])
 	    d2['b'].push(d1['b'][inds[i]])
+	    d2['c'].push(d1['c'][inds[i]])
         }
         s2.change.emit();
         table.change.emit();
 
         var inds = source_data.selected.indices;
         var data = source_data.data;
-        var out = "x, y, z, a, b\\n";
+        var out = "x, y, z, a, b, c\\n";
         for (i = 0; i < inds.length; i++) {
-            out += data['x'][inds[i]] + "," + data['y'][inds[i]] + "," + data['z'][inds[i]] + "," + data['a'][inds[i]] + "," + data['b'][inds[i]]+ "\\n";
+            out += data['x'][inds[i]] + "," + data['y'][inds[i]] + "," + data['z'][inds[i]] + "," + data['a'][inds[i]] + "," + data['b'][inds[i]] + "," + data['c'][inds[i]] + "\\n";
         }
         var file = new Blob([out], {type: 'text/plain'});
 
@@ -488,7 +491,7 @@ data_cds3 = ColumnDataSource(df3)
 
 # Create a figure 
 wx_lv_Fig = figure(title='LV Invoice Amounts', x_axis_type='datetime',
-                   plot_height=int(plot_height/2), plot_width=plot_width, tools=toolList2, 
+                   plot_height=int(plot_height/2), plot_width=plot_width, tools=toolList3, 
                    x_axis_label='Date', y_axis_label='LV Invoice Amount')
 
 # Draw with circle markers
@@ -500,13 +503,19 @@ wx_lv_Fig.xgrid.grid_line_color = None
 wx_lv_Fig.axis.minor_tick_line_color = None
 wx_lv_Fig.outline_line_color = None
 
-hover_l = wx_lv_Fig.select(dict(type=HoverTool))
-tips_l = [('Date','$x{%F}'), ('Amount','$y{0.2f}')]
-# tips_l = [('Date','$Completion_Walk_Date__c{%F}'), ('Amount','$Total_Cost_to_RISE__c{0.2f}')]
-hover_l.tooltips = tips_l
-hover_l.mode = 'mouse'
-hover_l.formatters = {"$x": "datetime"}
-# hover.formatters = {"$Completion_Walk_Date__c": "datetime"}
+# hover_l = wx_lv_Fig.select(dict(type=HoverTool))
+# tips_l = [('Date','$x{%F}'), ('Amount','$y{0.2f}')]
+# # tips_l = [('Date','$Completion_Walk_Date__c{%F}'), ('Amount','$Total_Cost_to_RISE__c{0.2f}')]
+# hover_l.tooltips = tips_l
+# hover_l.mode = 'mouse'
+# hover_l.formatters = {"$x": "datetime"}
+# # hover.formatters = {"$Completion_Walk_Date__c": "datetime"}
+hover_l = HoverTool(
+    tooltips=[('Date','@Completion_Walk_Date__c{%F}'), ('Amount','@Total_Cost_to_RISE__c{0.2f}')],
+    point_policy="follow_mouse",
+    formatters = {"@Completion_Walk_Date__c": "datetime"})
+
+wx_lv_Fig.add_tools(hover_l)
 
 wx_lv_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
                                                   months="%b %d, %Y",)
@@ -514,7 +523,7 @@ wx_lv_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 # Create a figure 
 wx_cust_Fig = figure(title='Customer Invoice Amounts', x_axis_type='datetime', 
                      plot_height=int(plot_height/2), plot_width=plot_width, 
-		     tools=toolList2,
+		     tools=toolList3,
                      x_axis_label='Date', y_axis_label='Customer Invoice Amount',
 		     toolbar_location=None, 
             	     x_range=wx_lv_Fig.x_range, 
@@ -529,13 +538,19 @@ wx_cust_Fig.xgrid.grid_line_color = None
 wx_cust_Fig.axis.minor_tick_line_color = None
 wx_cust_Fig.outline_line_color = None
 
-hover_c = wx_cust_Fig.select(dict(type=HoverTool))
-tips_c = [('Date','$x{%F}'), ('Amount','$y{0.2f}')]
-# tips_c = [('Date','@x{%F}'), ('Amount','@y{0.2f}')]
-hover_c.tooltips = tips_c
-hover_c.mode = 'mouse'
-# hover_c.formatters = {"@x": "datetime"}
-hover_c.formatters = {"$x": "datetime"}
+# hover_c = wx_cust_Fig.select(dict(type=HoverTool))
+# tips_c = [('Date','$x{%F}'), ('Amount','$y{0.2f}')]
+# # tips_c = [('Date','@x{%F}'), ('Amount','@y{0.2f}')]
+# hover_c.tooltips = tips_c
+# hover_c.mode = 'mouse'
+# # hover_c.formatters = {"@x": "datetime"}
+# hover_c.formatters = {"$x": "datetime"}
+hover_c = HoverTool(
+    tooltips=[('Date','@Completion_Walk_Date__c{%F}'), ('Amount','@Wx_Gross_Sale__c{0.2f}')],
+    point_policy="follow_mouse",
+    formatters = {"@Completion_Walk_Date__c": "datetime"})
+
+wx_cust_Fig.add_tools(hover_c)
 
 wx_cust_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
                                                     months="%b %d, %Y",)
@@ -545,7 +560,7 @@ columns_wx = [
         TableColumn(field="Completion_Walk_Date__c", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
 	TableColumn(field="Total_Cost_to_RISE__c", title="LV Invoice Amount", width=int(plot_width*2/16)),
 	TableColumn(field="Wx_Gross_Sale__c", title="Customer Invoice Amount", width=int(plot_width*2/16)),
-	TableColumn(field="link", title="Link", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*10/16))
+	TableColumn(field="link", title="Operation ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), width=int(plot_width*10/16))
     ]
 data_table_wx = DataTable(source=data_cds3, columns=columns_wx, width=plot_width, height=int(plot_height/2), index_position=None)
 
@@ -556,7 +571,7 @@ data_cds4 = ColumnDataSource(df4)
 
 # Create a figure 
 hvac_Fig = figure(title='Contract Price', x_axis_type='datetime',
-                  plot_height=plot_height, plot_width=plot_width, tools=toolList2, 
+                  plot_height=plot_height, plot_width=plot_width, tools=toolList3, 
                   x_axis_label='Date', y_axis_label='Contract Price')
 
 # Draw with circle markers
@@ -568,11 +583,17 @@ hvac_Fig.xgrid.grid_line_color = None
 hvac_Fig.axis.minor_tick_line_color = None
 hvac_Fig.outline_line_color = None
 
-hover_h = hvac_Fig.select(dict(type=HoverTool))
-tips_h = [('Date','$x{%F}'), ('Amount','$y{0.2f}')]
-hover_h.tooltips = tips_h
-hover_h.mode = 'mouse'
-hover_h.formatters = {"$x": "datetime"}
+# hover_h = hvac_Fig.select(dict(type=HoverTool))
+# tips_h = [('Date','$x{%F}'), ('Amount','$y{0.2f}')]
+# hover_h.tooltips = tips_h
+# hover_h.mode = 'mouse'
+# hover_h.formatters = {"$x": "datetime"}
+hover = HoverTool(
+    tooltips=[('Date','@Last_Install_Completion_Date__c{%F}'), ('Amount','@Final_Contract_Price__c{0.2f}')],
+    point_policy="follow_mouse",
+    formatters = {"@Last_Install_Completion_Date__c": "datetime"})
+
+hvac_Fig.add_tools(hover)
 
 hvac_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
                                                  months="%b %d, %Y",)
