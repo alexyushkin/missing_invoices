@@ -293,9 +293,11 @@ endOfLastMonth = firstOfThisMonth - datetime.timedelta(days=1)
 firstOfLastMonth = endOfLastMonth.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
 min_date = min(df2['Activity_Date__c'].min(), df3['Completion_Walk_Date__c'].min(), df4['Last_Install_Completion_Date__c'].min())
 
-value = st.sidebar.radio('Select Period of Report', ['Current and Previous Months', 'All Data'])
+value = st.sidebar.radio('Select Period of Report', ['Current Month', 'Current and Previous Month', 'All Data'])
 
-if value == 'Current and Previous Months':
+if value == 'Current Month':
+    start = firstOfThisMonth
+elif value == 'Current and Previous Month':
     start = firstOfLastMonth
 else:
     start = min_date
