@@ -322,7 +322,7 @@ fig_1 = figure(plot_height=int(plot_height), plot_width=plot_width,
 
 # width = 0.2 * (max(temp_df['Date']) - min(temp_df['Date'])).total_seconds() * 1000 / len(temp_df['Date'])
 # width = 0.2 * (max(df1['Date']) - min(df1['Date'])).total_seconds() * 1000 / len(df1['Date'])
-width = 0.9 * 24 * 60 * 60 * 1000
+width = 0.8 * 24 * 60 * 60 * 1000
 
 # fig_1.vbar(x=temp_df.Date, top=temp_df.attributes, width=width)
 fig_1.vbar(x='Date', top='Id', source=source_1, width=width)
