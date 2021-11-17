@@ -165,7 +165,7 @@ output_file(filename="report.html", title="Report")
 plot_height = 500
 plot_width = 800
 
-im = Image.open("image_60.jpeg")
+im = Image.open("image.jpeg")
 st.set_page_config(
     page_title="Missing Customers & Invoices",
     page_icon=im,
@@ -341,7 +341,8 @@ fig_1.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 columns = [
 	TableColumn(field="index", title="#", width=int(plot_width/16)),
         TableColumn(field="Date", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
-	TableColumn(field="link", title="Account ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), width=int(plot_width*13/16))
+# 	TableColumn(field="Unique Site ID", title="Unique Site ID", width=int(plot_width*4/16)),
+	TableColumn(field="link", title="Account ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), width=int(plot_width*9/16))
     ]
 data_table = DataTable(source=source, columns=columns, width=plot_width, height=int(plot_height/2), index_position=None)
 
