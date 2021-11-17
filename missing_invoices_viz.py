@@ -338,7 +338,9 @@ fig_1.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
                                               months="%b %d, %Y",)
 # fig_1.select_one(HoverTool).tooltips = [('Number of Customers', '@top{int}')]
 
-if ('Site_Id_NS__c' in df1.columns) and ('Unique Site ID' in df1.columns):
+print(df1.columns)
+# if ('Site_Id_NS__c' in df1.columns) and ('Unique Site ID' in df1.columns):
+if 'Site_Id_NS__c' in df1.columns:
 	columns = [
 		TableColumn(field="index", title="#", width=int(plot_width/16)),
 		TableColumn(field="Date", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
