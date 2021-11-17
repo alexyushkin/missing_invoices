@@ -341,8 +341,9 @@ fig_1.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 columns = [
 	TableColumn(field="index", title="#", width=int(plot_width/16)),
         TableColumn(field="Date", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
-# 	TableColumn(field="Unique Site ID", title="Unique Site ID", width=int(plot_width*4/16)),
-	TableColumn(field="link", title="Account ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), width=int(plot_width*9/16))
+# 	TableColumn(field="Site_Id_NS__c", title="Site ID", width=int(plot_width*3/16)),
+# 	TableColumn(field="Unique Site ID", title="Unique Site ID?", width=int(plot_width*3/16)),
+	TableColumn(field="link", title="Account ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), width=int(plot_width*7/16))
     ]
 data_table = DataTable(source=source, columns=columns, width=plot_width, height=int(plot_height/2), index_position=None)
 
