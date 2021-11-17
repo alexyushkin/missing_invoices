@@ -338,13 +338,21 @@ fig_1.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
                                               months="%b %d, %Y",)
 # fig_1.select_one(HoverTool).tooltips = [('Number of Customers', '@top{int}')]
 
-columns = [
-	TableColumn(field="index", title="#", width=int(plot_width/16)),
-        TableColumn(field="Date", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
-# 	TableColumn(field="Site_Id_NS__c", title="Site ID", width=int(plot_width*3/16)),
-# 	TableColumn(field="Unique Site ID", title="Unique Site ID?", width=int(plot_width*3/16)),
-	TableColumn(field="link", title="Account ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), width=int(plot_width*7/16))
-    ]
+if ('Site_Id_NS__c' in df1.columns) and ('Unique Site ID' in df1.columns):
+	columns = [
+		TableColumn(field="index", title="#", width=int(plot_width/16)),
+		TableColumn(field="Date", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
+		TableColumn(field="Site_Id_NS__c", title="Site ID", width=int(plot_width*3/16)),
+		TableColumn(field="Unique Site ID", title="Unique Site ID?", width=int(plot_width*3/16)),
+		TableColumn(field="link", title="Account ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), width=int(plot_width*7/16))
+	    ]
+else:
+	columns = [
+		TableColumn(field="index", title="#", width=int(plot_width/16)),
+		TableColumn(field="Date", title="Date", formatter=DateFormatter(), width=int(plot_width*3/16)),
+		TableColumn(field="link", title="Account ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), width=int(plot_width*12/16))
+	    ]
+	
 data_table = DataTable(source=source, columns=columns, width=plot_width, height=int(plot_height/2), index_position=None)
 
 df2 = df2.loc[df2['Activity_Date__c'] >= start]
