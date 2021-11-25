@@ -573,8 +573,8 @@ columns_wx = [
         TableColumn(field="Completion_Walk_Date__c", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
 	TableColumn(field="Total_Cost_to_RISE__c", title="LV Invoice Amount", width=int(plot_width*3/16)),
 	TableColumn(field="Wx_Gross_Sale__c", title="Customer Invoice Amount", width=int(plot_width*3/16)),
-	TableColumn(field="Management_Team__c", title="Management Team", width=int(plot_width*2/16)),
-	TableColumn(field="link", title="Operation ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), width=int(plot_width*4/16))
+	TableColumn(field="Management_Team__c", title="Management Team", width=int(plot_width*3/16)),
+	TableColumn(field="link", title="Operation ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), width=int(plot_width*3/16))
     ]
 data_table_wx = DataTable(source=data_cds3, columns=columns_wx, width=plot_width, height=int(plot_height/2), index_position=None)
 
