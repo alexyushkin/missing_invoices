@@ -307,9 +307,12 @@ else:
 # df1.reset_index(inplace=True)
 # print(df1)
 
-df1r = df1[['Date', 'Id']].set_index('Date')
-df1r = df1r.resample('D').count()
-df1r.reset_index(inplace=True)
+try:
+    df1r = df1[['Date', 'Id']].set_index('Date')
+    df1r = df1r.resample('D').count()
+    df1r.reset_index(inplace=True)
+except:
+    df1r = pd.DataFrame({'Date': [date], 'Id': [0]}).set_index('Date')
 
 source_1 = ColumnDataSource(df1r)
 source = ColumnDataSource(df1)
