@@ -361,6 +361,8 @@ else:
 data_table = DataTable(source=source, columns=columns, width=plot_width, height=int(plot_height/2), index_position=None)
 
 df2 = df2.loc[df2['Activity_Date__c'] >= start]
+df2['HEA_Invoice_Amount__c'] = df2['HEA_Invoice_Amount__c'].apply(lambda x: x if x > 0 else np.nan)
+df2['HEA_Revenue_Total__c'] = df2['HEA_Revenue_Total__c'].apply(lambda x: x if x > 0 else np.nan)
 # df2 = df2.sort_values('Activity_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
 s1 = ColumnDataSource(data=dict(x=df2['Activity_Date__c'], y=df2['HEA_Invoice_Amount__c'], z=df2['Created'],
@@ -502,6 +504,8 @@ s1.selected.js_on_change(
 df3 = df3.loc[df3['Completion_Walk_Date__c'] >= start]
 # df3 = df3.sort_values('Completion_Walk_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
+df3['Total_Cost_to_RISE__c'] = df3['Total_Cost_to_RISE__c'].apply(lambda x: x if x > 0 else np.nan)
+df3['Wx_Gross_Sale__c'] = df3['Wx_Gross_Sale__c'].apply(lambda x: x if x > 0 else np.nan)
 data_cds3 = ColumnDataSource(df3)
 
 # Create a figure 
