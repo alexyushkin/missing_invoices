@@ -291,7 +291,23 @@ firstOfThisMonth = date.replace(day=1)
 endOfLastMonth = firstOfThisMonth - datetime.timedelta(days=1)
 # print(endOfLastMonth)
 firstOfLastMonth = endOfLastMonth.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-min_date = min(df2['Activity_Date__c'].min(), df3['Completion_Walk_Date__c'].min(), df4['Last_Install_Completion_Date__c'].min())
+
+if len(df2):
+    min1 = df2['Activity_Date__c'].min()
+else:
+    min1 = date
+
+if len(df3):
+    min2 = df3['Completion_Walk_Date__c'].min()
+else:
+    min2 = date
+
+if len(df4):
+    min3 = df4['Last_Install_Completion_Date__c'].min()
+else:
+    min3 = date
+
+min_date = min(min1, min2, min3)
 
 value = st.sidebar.radio('Select Period of Report', ['Current and Previous Month', 'All Data'])
 
