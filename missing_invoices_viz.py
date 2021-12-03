@@ -653,11 +653,11 @@ wx_panel = Panel(child=gridplot([[wx_lv_Fig], [wx_cust_Fig], [data_table_wx]], s
 hvac_panel = Panel(child=gridplot([[hvac_Fig], [data_table_hvac]], sizing_mode='stretch_width'), title='HVAC')
 
 # Assign the panels to Tabs
-if df1r['Date'].sum() and df4['Final_Contract_Price__c'].sum():
+if df1r['Id'].sum() and df4['Final_Contract_Price__c'].sum():
     tabs = Tabs(tabs=[cust_panel, hea_panel, wx_panel, hvac_panel])
-elif df1r['Date'].sum() == 0 and df4['Final_Contract_Price__c'].sum():
+elif df1r['Id'].sum() == 0 and df4['Final_Contract_Price__c'].sum():
     tabs = Tabs(tabs=[hea_panel, wx_panel, hvac_panel])
-elif df1r['Date'].sum() and df4['Final_Contract_Price__c'].sum() == 0:
+elif df1r['Id'].sum() and df4['Final_Contract_Price__c'].sum() == 0:
     tabs = Tabs(tabs=[cust_panel, hea_panel, wx_panel])
 else:
     tabs = Tabs(tabs=[hea_panel, wx_panel])
