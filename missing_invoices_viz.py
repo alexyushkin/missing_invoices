@@ -602,7 +602,7 @@ columns_wx = [
 data_table_wx = DataTable(source=data_cds3, columns=columns_wx, width=plot_width, height=int(plot_height/2), index_position=None)
 
 if len(df4) == 0:
-    df4 = pd.DataFrame({'Last_Install_Completion_Date__c': [date], 'Final_Contract_Price__c': [np.nan]}).set_index('Date')
+    df4 = pd.DataFrame({'Last_Install_Completion_Date__c': [date], 'Final_Contract_Price__c': [np.nan]})
 df4 = df4.loc[df4['Last_Install_Completion_Date__c'] >= start]
 # df4 = df4.sort_values('Last_Install_Completion_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
