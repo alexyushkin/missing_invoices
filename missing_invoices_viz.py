@@ -603,7 +603,7 @@ columns_wx = [
 	TableColumn(field="Management_Team__c", title="Management Team", width=int(plot_width*3/16)),
 	TableColumn(field="link", title="Operation ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), width=int(plot_width*3/16))
     ]
-data_table_wx = DataTable(source=data_cds3, columns=columns_wx, width=plot_width, height=int(plot_height/2), index_position=None)
+data_table_wx = DataTable(source=data_cds3, columns=columns_wx, width=plot_width, height=int(plot_height/2), index_position=0)
 
 # if len(df4) == 0:
 #     df4 = pd.DataFrame({'Last_Install_Completion_Date__c': [date], 'Final_Contract_Price__c': [np.nan], 'Created': [np.nan], 'link': [np.nan]})
@@ -648,7 +648,7 @@ columns_hvac = [
 	TableColumn(field="link", title="HVAC Contract ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), 
 		    width=int(plot_width*8/16))
     ]
-data_table_hvac = DataTable(source=data_cds4, columns=columns_hvac, width=plot_width, height=int(plot_height/2), index_position=None)
+data_table_hvac = DataTable(source=data_cds4, columns=columns_hvac, width=plot_width, height=int(plot_height/2), index_position=0)
 
 # Create four panels
 cust_panel = Panel(child=gridplot([[fig_1], [data_table]], sizing_mode='stretch_width'), title='Customers')
