@@ -456,7 +456,7 @@ revenueFig.axis.minor_tick_line_color = None
 revenueFig.outline_line_color = None
 
 hover_r = revenueFig.select(dict(type=HoverTool))
-tips_r = [('Date','@x{%F}'), ('Revenue','@y{0.2f}')]
+tips_r = [('Date','@x{%F}'), ('Revenue','@a{0.2f}')]
 hover_r.tooltips = tips_r
 hover_r.mode = 'mouse'
 hover_r.formatters = {"@x": "datetime"}
