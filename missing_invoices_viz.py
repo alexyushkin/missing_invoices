@@ -291,6 +291,7 @@ firstOfThisMonth = date.replace(day=1)
 endOfLastMonth = firstOfThisMonth - datetime.timedelta(days=1)
 # print(endOfLastMonth)
 firstOfLastMonth = endOfLastMonth.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+firstOfThisYear = datetime.datetime(date.year, 1, 1)
 firstOfLastYear = datetime.datetime(date.year-1, 1, 1)
 
 if len(df2):
@@ -310,12 +311,12 @@ else:
 
 min_date = min(min1, min2, min3)
 
-value = st.sidebar.radio('Select Period of Report', ['Current and Previous Month', 'Current and Previous Year', 'All Time'])
+value = st.sidebar.radio('Select Period of Report', ['Current and Previous Month', 'Current Year', 'All Time'])
 
 if value == 'Current and Previous Month':
     start = firstOfLastMonth
-elif value == 'Current and Previous Year':
-    start = firstOfLastYear
+elif value == 'Current Year':
+    start = firstOfThisYear
 else:
     start = min_date
 
