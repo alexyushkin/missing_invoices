@@ -386,11 +386,11 @@ df2['HEA_Revenue_Total__c'] = df2['HEA_Revenue_Total__c'].apply(lambda x: x if x
 # df2 = df2.sort_values('Activity_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
 s1 = ColumnDataSource(data=dict(x=df2['Activity_Date__c'], y=df2['HEA_Invoice_Amount__c'], z=df2['Created'],
-			        a=df2['HEA_Revenue_Total__c'], b=df2['link'], c=df2['Id']))
+			        a=df2['HEA_Revenue_Total__c'], b=df2['link'], c=df2['Id'], d=df2['Netsuite_Customer_ID__c']))
 # s2 = ColumnDataSource(data=dict(x=df2['Activity_Date__c'], y=df2['HEA_Invoice_Amount__c'], z=df2['Created'],
 # 			         a=df2['HEA_Revenue_Total__c'], b=df2['link']))
 s2 = ColumnDataSource(data=dict(x=[], y=[], z=[],
-			        a=[], b=[], c=[]))
+			        a=[], b=[], c=[], d=[]))
 
 # Create a CategoricalColorMapper that assigns specific colors to Y and N
 created_mapper = CategoricalColorMapper(factors=['Y', 'N'], 
@@ -479,7 +479,7 @@ columns_hea = [
         TableColumn(field="x", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
 	TableColumn(field="y", title="Amount", width=int(plot_width*2/16), formatter=NumberFormatter(format="0.00")),
 	TableColumn(field="b", title="Deal ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= c %></a>'), width=int(plot_width*6/16)),
-		TableColumn(field="Netsuite_Customer_ID__c", title="NS Customer ID", formatter=HTMLTemplateFormatter(template='<a href="https://4556600.app.netsuite.com/app/common/entity/custjob.nl?id=<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*6/16))
+	TableColumn(field="d", title="NS Customer ID", formatter=HTMLTemplateFormatter(template='<a href="https://4556600.app.netsuite.com/app/common/entity/custjob.nl?id=<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*6/16))
     ]
 data_table_hea = DataTable(source=s2, columns=columns_hea, width=plot_width, height=int(plot_height/2), 
 # 			   index_position=None, 
