@@ -369,13 +369,15 @@ if ('Site_Id_NS__c' in df1.columns) and ('Unique Site ID' in df1.columns):
 		TableColumn(field="Date", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
 		TableColumn(field="Site_Id_NS__c", title="Site ID", width=int(plot_width*3/16)),
 		TableColumn(field="Unique Site ID", title="Unique Site ID?", width=int(plot_width*3/16)),
-		TableColumn(field="link", title="Account ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), width=int(plot_width*7/16))
+		TableColumn(field="link", title="Account ID", 
+			    formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), width=int(plot_width*7/16))
 	    ]
 else:
 	columns = [
 		TableColumn(field="index", title="#", width=int(plot_width/16)),
 		TableColumn(field="Date", title="Date", formatter=DateFormatter(), width=int(plot_width*3/16)),
-		TableColumn(field="link", title="Account ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), width=int(plot_width*12/16))
+		TableColumn(field="link", title="Account ID", 
+			    formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), width=int(plot_width*12/16))
 	    ]
 	
 data_table = DataTable(source=source, columns=columns, width=plot_width, height=int(plot_height/2), index_position=None)
@@ -383,7 +385,8 @@ data_table = DataTable(source=source, columns=columns, width=plot_width, height=
 df2 = df2.loc[df2['Activity_Date__c'] >= start]
 df2['HEA_Invoice_Amount__c'] = df2['HEA_Invoice_Amount__c'].apply(lambda x: x if x > 0 else np.nan)
 df2['HEA_Revenue_Total__c'] = df2['HEA_Revenue_Total__c'].apply(lambda x: x if x > 0 else np.nan)
-df2['link2'] = df2['Netsuite_Customer_ID__c'].apply(lambda x: 'https://4556600.app.netsuite.com/app/common/entity/custjob.nl?id=' + str(int(x)))
+df2['Netsuite_Customer_ID__c'] = df2['Netsuite_Customer_ID__c'].fillna(0).astype('int')
+df2['link2'] = df2['Netsuite_Customer_ID__c'].apply(lambda x: 'https://4556600.app.netsuite.com/app/common/entity/custjob.nl?id=' + str(x))
 # df2 = df2.sort_values('Activity_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
 s1 = ColumnDataSource(data=dict(x=df2['Activity_Date__c'], y=df2['HEA_Invoice_Amount__c'], z=df2['Created'],
