@@ -383,7 +383,7 @@ data_table = DataTable(source=source, columns=columns, width=plot_width, height=
 df2 = df2.loc[df2['Activity_Date__c'] >= start]
 df2['HEA_Invoice_Amount__c'] = df2['HEA_Invoice_Amount__c'].apply(lambda x: x if x > 0 else np.nan)
 df2['HEA_Revenue_Total__c'] = df2['HEA_Revenue_Total__c'].apply(lambda x: x if x > 0 else np.nan)
-df2['link2'] = df2['Netsuite_Customer_ID__c'].apply(lambda x: 'https://4556600.app.netsuite.com/app/common/entity/custjob.nl?id=' + x)
+df2['link2'] = df2['Netsuite_Customer_ID__c'].apply(lambda x: 'https://4556600.app.netsuite.com/app/common/entity/custjob.nl?id=' + x.astype('str'))
 # df2 = df2.sort_values('Activity_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
 s1 = ColumnDataSource(data=dict(x=df2['Activity_Date__c'], y=df2['HEA_Invoice_Amount__c'], z=df2['Created'],
