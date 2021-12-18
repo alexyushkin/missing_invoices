@@ -270,7 +270,7 @@ try:
     obj = s3.get_object(Bucket=bucket, Key=file_name)
     df2 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='hea_invoices', 
 			parse_dates=['TS_HEA_Invoice_Submitted__c', 'Activity_Date__c'], converters={'Netsuite_Customer_ID__c': str})
-    try:
+    try: 
 	df2['Netsuite_Customer_ID__c'] = df2['Netsuite_Customer_ID__c'].fillna(0).astype('int').astype('str')
     except:
 	pass
