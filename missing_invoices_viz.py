@@ -269,21 +269,21 @@ except Exception as e:
 try:
     obj = s3.get_object(Bucket=bucket, Key=file_name)
     df2 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='hea_invoices', 
-			parse_dates=['TS_HEA_Invoice_Submitted__c', 'Activity_Date__c'], dtype={'Netsuite_Customer_ID__c': 'str'})
+			parse_dates=['TS_HEA_Invoice_Submitted__c', 'Activity_Date__c'], converters={'Netsuite_Customer_ID__c': str})
 except Exception as e:
     print(e)
 
 try:
     obj = s3.get_object(Bucket=bucket, Key=file_name)
     df3 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='wx_invoices', parse_dates=['Completion_Walk_Date__c'],
-		        dtype={'Netsuite_Customer_ID__c': 'str'})
+		        converters={'Netsuite_Customer_ID__c': str})
 except Exception as e:
     print(e)
 
 try:
     obj = s3.get_object(Bucket=bucket, Key=file_name)
     df4 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='hvac_invoices', parse_dates=['Last_Install_Completion_Date__c'], 
-			dtype={'Netsuite_Customer_ID__c': 'str'})
+			converters={'Netsuite_Customer_ID__c': str})
 except Exception as e:
     print(e)
 
