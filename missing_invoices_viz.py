@@ -607,15 +607,16 @@ wx_cust_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 
 columns_wx = [
 # 	TableColumn(field="index", title="#", width=int(plot_width/16)),
-	TableColumn(field="Created", title="Created?", width=int(plot_width*2/16)),
+	TableColumn(field="Created", title="Created?", width=int(plot_width*1/16)),
         TableColumn(field="Completion_Walk_Date__c", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
-	TableColumn(field="Total_Cost_to_RISE__c", title="LV Invoice Amount", width=int(plot_width*2/16)),
-	TableColumn(field="Wx_Gross_Sale__c", title="Customer Invoice Amount", width=int(plot_width*2/16)),
-	TableColumn(field="Management_Team__c", title="Management Team", width=int(plot_width*2/16)),
+	TableColumn(field="Total_Cost_to_RISE__c", title="LV Invoice Amount", width=int(plot_width*3/16)),
+	TableColumn(field="Wx_Gross_Sale__c", title="Customer Invoice Amount", width=int(plot_width*3/16)),
+	TableColumn(field="Management_Team__c", title="Management Team", width=int(plot_width*3/16)),
 	TableColumn(field="link", title="Operation ID", 
-		    formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), width=int(plot_width*3/16)),
+		    formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), width=int(plot_width*2/16)),
 	TableColumn(field="Netsuite_Customer_ID__c", title="NS Customer ID", 
-		    formatter=HTMLTemplateFormatter(template='<a href="https://4556600.app.netsuite.com/app/common/entity/custjob.nl?id=<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*3/16))
+		    formatter=HTMLTemplateFormatter(template='<a href="https://4556600.app.netsuite.com/app/common/entity/custjob.nl?id=<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), 
+		    width=int(plot_width*2/16))
 ]
 data_table_wx = DataTable(source=data_cds3, columns=columns_wx, width=plot_width, height=int(plot_height/2), index_position=0)
 
@@ -657,10 +658,14 @@ hvac_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 
 columns_hvac = [
 # 	TableColumn(field="index", title="#", width=int(plot_width/16)),
-        TableColumn(field="Last_Install_Completion_Date__c", title="Date", formatter=DateFormatter(), width=int(plot_width*4/16)),
-	TableColumn(field="Final_Contract_Price__c", title="Amount", width=int(plot_width*4/16)),
-	TableColumn(field="link", title="HVAC Contract ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), 
-		    width=int(plot_width*8/16))
+        TableColumn(field="Last_Install_Completion_Date__c", title="Date", formatter=DateFormatter(), width=int(plot_width*3/16)),
+	TableColumn(field="Final_Contract_Price__c", title="Amount", width=int(plot_width*3/16)),
+	TableColumn(field="link", title="HVAC Contract ID", 
+		    formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), 
+		    width=int(plot_width*5/16)),
+	TableColumn(field="Netsuite_Customer_ID__c", title="NS Customer ID", 
+		    formatter=HTMLTemplateFormatter(template='<a href="https://4556600.app.netsuite.com/app/common/entity/custjob.nl?id=<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), 
+		    width=int(plot_width*5/16))
     ]
 data_table_hvac = DataTable(source=data_cds4, columns=columns_hvac, width=plot_width, height=int(plot_height/2), index_position=0)
 
