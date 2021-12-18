@@ -478,7 +478,8 @@ columns_hea = [
 # 	TableColumn(field="index", title="#", width=int(plot_width/16)),
         TableColumn(field="x", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
 	TableColumn(field="y", title="Amount", width=int(plot_width*2/16), formatter=NumberFormatter(format="0.00")),
-	TableColumn(field="b", title="Deal ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= c %></a>'), width=int(plot_width*12/16))
+	TableColumn(field="b", title="Deal ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= c %></a>'), width=int(plot_width*6/16)),
+		TableColumn(field="Netsuite_Customer_ID__c", title="NS Customer ID", formatter=HTMLTemplateFormatter(template='<a href="https://4556600.app.netsuite.com/app/common/entity/custjob.nl?id=<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*6/16))
     ]
 data_table_hea = DataTable(source=s2, columns=columns_hea, width=plot_width, height=int(plot_height/2), 
 # 			   index_position=None, 
