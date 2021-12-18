@@ -553,6 +553,10 @@ df3['Total_Cost_to_RISE__c'] = df3['Total_Cost_to_RISE__c'].apply(lambda x: x if
 df3['Wx_Gross_Sale__c'] = df3['Wx_Gross_Sale__c'].apply(lambda x: x if x > 0 else np.nan)
 df3['Netsuite_LV_Invoice_ID__c'] = df3['Netsuite_LV_Invoice_ID__c'].apply(lambda x: 'Y' if pd.notnull(x) else 'N') 
 df3['Netsuite_Customer_Invoice_ID__c'] = df3['Netsuite_Customer_Invoice_ID__c'].apply(lambda x: 'Y' if pd.notnull(x) else 'N')
+for i in range(len(df3)):
+	if df3.loc[i, 'Created'] == 'Y':
+		df3.loc[i, 'Netsuite_LV_Invoice_ID__c'] = 'Y' 
+		df3.loc[i, 'Netsuite_Customer_Invoice_ID__c'] = 'Y'
 data_cds3 = ColumnDataSource(df3)
 
 # Create a figure 
