@@ -268,20 +268,22 @@ except Exception as e:
 
 try:
     obj = s3.get_object(Bucket=bucket, Key=file_name)
-    df2 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='hea_invoices', parse_dates=['TS_HEA_Invoice_Submitted__c', 
-                                                                                                                   'Activity_Date__c'])
+    df2 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='hea_invoices', 
+			parse_dates=['TS_HEA_Invoice_Submitted__c', 'Activity_Date__c'], dtype={'Netsuite_Customer_ID__c': 'str'})
 except Exception as e:
     print(e)
 
 try:
     obj = s3.get_object(Bucket=bucket, Key=file_name)
-    df3 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='wx_invoices', parse_dates=['Completion_Walk_Date__c'])
+    df3 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='wx_invoices', parse_dates=['Completion_Walk_Date__c'],
+		        dtype={'Netsuite_Customer_ID__c': 'str'})
 except Exception as e:
     print(e)
 
 try:
     obj = s3.get_object(Bucket=bucket, Key=file_name)
-    df4 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='hvac_invoices', parse_dates=['Last_Install_Completion_Date__c'])
+    df4 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='hvac_invoices', parse_dates=['Last_Install_Completion_Date__c'], 
+			dtype={'Netsuite_Customer_ID__c': 'str'})
 except Exception as e:
     print(e)
 
@@ -385,8 +387,8 @@ data_table = DataTable(source=source, columns=columns, width=plot_width, height=
 df2 = df2.loc[df2['Activity_Date__c'] >= start]
 df2['HEA_Invoice_Amount__c'] = df2['HEA_Invoice_Amount__c'].apply(lambda x: x if x > 0 else np.nan)
 df2['HEA_Revenue_Total__c'] = df2['HEA_Revenue_Total__c'].apply(lambda x: x if x > 0 else np.nan)
-df2['Netsuite_Customer_ID__c'] = df2['Netsuite_Customer_ID__c'].fillna(0).astype('int')
-df2['link2'] = df2['Netsuite_Customer_ID__c'].apply(lambda x: 'https://4556600.app.netsuite.com/app/common/entity/custjob.nl?id=' + str(x))
+# df2['Netsuite_Customer_ID__c'] = df2['Netsuite_Customer_ID__c'].fillna(0).astype('int')
+df2['link2'] = df2['Netsuite_Customer_ID__c'].apply(lambda x: 'https://4556600.app.netsuite.com/app/common/entity/custjob.nl?id=' + x)
 # df2 = df2.sort_values('Activity_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
 s1 = ColumnDataSource(data=dict(x=df2['Activity_Date__c'], y=df2['HEA_Invoice_Amount__c'], z=df2['Created'],
