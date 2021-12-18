@@ -615,8 +615,8 @@ columns_wx = [
 	TableColumn(field="link", title="Operation ID", 
 		    formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), width=int(plot_width*3/16)),
 	TableColumn(field="Netsuite_Customer_ID__c", title="NS Customer ID", 
-		    formatter=HTMLTemplateFormatter(template='<a href="https://4556600.app.netsuite.com/app/common/entity/custjob.nl?id=<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*3/16)
-    ]
+		    formatter=HTMLTemplateFormatter(template='<a href="https://4556600.app.netsuite.com/app/common/entity/custjob.nl?id=<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*3/16))
+]
 data_table_wx = DataTable(source=data_cds3, columns=columns_wx, width=plot_width, height=int(plot_height/2), index_position=0)
 
 # if len(df4) == 0:
