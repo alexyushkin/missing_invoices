@@ -551,8 +551,8 @@ df3 = df3.loc[df3['Completion_Walk_Date__c'] >= start]
 # Store the data in a ColumnDataSource
 df3['Total_Cost_to_RISE__c'] = df3['Total_Cost_to_RISE__c'].apply(lambda x: x if x > 0 else np.nan)
 df3['Wx_Gross_Sale__c'] = df3['Wx_Gross_Sale__c'].apply(lambda x: x if x > 0 else np.nan)
-df3['Netsuite_LV_Invoice_ID__c'] = df3['Netsuite_LV_Invoice_ID__c'].apply(lambda x: 'Y" if pd.notnull(x) else 'N') 
-df3['Netsuite_Customer_Invoice_ID__c'] = df3['Netsuite_Customer_Invoice_ID__c'].apply(lambda x: 'Y" if pd.notnull(x) else 'N')
+df3['Netsuite_LV_Invoice_ID__c'] = df3['Netsuite_LV_Invoice_ID__c'].apply(lambda x: 'Y' if pd.notnull(x) else 'N') 
+df3['Netsuite_Customer_Invoice_ID__c'] = df3['Netsuite_Customer_Invoice_ID__c'].apply(lambda x: 'Y' if pd.notnull(x) else 'N')
 data_cds3 = ColumnDataSource(df3)
 
 # Create a figure 
