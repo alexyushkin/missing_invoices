@@ -479,7 +479,8 @@ columns_hea = [
 # 	TableColumn(field="index", title="#", width=int(plot_width/16)),
         TableColumn(field="x", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
 	TableColumn(field="y", title="Amount", width=int(plot_width*2/16), formatter=NumberFormatter(format="0.00")),
-	TableColumn(field="b", title="Deal ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= c %></a>'), width=int(plot_width*6/16)),
+	TableColumn(field="b", title="Deal ID", 
+		    formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= c %></a>'), width=int(plot_width*6/16)),
 	TableColumn(field="e", title="NS Customer ID", 
 		    formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= d %></a>'), width=int(plot_width*6/16))
     ]
@@ -501,6 +502,8 @@ s1.selected.js_on_change(
 	d2['a'] = []
 	d2['b'] = []
 	d2['c'] = []
+	d2['d'] = []
+	d2['e'] = []
         for (var i = 0; i < inds.length; i++) {
             d2['x'].push(d1['x'][inds[i]])
             d2['y'].push(d1['y'][inds[i]])
@@ -508,15 +511,17 @@ s1.selected.js_on_change(
 	    d2['a'].push(d1['a'][inds[i]])
 	    d2['b'].push(d1['b'][inds[i]])
 	    d2['c'].push(d1['c'][inds[i]])
+	    d2['d'].push(d1['d'][inds[i]])
+	    d2['e'].push(d1['e'][inds[i]])
         }
         s2.change.emit();
         table.change.emit();
 
         var inds = source_data.selected.indices;
         var data = source_data.data;
-        var out = "x, y, z, a, b, c\\n";
+        var out = "x, y, z, a, b, c, d, e\\n";
         for (i = 0; i < inds.length; i++) {
-            out += data['x'][inds[i]] + "," + data['y'][inds[i]] + "," + data['z'][inds[i]] + "," + data['a'][inds[i]] + "," + data['b'][inds[i]] + "," + data['c'][inds[i]] + "\\n";
+            out += data['x'][inds[i]] + "," + data['y'][inds[i]] + "," + data['z'][inds[i]] + "," + data['a'][inds[i]] + "," + data['b'][inds[i]] + "," + data['c'][inds[i]] + "," + data['d'][inds[i]] + "," + data['e'][inds[i]] + "\\n";
         }
         var file = new Blob([out], {type: 'text/plain'});
 
