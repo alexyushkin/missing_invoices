@@ -480,12 +480,12 @@ revenueFig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 #     ]
 columns_hea = [
 # 	TableColumn(field="index", title="#", width=int(plot_width/16)),
-        TableColumn(field="x", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
-	TableColumn(field="y", title="Amount", width=int(plot_width*2/16), formatter=NumberFormatter(format="0.00")),
+        TableColumn(field="x", title="Date", formatter=DateFormatter(), width=int(plot_width*3/16)),
+	TableColumn(field="y", title="Amount", width=int(plot_width*3/16), formatter=NumberFormatter(format="0.00")),
 	TableColumn(field="b", title="Deal ID", 
-		    formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= c %></a>'), width=int(plot_width*6/16)),
+		    formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= c %></a>'), width=int(plot_width*5/16)),
 	TableColumn(field="e", title="NS Customer ID", 
-		    formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= d %></a>'), width=int(plot_width*6/16))
+		    formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= d %></a>'), width=int(plot_width*5/16))
     ]
 data_table_hea = DataTable(source=s2, columns=columns_hea, width=plot_width, height=int(plot_height/2), 
 # 			   index_position=None, 
@@ -609,10 +609,13 @@ columns_wx = [
 # 	TableColumn(field="index", title="#", width=int(plot_width/16)),
 	TableColumn(field="Created", title="Created?", width=int(plot_width*2/16)),
         TableColumn(field="Completion_Walk_Date__c", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
-	TableColumn(field="Total_Cost_to_RISE__c", title="LV Invoice Amount", width=int(plot_width*3/16)),
-	TableColumn(field="Wx_Gross_Sale__c", title="Customer Invoice Amount", width=int(plot_width*3/16)),
-	TableColumn(field="Management_Team__c", title="Management Team", width=int(plot_width*3/16)),
-	TableColumn(field="link", title="Operation ID", formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), width=int(plot_width*3/16))
+	TableColumn(field="Total_Cost_to_RISE__c", title="LV Invoice Amount", width=int(plot_width*2/16)),
+	TableColumn(field="Wx_Gross_Sale__c", title="Customer Invoice Amount", width=int(plot_width*2/16)),
+	TableColumn(field="Management_Team__c", title="Management Team", width=int(plot_width*2/16)),
+	TableColumn(field="link", title="Operation ID", 
+		    formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), width=int(plot_width*3/16)),
+	TableColumn(field="Netsuite_Customer_ID__c", title="NS Customer ID", 
+		    formatter=HTMLTemplateFormatter(template='<a href="https://4556600.app.netsuite.com/app/common/entity/custjob.nl?id=<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), width=int(plot_width*3/16)
     ]
 data_table_wx = DataTable(source=data_cds3, columns=columns_wx, width=plot_width, height=int(plot_height/2), index_position=0)
 
