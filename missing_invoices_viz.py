@@ -551,6 +551,8 @@ df3 = df3.loc[df3['Completion_Walk_Date__c'] >= start]
 # Store the data in a ColumnDataSource
 df3['Total_Cost_to_RISE__c'] = df3['Total_Cost_to_RISE__c'].apply(lambda x: x if x > 0 else np.nan)
 df3['Wx_Gross_Sale__c'] = df3['Wx_Gross_Sale__c'].apply(lambda x: x if x > 0 else np.nan)
+df3['Netsuite_LV_Invoice_ID__c'] = df3['Netsuite_LV_Invoice_ID__c'].apply(lambda x: 'Y" if pd.notnull(x) else 'N') 
+df3['Netsuite_Customer_Invoice_ID__c'] = df3['Netsuite_Customer_Invoice_ID__c'].apply(lambda x: 'Y" if pd.notnull(x) else 'N')
 data_cds3 = ColumnDataSource(df3)
 
 # Create a figure 
@@ -561,7 +563,7 @@ wx_lv_Fig = figure(title='LV Invoice Amounts', x_axis_type='datetime',
 # Draw with circle markers
 wx_lv_Fig.circle(x='Completion_Walk_Date__c', y='Total_Cost_to_RISE__c', 
                  source=data_cds3, fill_alpha=0.6,
-                 size=5, color=dict(field='Created', 
+                 size=5, color=dict(field='Netsuite_LV_Invoice_ID__c', 
                                     transform=created_mapper))
 wx_lv_Fig.xgrid.grid_line_color = None
 wx_lv_Fig.axis.minor_tick_line_color = None
@@ -597,7 +599,7 @@ wx_cust_Fig = figure(title='Customer Invoice Amounts', x_axis_type='datetime',
 # Draw with circle markers
 wx_cust_Fig.circle(x='Completion_Walk_Date__c', y='Wx_Gross_Sale__c', 
                    source=data_cds3, size=5, fill_alpha=0.6,
-                   color=dict(field='Created', transform=created_mapper))
+                   color=dict(field='Netsuite_Customer_Invoice_ID__c', transform=created_mapper))
 wx_cust_Fig.xgrid.grid_line_color = None
 wx_cust_Fig.axis.minor_tick_line_color = None
 wx_cust_Fig.outline_line_color = None
