@@ -696,14 +696,22 @@ wx_panel = Panel(child=gridplot([[wx_lv_Fig], [wx_cust_Fig], [data_table_wx]], s
 hvac_panel = Panel(child=gridplot([[hvac_Fig], [data_table_hvac]], sizing_mode='stretch_width'), title='HVAC')
 
 # Assign the panels to Tabs
-if df1r['Id'].sum() and df4['Final_Contract_Price__c'].sum():
+if len(df1r) and len(df3) and len(df4):
     tabs = Tabs(tabs=[cust_panel, hea_panel, wx_panel, hvac_panel])
-elif df1r['Id'].sum() == 0 and df4['Final_Contract_Price__c'].sum():
+elif len(df1r) == 0 and len(df3) and len(df4):
     tabs = Tabs(tabs=[hea_panel, wx_panel, hvac_panel])
-elif df1r['Id'].sum() and df4['Final_Contract_Price__c'].sum() == 0:
+elif len(df1r) and len(df3) and len(df4) == 0:
     tabs = Tabs(tabs=[cust_panel, hea_panel, wx_panel])
-else:
+elif len(df1r) == 0 and len(df3) and len(df4) == 0:
     tabs = Tabs(tabs=[hea_panel, wx_panel])
+elif len(df1r) and len(df3) == 0 and len(df4):
+    tabs = Tabs(tabs=[cust_panel, hea_panel, hvac_panel])
+elif len(df1r) == 0 and len(df3) == 0 and len(df4):
+    tabs = Tabs(tabs=[hea_panel, hvac_panel])
+elif len(df1r) and len(df3) == 0 and len(df4) == 0:
+    tabs = Tabs(tabs=[cust_panel, hea_panel])
+else:
+    tabs = Tabs(tabs=[hea_panel])
 
 # Show the tabbed layout
 st.bokeh_chart(tabs, use_container_width=False)
