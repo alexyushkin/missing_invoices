@@ -696,7 +696,7 @@ wx_panel = Panel(child=gridplot([[wx_lv_Fig], [wx_cust_Fig], [data_table_wx]], s
 hvac_panel = Panel(child=gridplot([[hvac_Fig], [data_table_hvac]], sizing_mode='stretch_width'), title='HVAC')
 
 # Assign the panels to Tabs
-if len(source_1) and len(df3) and len(df4):
+if len(df1r) and len(df3) and len(df4):
     tabs = Tabs(tabs=[cust_panel, hea_panel, wx_panel, hvac_panel])
 elif len(df1r) == 0 and len(df3) and len(df4):
     tabs = Tabs(tabs=[hea_panel, wx_panel, hvac_panel])
