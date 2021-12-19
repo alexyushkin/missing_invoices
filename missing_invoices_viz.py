@@ -708,7 +708,7 @@ elif len(df1r) and len(df3) == 0 and len(df4):
     tabs = Tabs(tabs=[cust_panel, hea_panel, hvac_panel])
 elif len(df1r) == 0 and len(df3) == 0 and len(df4):
     tabs = Tabs(tabs=[hea_panel, hvac_panel])
-elif len(df1r) and len(df3) == 0 and len(df4) == 0:
+elif df1r[0, 'Id'] != 0 and len(df3) == 0 and len(df4) == 0:
     tabs = Tabs(tabs=[cust_panel, hea_panel])
 else:
     tabs = Tabs(tabs=[hea_panel])
