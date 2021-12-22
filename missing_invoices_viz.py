@@ -404,11 +404,12 @@ df2['link2'] = df2['Netsuite_Customer_ID__c'].apply(lambda x: 'https://4556600.a
 # df2 = df2.sort_values('Activity_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
 s1 = ColumnDataSource(data=dict(x=df2['Activity_Date__c'], y=df2['HEA_Invoice_Amount__c'], z=df2['Created'],
-			        a=df2['HEA_Revenue_Total__c'], b=df2['link'], c=df2['Id'], d=df2['Netsuite_Customer_ID__c'], e=df2['link2']))
+			        a=df2['HEA_Revenue_Total__c'], b=df2['link'], c=df2['Id'], d=df2['Netsuite_Customer_ID__c'], e=df2['link2'],
+			        f=df2['Job_Location__c']))
 # s2 = ColumnDataSource(data=dict(x=df2['Activity_Date__c'], y=df2['HEA_Invoice_Amount__c'], z=df2['Created'],
 # 			         a=df2['HEA_Revenue_Total__c'], b=df2['link']))
 s2 = ColumnDataSource(data=dict(x=[], y=[], z=[],
-			        a=[], b=[], c=[], d=[], e=[]))
+			        a=[], b=[], c=[], d=[], e=[], f=[]))
 
 # Create a CategoricalColorMapper that assigns specific colors to Y and N
 created_mapper = CategoricalColorMapper(factors=['Y', 'N'], 
@@ -494,12 +495,13 @@ revenueFig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 #     ]
 columns_hea = [
 # 	TableColumn(field="index", title="#", width=int(plot_width/16)),
-        TableColumn(field="x", title="Date", formatter=DateFormatter(), width=int(plot_width*3/16)),
+        TableColumn(field="x", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
 	TableColumn(field="y", title="Amount", width=int(plot_width*3/16), formatter=NumberFormatter(format="0.00")),
+	TableColumn(field="f", title="Job Location", width=int(plot_width*3/16)),
 	TableColumn(field="b", title="Deal ID", 
-		    formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= c %></a>'), width=int(plot_width*5/16)),
+		    formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= c %></a>'), width=int(plot_width*4/16)),
 	TableColumn(field="e", title="NS Customer ID", 
-		    formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= d %></a>'), width=int(plot_width*5/16))
+		    formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= d %></a>'), width=int(plot_width*4/16))
     ]
 data_table_hea = DataTable(source=s2, columns=columns_hea, width=plot_width, height=int(plot_height/2), 
 # 			   index_position=None, 
@@ -521,6 +523,7 @@ s1.selected.js_on_change(
 	d2['c'] = []
 	d2['d'] = []
 	d2['e'] = []
+	d2['f'] = []
         for (var i = 0; i < inds.length; i++) {
             d2['x'].push(d1['x'][inds[i]])
             d2['y'].push(d1['y'][inds[i]])
@@ -530,15 +533,16 @@ s1.selected.js_on_change(
 	    d2['c'].push(d1['c'][inds[i]])
 	    d2['d'].push(d1['d'][inds[i]])
 	    d2['e'].push(d1['e'][inds[i]])
+	    d2['f'].push(d1['f'][inds[i]])
         }
         s2.change.emit();
         table.change.emit();
 
         var inds = source_data.selected.indices;
         var data = source_data.data;
-        var out = "x, y, z, a, b, c, d, e\\n";
+        var out = "x, y, z, a, b, c, d, e, f\\n";
         for (i = 0; i < inds.length; i++) {
-            out += data['x'][inds[i]] + "," + data['y'][inds[i]] + "," + data['z'][inds[i]] + "," + data['a'][inds[i]] + "," + data['b'][inds[i]] + "," + data['c'][inds[i]] + "," + data['d'][inds[i]] + "," + data['e'][inds[i]] + "\\n";
+            out += data['x'][inds[i]] + "," + data['y'][inds[i]] + "," + data['z'][inds[i]] + "," + data['a'][inds[i]] + "," + data['b'][inds[i]] + "," + data['c'][inds[i]] + "," + data['d'][inds[i]] + "," + data['e'][inds[i]] + "," + data['f'][inds[i]] + "\\n";
         }
         var file = new Blob([out], {type: 'text/plain'});
 
