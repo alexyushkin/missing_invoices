@@ -495,8 +495,9 @@ revenueFig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 #     ]
 columns_hea = [
 # 	TableColumn(field="index", title="#", width=int(plot_width/16)),
+	TableColumn(field="z", title="Created?", width=int(plot_width*1/16)),
         TableColumn(field="x", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
-	TableColumn(field="y", title="Amount", width=int(plot_width*3/16), formatter=NumberFormatter(format="0.00")),
+	TableColumn(field="y", title="Amount", width=int(plot_width*2/16), formatter=NumberFormatter(format="0.00")),
 	TableColumn(field="f", title="Job Location", width=int(plot_width*3/16)),
 	TableColumn(field="b", title="Deal ID", 
 		    formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= c %></a>'), width=int(plot_width*4/16)),
