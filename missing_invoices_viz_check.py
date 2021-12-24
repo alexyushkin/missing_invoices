@@ -34,7 +34,7 @@ authenticator = stauth.authenticate(names, usernames, hashed_passwords,
 									cookie_expiry_days=1)
 
 
-def download_aws_object(bucket, key, month, day, year):
+def download_aws_object(bucket, key):
     """
     Download an object from AWS
     Example key: my/key/some_file.txt
@@ -171,7 +171,66 @@ def download_aws_object(bucket, key, month, day, year):
     return dl_link
 
 
-def process_data():
+output_file(filename="report.html", title="Report")
+
+plot_height = 500
+plot_width = 800
+
+im = Image.open("image_10.jpg")
+st.set_page_config(
+    page_title="Missing Customers & Invoices",
+    page_icon=im,
+#     layout="wide",
+)
+
+hide_streamlit_style = """
+<style>
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+</style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+padding = 0
+st.markdown(f""" <style>
+    .reportview-container .main .block-container{{
+        padding-top: {padding}rem;
+        padding-right: {padding}rem;
+        padding-left: {padding}rem;
+        padding-bottom: {padding}rem;
+    }} </style> """, unsafe_allow_html=True)
+
+bucket = "celigo-df-check"
+
+session = boto3.Session()
+s3resource = session.resource('s3')
+bucket_r = s3resource.Bucket(bucket)
+prefix = ''
+objects = bucket_r.objects.filter(Prefix=prefix)
+# print(len(list(objects)))
+
+s3 = boto3.client('s3')
+
+pattern = re.compile(r'Celigo - [0-9.]+.xlsx')
+files_lst = []
+for object in objects:
+    if pattern.match(object.key):
+#         print(object.key)
+        files_lst.append(object.key)
+
+# print(files_lst)
+# print(len(files_lst))
+
+dates = [datetime.datetime.strptime(f"{e.split(' ')[2].split('.')[2]}-{e.split(' ')[2].split('.')[0]}-{e.split(' ')[2].split('.')[1]}", '%Y-%m-%d') for e in files_lst]
+# print(dates)
+# print(max(dates))
+
+# st.sidebar.header("Select Syncronization Date")
+name, authentication_status = authenticator.login('Login','sidebar')
+
+if authentication_status:
+#     st.sidebar.header('Welcome, *%s*' % (name))
+    st.sidebar.write('Welcome, *%s*' % (name))
 	# date = st.sidebar.date_input('Date', value=max(dates), min_value=min(dates), max_value=max(dates))
 	date = st.sidebar.date_input('Select Syncronization Date', value=max(dates), min_value=min(dates), max_value=max(dates))
 	# st.write(date)
@@ -227,9 +286,9 @@ def process_data():
 	    df2 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='hea_invoices',
 				parse_dates=['TS_HEA_Invoice_Submitted__c', 'Activity_Date__c'], converters={'Netsuite_Customer_ID__c': str})
 	    try:
-                df2['Netsuite_Customer_ID__c'] = df2['Netsuite_Customer_ID__c'].fillna(0).astype('int').astype('str')
+			df2['Netsuite_Customer_ID__c'] = df2['Netsuite_Customer_ID__c'].fillna(0).astype('int').astype('str')
 	    except:
-                pass
+			pass
 	except Exception as e:
 	    print(e)
 
@@ -238,9 +297,9 @@ def process_data():
 	    df3 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='wx_invoices', parse_dates=['Completion_Walk_Date__c'],
 				converters={'Netsuite_Customer_ID__c': str})
 	    try:
-                df3['Netsuite_Customer_ID__c'] = df3['Netsuite_Customer_ID__c'].fillna(0).astype('int').astype('str')
+			df3['Netsuite_Customer_ID__c'] = df3['Netsuite_Customer_ID__c'].fillna(0).astype('int').astype('str')
 	    except:
-                pass
+			pass
 	except Exception as e:
 	    print(e)
 
@@ -251,10 +310,10 @@ def process_data():
 	#     df4 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='hvac_invoices', parse_dates=['Install_Completion_Date__c'],
 	# 			converters={'Account.Netsuite_Customer_ID__c': str})
 	    try:
-                df4['Netsuite_Customer_ID__c'] = df4['Netsuite_Customer_ID__c'].fillna(0).astype('int').astype('str')
+			df4['Netsuite_Customer_ID__c'] = df4['Netsuite_Customer_ID__c'].fillna(0).astype('int').astype('str')
 	# 	df4['Account.Netsuite_Customer_ID__c'] = df4['Account.Netsuite_Customer_ID__c'].fillna(0).astype('int').astype('str')
 	    except:
-                pass
+			pass
 	except Exception as e:
 	    print(e)
 
@@ -705,86 +764,18 @@ def process_data():
 	st.bokeh_chart(tabs, use_container_width=False)
 	show(tabs)
 
-# 	with open('report.html', 'rb') as f:
-# 	    if st.sidebar.download_button('Download Report', f, file_name=f'Report - {month}.{day}.{year}.html'):
-#                 st.write('Report downloaded')
+	with open('report.html', 'rb') as f:
+	    if st.sidebar.download_button('Download Report', f, file_name=f'Report - {month}.{day}.{year}.html'):
+			st.write('Report downloaded')
 
-# 	st.sidebar.markdown(download_aws_object(bucket, file_name), unsafe_allow_html=True)
+	st.sidebar.markdown(download_aws_object(bucket, file_name), unsafe_allow_html=True)
 
 	# elif authentication_status == False:
 	#     st.error('Username/password is incorrect')
 	# elif authentication_status == None:
 	#     st.warning('Please enter your username and password')
-	
-	return month, day, year
 
-output_file(filename="report.html", title="Report")
-
-plot_height = 500
-plot_width = 800
-
-im = Image.open("image_10.jpg")
-st.set_page_config(
-    page_title="Missing Customers & Invoices",
-    page_icon=im,
-#     layout="wide",
-)
-
-hide_streamlit_style = """
-<style>
-#MainMenu {visibility: hidden;}
-footer {visibility: hidden;}
-</style>
-"""
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-
-padding = 0
-st.markdown(f""" <style>
-    .reportview-container .main .block-container{{
-        padding-top: {padding}rem;
-        padding-right: {padding}rem;
-        padding-left: {padding}rem;
-        padding-bottom: {padding}rem;
-    }} </style> """, unsafe_allow_html=True)
-
-bucket = "celigo-df-check"
-
-session = boto3.Session()
-s3resource = session.resource('s3')
-bucket_r = s3resource.Bucket(bucket)
-prefix = ''
-objects = bucket_r.objects.filter(Prefix=prefix)
-# print(len(list(objects)))
-
-s3 = boto3.client('s3')
-
-pattern = re.compile(r'Celigo - [0-9.]+.xlsx')
-files_lst = []
-for object in objects:
-    if pattern.match(object.key):
-#         print(object.key)
-        files_lst.append(object.key)
-
-# print(files_lst)
-# print(len(files_lst))
-
-dates = [datetime.datetime.strptime(f"{e.split(' ')[2].split('.')[2]}-{e.split(' ')[2].split('.')[0]}-{e.split(' ')[2].split('.')[1]}", '%Y-%m-%d') for e in files_lst]
-# print(dates)
-# print(max(dates))
-
-# st.sidebar.header("Select Syncronization Date")
-name, authentication_status = authenticator.login('Login','sidebar')
-
-if authentication_status:
-#     st.sidebar.header('Welcome, *%s*' % (name))
-    st.sidebar.write('Welcome, *%s*' % (name))
-    process_data()
-    with open('report.html', 'rb') as f:
-        if st.sidebar.download_button('Download Report', f, file_name=f'Report - {month}.{day}.{year}.html'):
-            st.write('Report downloaded')
-
-    st.sidebar.markdown(download_aws_object(bucket, file_name, month, day, year), unsafe_allow_html=True)
-#     st.title('Some content')
+	#     st.title('Some content')
 elif authentication_status == False:
     st.error('Username/password is incorrect')
 elif authentication_status == None:
