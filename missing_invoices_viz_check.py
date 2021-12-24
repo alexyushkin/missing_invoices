@@ -34,7 +34,7 @@ authenticator = stauth.authenticate(names, usernames, hashed_passwords,
 									cookie_expiry_days=1)
 
 
-def download_aws_object(bucket, key):
+def download_aws_object(bucket, key, month, day, year):
     """
     Download an object from AWS
     Example key: my/key/some_file.txt
@@ -715,6 +715,8 @@ def process_data():
 	#     st.error('Username/password is incorrect')
 	# elif authentication_status == None:
 	#     st.warning('Please enter your username and password')
+	
+	return month, day, year
 
 output_file(filename="report.html", title="Report")
 
@@ -781,7 +783,7 @@ if authentication_status:
         if st.sidebar.download_button('Download Report', f, file_name=f'Report - {month}.{day}.{year}.html'):
             st.write('Report downloaded')
 
-    st.sidebar.markdown(download_aws_object(bucket, file_name), unsafe_allow_html=True)
+    st.sidebar.markdown(download_aws_object(bucket, file_name, month, day, year), unsafe_allow_html=True)
 #     st.title('Some content')
 elif authentication_status == False:
     st.error('Username/password is incorrect')
