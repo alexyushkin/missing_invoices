@@ -290,12 +290,13 @@ except Exception as e:
 
 try:
     obj = s3.get_object(Bucket=bucket, Key=file_name)
-#     df4 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='hvac_invoices', parse_dates=['Last_Install_Completion_Date__c'], 
-# 			converters={'Netsuite_Customer_ID__c': str})
-    df4 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='hvac_invoices', parse_dates=['Install_Completion_Date__c'], 
-			converters={'Account.Netsuite_Customer_ID__c': str})
+    df4 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='hvac_invoices', parse_dates=['Last_Install_Completion_Date__c'], 
+			converters={'Netsuite_Customer_ID__c': str})
+#     df4 = pd.read_excel(io.BytesIO(obj['Body'].read()), engine='openpyxl', sheet_name='hvac_invoices', parse_dates=['Install_Completion_Date__c'], 
+# 			converters={'Account.Netsuite_Customer_ID__c': str})
     try:
-        df4['Account.Netsuite_Customer_ID__c'] = df4['Account.Netsuite_Customer_ID__c'].fillna(0).astype('int').astype('str')
+        df4['Netsuite_Customer_ID__c'] = df4['Netsuite_Customer_ID__c'].fillna(0).astype('int').astype('str')
+# 	df4['Account.Netsuite_Customer_ID__c'] = df4['Account.Netsuite_Customer_ID__c'].fillna(0).astype('int').astype('str')
     except:
         pass
 except Exception as e:
@@ -321,8 +322,8 @@ else:
     min2 = date
 
 if len(df4):
-#     min3 = df4['Last_Install_Completion_Date__c'].min()
-    min3 = df4['Install_Completion_Date__c'].min()
+    min3 = df4['Last_Install_Completion_Date__c'].min()
+#     min3 = df4['Install_Completion_Date__c'].min()
 else:
     min3 = date
 
@@ -650,8 +651,8 @@ data_table_wx = DataTable(source=data_cds3, columns=columns_wx, width=plot_width
 
 # if len(df4) == 0:
 #     df4 = pd.DataFrame({'Last_Install_Completion_Date__c': [date], 'Final_Contract_Price__c': [np.nan], 'Created': [np.nan], 'link': [np.nan]})
-# df4 = df4.loc[df4['Last_Install_Completion_Date__c'] >= start]
-df4 = df4.loc[df4['Install_Completion_Date__c'] >= start]
+df4 = df4.loc[df4['Last_Install_Completion_Date__c'] >= start]
+# df4 = df4.loc[df4['Install_Completion_Date__c'] >= start]
 # df4 = df4.sort_values('Last_Install_Completion_Date__c', ascending=False)
 # Store the data in a ColumnDataSource
 data_cds4 = ColumnDataSource(df4)
@@ -662,14 +663,14 @@ hvac_Fig = figure(title='Contract Price', x_axis_type='datetime',
                   x_axis_label='Date', y_axis_label='Contract Price')
 
 # Draw with circle markers
-# hvac_Fig.circle(x='Last_Install_Completion_Date__c', y='Final_Contract_Price__c', 
-#                 source=data_cds4, fill_alpha=0.6,
-#                 size=5, color=dict(field='Created', 
-#                                    transform=created_mapper))
-hvac_Fig.circle(x='Install_Completion_Date__c', y='Final_Contract_Price__c', 
+hvac_Fig.circle(x='Last_Install_Completion_Date__c', y='Final_Contract_Price__c', 
                 source=data_cds4, fill_alpha=0.6,
                 size=5, color=dict(field='Created', 
                                    transform=created_mapper))
+# hvac_Fig.circle(x='Install_Completion_Date__c', y='Final_Contract_Price__c', 
+#                 source=data_cds4, fill_alpha=0.6,
+#                 size=5, color=dict(field='Created', 
+#                                    transform=created_mapper))
 hvac_Fig.xgrid.grid_line_color = None
 hvac_Fig.axis.minor_tick_line_color = None
 hvac_Fig.outline_line_color = None
@@ -680,39 +681,39 @@ hvac_Fig.outline_line_color = None
 # hover_h.mode = 'mouse'
 # hover_h.formatters = {"$x": "datetime"}
 hover = HoverTool(
-#     tooltips=[('Date','@Last_Install_Completion_Date__c{%F}'), ('Amount','@Final_Contract_Price__c{0.2f}')],
-    tooltips=[('Date','@Install_Completion_Date__c{%F}'), ('Amount','@Final_Contract_Price__c{0.2f}')],
+    tooltips=[('Date','@Last_Install_Completion_Date__c{%F}'), ('Amount','@Final_Contract_Price__c{0.2f}')],
+#     tooltips=[('Date','@Install_Completion_Date__c{%F}'), ('Amount','@Final_Contract_Price__c{0.2f}')],
     point_policy="follow_mouse",
-#     formatters = {"@Last_Install_Completion_Date__c": "datetime"})
-    formatters = {"@Install_Completion_Date__c": "datetime"})
+    formatters = {"@Last_Install_Completion_Date__c": "datetime"})
+#     formatters = {"@Install_Completion_Date__c": "datetime"})
 
 hvac_Fig.add_tools(hover)
 
 hvac_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
                                                  months="%b %d, %Y",)
 
-# columns_hvac = [
-# # 	TableColumn(field="index", title="#", width=int(plot_width/16)),
-#         TableColumn(field="Last_Install_Completion_Date__c", title="Date", formatter=DateFormatter(), width=int(plot_width*3/16)),
-# 	TableColumn(field="Final_Contract_Price__c", title="Amount", width=int(plot_width*3/16)),
-# 	TableColumn(field="link", title="HVAC Contract ID", 
-# 		    formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), 
-# 		    width=int(plot_width*5/16)),
-# 	TableColumn(field="Netsuite_Customer_ID__c", title="NS Customer ID", 
-# 		    formatter=HTMLTemplateFormatter(template='<a href="https://4556600.app.netsuite.com/app/common/entity/custjob.nl?id=<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), 
-# 		    width=int(plot_width*5/16))
-#     ]
 columns_hvac = [
 # 	TableColumn(field="index", title="#", width=int(plot_width/16)),
-        TableColumn(field="Install_Completion_Date__c", title="Date", formatter=DateFormatter(), width=int(plot_width*3/16)),
+        TableColumn(field="Last_Install_Completion_Date__c", title="Date", formatter=DateFormatter(), width=int(plot_width*3/16)),
 	TableColumn(field="Final_Contract_Price__c", title="Amount", width=int(plot_width*3/16)),
 	TableColumn(field="link", title="HVAC Contract ID", 
 		    formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), 
 		    width=int(plot_width*5/16)),
-	TableColumn(field="Account.Netsuite_Customer_ID__c", title="NS Customer ID", 
+	TableColumn(field="Netsuite_Customer_ID__c", title="NS Customer ID", 
 		    formatter=HTMLTemplateFormatter(template='<a href="https://4556600.app.netsuite.com/app/common/entity/custjob.nl?id=<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), 
 		    width=int(plot_width*5/16))
     ]
+# columns_hvac = [
+# # 	TableColumn(field="index", title="#", width=int(plot_width/16)),
+#         TableColumn(field="Install_Completion_Date__c", title="Date", formatter=DateFormatter(), width=int(plot_width*3/16)),
+# 	TableColumn(field="Final_Contract_Price__c", title="Amount", width=int(plot_width*3/16)),
+# 	TableColumn(field="link", title="HVAC Contract ID", 
+# 		    formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), 
+# 		    width=int(plot_width*5/16)),
+# 	TableColumn(field="Account.Netsuite_Customer_ID__c", title="NS Customer ID", 
+# 		    formatter=HTMLTemplateFormatter(template='<a href="https://4556600.app.netsuite.com/app/common/entity/custjob.nl?id=<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), 
+# 		    width=int(plot_width*5/16))
+#     ]
 data_table_hvac = DataTable(source=data_cds4, columns=columns_hvac, width=plot_width, height=int(plot_height/2), index_position=0)
 
 # Create four panels
