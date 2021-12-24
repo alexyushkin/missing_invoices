@@ -753,7 +753,8 @@ else:
     tabs = Tabs(tabs=[hea_panel])
 
 
-name, authentication_status = authenticator.login('Login','main')
+# name, authentication_status = authenticator.login('Login','main')
+name, authentication_status = authenticator.login('Login','sidebar')
 
 if authentication_status:
 #     st.write('Welcome *%s*' % (name))
