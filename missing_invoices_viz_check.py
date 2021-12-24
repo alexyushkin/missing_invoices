@@ -24,7 +24,6 @@ import base64
 import uuid
 import streamlit_authenticator as stauth
 
-
 users = pd.read_csv('users.csv')
 names = users['name'].to_list()
 usernames = users['username'].to_list()
@@ -226,6 +225,11 @@ dates = [datetime.datetime.strptime(f"{e.split(' ')[2].split('.')[2]}-{e.split('
 # print(max(dates))
 
 # st.sidebar.header("Select Syncronization Date")
+try:
+    if authentication_status:
+        st.sidebar.header('Welcome *%s*' % (name))
+except:
+    pass
 # date = st.sidebar.date_input('Date', value=max(dates), min_value=min(dates), max_value=max(dates))
 date = st.sidebar.date_input('Select Syncronization Date', value=max(dates), min_value=min(dates), max_value=max(dates))
 # st.write(date)
