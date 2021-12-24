@@ -752,23 +752,17 @@ else:
 name, authentication_status = authenticator.login('Login','main')
 
 if authentication_status:
-    st.write('Welcome *%s*' % (name))
-    # st.title('Some content')
-
+#     st.write('Welcome *%s*' % (name))
+#     st.title('Some content')
     # Show the tabbed layout
     st.bokeh_chart(tabs, use_container_width=False)
-
-    show(tabs)
+#     show(tabs)
 
     with open('report.html', 'rb') as f:
     	if st.sidebar.download_button('Download Report', f, file_name=f'Report - {month}.{day}.{year}.html'):
             st.write('Report downloaded')
 
-    # if st.sidebar.download_button('Download Report', data='report.html'):
-    # 	st.write('Report downloaded')
-
     st.sidebar.markdown(download_aws_object(bucket, file_name), unsafe_allow_html=True)
-
 
 elif authentication_status == False:
     st.error('Username/password is incorrect')
