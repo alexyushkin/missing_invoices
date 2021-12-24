@@ -25,9 +25,6 @@ import uuid
 import streamlit_authenticator as stauth
 
 
-users = pd.read_csv('users.csv')
-
-
 def download_aws_object(bucket, key):
     """
     Download an object from AWS
@@ -342,8 +339,15 @@ else:
     start = min_date
 
 
-authenticator = stauth.authenticate(names,usernames,hashed_passwords,
-    'missingCustomersAndInvoices','p3jCB8sPxF',cookie_expiry_days=30)
+
+users = pd.read_csv('users.csv')
+names = users['name'].to_list()
+usernames = users['username'].to_list()
+hashed_passwords = users['hashed_password'].to_list()
+
+authenticator = stauth.authenticate(names, usernames, hashed_passwords,
+									'missingCustomersAndInvoices', 'p3jCB8sPxF',
+									cookie_expiry_days=30)
 
 name, authentication_status = authenticator.login('Login','main')
 
@@ -354,6 +358,7 @@ elif authentication_status == False:
     st.error('Username/password is incorrect')
 elif authentication_status == None:
     st.warning('Please enter your username and password')
+
 
 # df1 = df1.loc[df1['Created'] == 'N']
 # df1 = df1.sort_values('Date')
