@@ -228,7 +228,7 @@ dates = [datetime.datetime.strptime(f"{e.split(' ')[2].split('.')[2]}-{e.split('
 name, authentication_status = authenticator.login('Login','sidebar')
 
 if authentication_status:
-    st.write('Welcome, *%s*' % (name))
+    st.sidebar.header('Welcome, *%s*' % (name))
 #     st.title('Some content')
 elif authentication_status == False:
     st.error('Username/password is incorrect')
