@@ -225,11 +225,16 @@ dates = [datetime.datetime.strptime(f"{e.split(' ')[2].split('.')[2]}-{e.split('
 # print(max(dates))
 
 # st.sidebar.header("Select Syncronization Date")
-try:
-    if authentication_status:
-        st.sidebar.header('Welcome *%s*' % (name))
-except:
-    pass
+name, authentication_status = authenticator.login('Login','sidebar')
+
+if authentication_status:
+    st.write('Welcome, *%s*' % (name))
+#     st.title('Some content')
+elif authentication_status == False:
+    st.error('Username/password is incorrect')
+elif authentication_status == None:
+    st.warning('Please enter your username and password')
+
 # date = st.sidebar.date_input('Date', value=max(dates), min_value=min(dates), max_value=max(dates))
 date = st.sidebar.date_input('Select Syncronization Date', value=max(dates), min_value=min(dates), max_value=max(dates))
 # st.write(date)
@@ -754,22 +759,22 @@ else:
 
 
 # name, authentication_status = authenticator.login('Login','main')
-name, authentication_status = authenticator.login('Login','sidebar')
+# name, authentication_status = authenticator.login('Login','sidebar')
 
-if authentication_status:
-#     st.write('Welcome *%s*' % (name))
-#     st.title('Some content')
-    # Show the tabbed layout
-    st.bokeh_chart(tabs, use_container_width=False)
-    show(tabs)
+# if authentication_status:
+# #     st.write('Welcome *%s*' % (name))
+# #     st.title('Some content')
+# Show the tabbed layout
+st.bokeh_chart(tabs, use_container_width=False)
+show(tabs)
 
-    with open('report.html', 'rb') as f:
-    	if st.sidebar.download_button('Download Report', f, file_name=f'Report - {month}.{day}.{year}.html'):
-            st.write('Report downloaded')
+with open('report.html', 'rb') as f:
+    if st.sidebar.download_button('Download Report', f, file_name=f'Report - {month}.{day}.{year}.html'):
+        st.write('Report downloaded')
 
-    st.sidebar.markdown(download_aws_object(bucket, file_name), unsafe_allow_html=True)
+st.sidebar.markdown(download_aws_object(bucket, file_name), unsafe_allow_html=True)
 
-elif authentication_status == False:
-    st.error('Username/password is incorrect')
-elif authentication_status == None:
-    st.warning('Please enter your username and password')
+# elif authentication_status == False:
+#     st.error('Username/password is incorrect')
+# elif authentication_status == None:
+#     st.warning('Please enter your username and password')
