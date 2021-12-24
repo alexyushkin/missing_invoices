@@ -705,11 +705,11 @@ def process_data():
 	st.bokeh_chart(tabs, use_container_width=False)
 	show(tabs)
 
-	with open('report.html', 'rb') as f:
-	    if st.sidebar.download_button('Download Report', f, file_name=f'Report - {month}.{day}.{year}.html'):
-                st.write('Report downloaded')
+# 	with open('report.html', 'rb') as f:
+# 	    if st.sidebar.download_button('Download Report', f, file_name=f'Report - {month}.{day}.{year}.html'):
+#                 st.write('Report downloaded')
 
-	st.sidebar.markdown(download_aws_object(bucket, file_name), unsafe_allow_html=True)
+# 	st.sidebar.markdown(download_aws_object(bucket, file_name), unsafe_allow_html=True)
 
 	# elif authentication_status == False:
 	#     st.error('Username/password is incorrect')
@@ -777,6 +777,11 @@ if authentication_status:
 #     st.sidebar.header('Welcome, *%s*' % (name))
     st.sidebar.write('Welcome, *%s*' % (name))
     process_data()
+    with open('report.html', 'rb') as f:
+        if st.sidebar.download_button('Download Report', f, file_name=f'Report - {month}.{day}.{year}.html'):
+            st.write('Report downloaded')
+
+    st.sidebar.markdown(download_aws_object(bucket, file_name), unsafe_allow_html=True)
 #     st.title('Some content')
 elif authentication_status == False:
     st.error('Username/password is incorrect')
