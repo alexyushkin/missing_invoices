@@ -176,7 +176,7 @@ output_file(filename="report.html", title="Report")
 plot_height = 500
 plot_width = 800
 
-im = Image.open("image_10.jpeg")
+im = Image.open("image_10.jpg")
 st.set_page_config(
     page_title="Missing Customers & Invoices",
     page_icon=im,
