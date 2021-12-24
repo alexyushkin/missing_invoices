@@ -25,6 +25,16 @@ import uuid
 import streamlit_authenticator as stauth
 
 
+users = pd.read_csv('users.csv')
+names = users['name'].to_list()
+usernames = users['username'].to_list()
+hashed_passwords = users['hashed_password'].to_list()
+
+authenticator = stauth.authenticate(names, usernames, hashed_passwords,
+									'missingCustomersAndInvoices', 'p3jCB8sPxF',
+									cookie_expiry_days=30)
+
+
 def download_aws_object(bucket, key):
     """
     Download an object from AWS
@@ -337,28 +347,6 @@ elif value == 'Current Year':
     start = firstOfThisYear
 else:
     start = min_date
-
-
-
-users = pd.read_csv('users.csv')
-names = users['name'].to_list()
-usernames = users['username'].to_list()
-hashed_passwords = users['hashed_password'].to_list()
-
-authenticator = stauth.authenticate(names, usernames, hashed_passwords,
-									'missingCustomersAndInvoices', 'p3jCB8sPxF',
-									cookie_expiry_days=30)
-
-name, authentication_status = authenticator.login('Login','main')
-
-if authentication_status:
-    st.write('Welcome *%s*' % (name))
-    # st.title('Some content')
-elif authentication_status == False:
-    st.error('Username/password is incorrect')
-elif authentication_status == None:
-    st.warning('Please enter your username and password')
-
 
 # df1 = df1.loc[df1['Created'] == 'N']
 # df1 = df1.sort_values('Date')
@@ -760,16 +748,30 @@ elif df1r['Id'][0] != 0 and len(df3) == 0 and len(df4) == 0:
 else:
     tabs = Tabs(tabs=[hea_panel])
 
-# Show the tabbed layout
-st.bokeh_chart(tabs, use_container_width=False)
 
-show(tabs)
+name, authentication_status = authenticator.login('Login','main')
 
-with open('report.html', 'rb') as f:
-	if st.sidebar.download_button('Download Report', f, file_name=f'Report - {month}.{day}.{year}.html'):
-		st.write('Report downloaded')
+if authentication_status:
+    st.write('Welcome *%s*' % (name))
+    # st.title('Some content')
 
-# if st.sidebar.download_button('Download Report', data='report.html'):
-# 	st.write('Report downloaded')
 
-st.sidebar.markdown(download_aws_object(bucket, file_name), unsafe_allow_html=True)
+	# Show the tabbed layout
+	st.bokeh_chart(tabs, use_container_width=False)
+
+	show(tabs)
+
+	with open('report.html', 'rb') as f:
+		if st.sidebar.download_button('Download Report', f, file_name=f'Report - {month}.{day}.{year}.html'):
+			st.write('Report downloaded')
+
+	# if st.sidebar.download_button('Download Report', data='report.html'):
+	# 	st.write('Report downloaded')
+
+	st.sidebar.markdown(download_aws_object(bucket, file_name), unsafe_allow_html=True)
+
+
+elif authentication_status == False:
+    st.error('Username/password is incorrect')
+elif authentication_status == None:
+    st.warning('Please enter your username and password')
