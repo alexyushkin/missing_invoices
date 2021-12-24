@@ -756,7 +756,7 @@ if authentication_status:
 #     st.title('Some content')
     # Show the tabbed layout
     st.bokeh_chart(tabs, use_container_width=False)
-#     show(tabs)
+    show(tabs)
 
     with open('report.html', 'rb') as f:
     	if st.sidebar.download_button('Download Report', f, file_name=f'Report - {month}.{day}.{year}.html'):
