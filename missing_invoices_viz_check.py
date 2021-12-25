@@ -364,10 +364,11 @@ if authentication_status:
         df1r = df1[['Date', 'Id']].set_index('Date')
         df1r = df1r.resample('D').count()
         df1r.reset_index(inplace=True)
-        df1r['Site_Id_NS__c'] = df1r['Site_Id_NS__c'].fillna('')
     except:
         df1r = pd.DataFrame({'Date': [date], 'Id': [0]}).set_index('Date')
 
+    df1['Site_Id_NS__c'] = df1['Site_Id_NS__c'].fillna('')
+    
     source_1 = ColumnDataSource(df1r)
     source = ColumnDataSource(df1)
 
