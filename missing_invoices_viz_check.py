@@ -368,7 +368,10 @@ if authentication_status:
     except:
         df1r = pd.DataFrame({'Date': [date], 'Id': [0]}).set_index('Date')
 
-    df1['Site_Id_NS__c'] = df1['Site_Id_NS__c'].fillna('')
+    try:
+        df1['Site_Id_NS__c'] = df1['Site_Id_NS__c'].fillna('')
+    except:
+        pass
     
     source_1 = ColumnDataSource(df1r)
     source = ColumnDataSource(df1)
