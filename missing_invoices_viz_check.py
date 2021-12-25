@@ -232,7 +232,7 @@ if authentication_status:
 #     st.sidebar.header('Welcome, *%s*' % (name))
     st.sidebar.write('Welcome, *%s*!' % (name))
     # date = st.sidebar.date_input('Date', value=max(dates), min_value=min(dates), max_value=max(dates))
-    date = st.sidebar.date_input('Select Syncronization Date', value=max(dates), min_value=min(dates), max_value=max(dates))
+    date = st.sidebar.date_input('Select Synchronization Date', value=max(dates), min_value=min(dates), max_value=max(dates))
     # st.write(date)
 
     # date = datetime.datetime.now()
@@ -364,6 +364,7 @@ if authentication_status:
         df1r = df1[['Date', 'Id']].set_index('Date')
         df1r = df1r.resample('D').count()
         df1r.reset_index(inplace=True)
+        df1r['Site_Id_NS__c'] = df1r['Site_Id_NS__c'].fillna('')
     except:
         df1r = pd.DataFrame({'Date': [date], 'Id': [0]}).set_index('Date')
 
@@ -736,23 +737,39 @@ if authentication_status:
     hvac_panel = Panel(child=gridplot([[hvac_Fig], [data_table_hvac]], sizing_mode='stretch_width'), title='HVAC')
 
     # Assign the panels to Tabs
-    if df1r['Id'][0] != 0 and len(df3) and len(df4):
+    if df1r['Id'][0] != 0 and len(df2) and len(df3) and len(df4):
         tabs = Tabs(tabs=[cust_panel, hea_panel, wx_panel, hvac_panel])
-    elif df1r['Id'][0] == 0 and len(df3) and len(df4):
+    elif df1r['Id'][0] == 0 and len(df2) and len(df3) and len(df4):
         tabs = Tabs(tabs=[hea_panel, wx_panel, hvac_panel])
-    elif df1r['Id'][0] != 0 and len(df3) and len(df4) == 0:
+    elif df1r['Id'][0] != 0 and len(df2) and len(df3) and len(df4) == 0:
         tabs = Tabs(tabs=[cust_panel, hea_panel, wx_panel])
-    elif df1r['Id'][0] == 0 and len(df3) and len(df4) == 0:
+    elif df1r['Id'][0] == 0 and len(df2) and len(df3) and len(df4) == 0:
         tabs = Tabs(tabs=[hea_panel, wx_panel])
-    elif df1r['Id'][0] != 0 and len(df3) == 0 and len(df4):
+    elif df1r['Id'][0] != 0 and len(df2) and len(df3) == 0 and len(df4):
         tabs = Tabs(tabs=[cust_panel, hea_panel, hvac_panel])
-    elif df1r['Id'][0] == 0 and len(df3) == 0 and len(df4):
+    elif df1r['Id'][0] == 0 and len(df2) and len(df3) == 0 and len(df4):
         tabs = Tabs(tabs=[hea_panel, hvac_panel])
-    elif df1r['Id'][0] != 0 and len(df3) == 0 and len(df4) == 0:
+    elif df1r['Id'][0] != 0 and len(df2) and len(df3) == 0 and len(df4) == 0:
         tabs = Tabs(tabs=[cust_panel, hea_panel])
-    else:
+    elif df1r['Id'][0] == 0 and len(df2) and len(df3) == 0 and len(df4) == 0:
         tabs = Tabs(tabs=[hea_panel])
-
+    elif df1r['Id'][0] != 0 and len(df2) == 0 and len(df3) and len(df4):
+        tabs = Tabs(tabs=[cust_panel, wx_panel, hvac_panel])
+    elif df1r['Id'][0] == 0 and len(df2) == 0 and len(df3) and len(df4):
+        tabs = Tabs(tabs=[wx_panel, hvac_panel])
+    elif df1r['Id'][0] != 0 and len(df2) == 0 and len(df3) and len(df4) == 0:
+        tabs = Tabs(tabs=[cust_panel, wx_panel])
+    elif df1r['Id'][0] == 0 and len(df2) == 0 and len(df3) and len(df4) == 0:
+        tabs = Tabs(tabs=[wx_panel])
+    elif df1r['Id'][0] != 0 and len(df2) == 0 and len(df3) == 0 and len(df4):
+        tabs = Tabs(tabs=[cust_panel, hvac_panel])
+    elif df1r['Id'][0] == 0 and len(df2) == 0 and len(df3) == 0 and len(df4):
+        tabs = Tabs(tabs=[hvac_panel])
+    elif df1r['Id'][0] != 0 and len(df2) == 0 and len(df3) == 0 and len(df4) == 0:
+        tabs = Tabs(tabs=[cust_panel])
+    elif df1r['Id'][0] == 0 and len(df2) == 0 and len(df3) == 0 and len(df4) == 0:
+        tabs = Tabs(tabs=[])
+        st.warning('There is nothing to show. Please select another period or synchronization date.')
 
     # name, authentication_status = authenticator.login('Login','main')
     # name, authentication_status = authenticator.login('Login','sidebar')
