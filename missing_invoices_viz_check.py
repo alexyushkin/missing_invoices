@@ -770,7 +770,7 @@ if authentication_status:
         tabs = Tabs(tabs=[cust_panel])
     elif df1r['Id'][0] == 0 and len(df2) == 0 and len(df3) == 0 and len(df4) == 0:
         tabs = Tabs(tabs=[])
-        st.warning('There is nothing to show. Please select another period or synchronization date.')
+        st.warning('There is nothing to show. Please select another Period or Synchronization date.')
 
     # name, authentication_status = authenticator.login('Login','main')
     # name, authentication_status = authenticator.login('Login','sidebar')
