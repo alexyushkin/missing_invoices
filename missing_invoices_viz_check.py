@@ -776,12 +776,6 @@ if authentication_status:
         tabs = Tabs(tabs=[])
         st.warning('There is nothing to show. Please select another Period or Synchronization date.')
 
-    # name, authentication_status = authenticator.login('Login','main')
-    # name, authentication_status = authenticator.login('Login','sidebar')
-
-    # if authentication_status:
-    # #     st.write('Welcome *%s*' % (name))
-    # #     st.title('Some content')
     # Show the tabbed layout
     st.bokeh_chart(tabs, use_container_width=False)
     show(tabs)
@@ -792,13 +786,7 @@ if authentication_status:
 
     st.sidebar.markdown(download_aws_object(bucket, file_name), unsafe_allow_html=True)
 
-    # elif authentication_status == False:
-    #     st.error('Username/password is incorrect')
-    # elif authentication_status == None:
-    #     st.warning('Please enter your username and password')
-
-    #     st.title('Some content')
 elif authentication_status == False:
-    st.error('Username/password is incorrect')
+    st.error('Username/Password is incorrect')
 elif authentication_status == None:
-    st.warning('Please enter your username and password')
+    st.warning('Please enter your Username and Password')
