@@ -29,9 +29,9 @@ class MultiApp:
         if st.session_state['authentication_status']:
             st.write('Welcome *%s*' % (st.session_state['name']))
             if st.session_state['name'] == 'Test':
-                self.apps['App 1']()
+                self.apps[0]()
             if st.session_state['name'] == 'Alexey':
-                self.apps['App 2']()
+                self.apps[1]()
         elif st.session_state['authentication_status'] == False:
             st.error('Username/password is incorrect')
         elif st.session_state['authentication_status'] == None:
