@@ -24,7 +24,7 @@ import base64
 import uuid
 
 
-def download_aws_object(bucket, key):
+def download_aws_object(bucket, key, year, month, day):
     """
     Download an object from AWS
     Example key: my/key/some_file.txt
@@ -729,4 +729,4 @@ def app():
     # if st.sidebar.download_button('Download Report', data='report.html'):
     # 	st.write('Report downloaded')
 
-    st.sidebar.markdown(download_aws_object(bucket, file_name), unsafe_allow_html=True)
+    st.sidebar.markdown(download_aws_object(bucket, file_name, year, month, day), unsafe_allow_html=True)
