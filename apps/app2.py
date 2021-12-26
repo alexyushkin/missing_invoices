@@ -2,7 +2,7 @@ import streamlit as st
 
 
 def app():
-    st.markdown("## This is App 2 for Alexey")
+    st.markdown("## This is App 2 for Someone")
 
     st.write("\n")
 
