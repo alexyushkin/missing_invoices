@@ -2,7 +2,7 @@ import streamlit as st
 import streamlit_authenticator as stauth
 import pandas as pd
 from PIL import Image
-# from multiapp import MultiApp
+from multiapp import MultiApp
 from apps import app1, app2, app3
 
 im = Image.open("image_10.jpg")
