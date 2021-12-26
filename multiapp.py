@@ -21,21 +21,11 @@ class MultiApp:
 
     def run_app(self):
 
-#         page = st.sidebar.selectbox(
-#             'Applications',
-#             self.apps,
-#             format_func=lambda page: page['title']
-#         )
-        if st.session_state['authentication_status']:
-            st.write('Welcome *%s*' % (st.session_state['name']))
-            if st.session_state['name'] == 'Test':
-                self.apps[0]()
-            if st.session_state['name'] == 'Alexey':
-                self.apps[1]()
-        elif st.session_state['authentication_status'] == False:
-            st.error('Username/password is incorrect')
-        elif st.session_state['authentication_status'] == None:
-            st.warning('Please enter your username and password')
+        page = st.sidebar.selectbox(
+            'Applications',
+            self.apps,
+            format_func=lambda page: page['title']
+        )
 
-        # run the app function
-#         page['function']()
+        run the app function
+        page['function']()
