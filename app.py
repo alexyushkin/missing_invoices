@@ -42,23 +42,22 @@ authenticator = stauth.authenticate(names, usernames, hashed_passwords,
 name, authentication_status = authenticator.login('Login','sidebar')
 
 if authentication_status:
-#     app = MultiApp()
-
-#     app.add_app("App 1", app1.function)
-#     app.add_app("App 2", app2.function)
-
-#     app.run_app()
     if st.session_state['authentication_status']:
         st.sidebar.write('Welcome, *%s!*' % (st.session_state['name']))
         if st.session_state['name'] == 'Test':
             app1.app()
-        if st.session_state['name'] == 'Alexey':
+        elif st.session_state['name'] == 'Alexey':
             app3.app()
+        elif st.session_state['name'] == 'Admin':
+            app = MultiApp()
+            app.add_app("App 1", app1.app)
+            app.add_app("App 2", app2.app)
+            app.add_app("App 3", app3.app)
+            app.run_app()
     elif st.session_state['authentication_status'] == False:
         st.error('Username/password is incorrect')
     elif st.session_state['authentication_status'] == None:
         st.warning('Please enter your username and password')
-
 elif authentication_status == False:
     st.error('Username/Password is incorrect')
 elif authentication_status == None:
