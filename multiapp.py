@@ -22,10 +22,9 @@ class MultiApp:
     def run_app(self):
 
         page = st.sidebar.selectbox(
-            'Applications',
+            'Select Application',
             self.apps,
             format_func=lambda page: page['title']
         )
 
-        run the app function
         page['function']()
