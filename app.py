@@ -4,6 +4,31 @@ import pandas as pd
 # from multiapp import MultiApp
 from apps import app1, app2, app3
 
+im = Image.open("image_10.jpg")
+st.set_page_config(
+    page_title="Missing Customers & Invoices",
+    page_icon=im,
+#     layout="wide",
+)
+
+hide_streamlit_style = """
+<style>
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+</style>
+
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
+
+padding = 0
+st.markdown(f""" <style>
+    .reportview-container .main .block-container{{
+        padding-top: {padding}rem;
+        padding-right: {padding}rem;
+        padding-left: {padding}rem;
+        padding-bottom: {padding}rem;
+    }} </style> """, unsafe_allow_html=True)
+
 users = pd.read_csv('users.csv')
 names = users['name'].to_list()
 usernames = users['username'].to_list()
