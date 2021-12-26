@@ -27,10 +27,10 @@ class MultiApp:
 #         )
         if st.session_state['authentication_status']:
             st.write('Welcome *%s*' % (st.session_state['name']))
-                if st.session_state['name'] == 'Test':
-                    page['App 1']()
-                if st.session_state['name'] == 'Test':
-                    page['App 2']()
+            if st.session_state['name'] == 'Test':
+                page['App 1']()
+            if st.session_state['name'] == 'Test':
+                page['App 2']()
         elif st.session_state['authentication_status'] == False:
             st.error('Username/password is incorrect')
         elif st.session_state['authentication_status'] == None:
