@@ -2,7 +2,7 @@ import streamlit as st
 import streamlit_authenticator as stauth
 import pandas as pd
 # from multiapp import MultiApp
-from apps import app1, app2
+from apps import app1, app2, app3
 
 users = pd.read_csv('users.csv')
 names = users['name'].to_list()
