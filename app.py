@@ -23,7 +23,7 @@ if authentication_status:
 
 #     app.run_app()
     if st.session_state['authentication_status']:
-        st.sidebar.write('Welcome *%s*' % (st.session_state['name']))
+        st.sidebar.write('Welcome, *%s!*' % (st.session_state['name']))
         if st.session_state['name'] == 'Test':
             app1
         if st.session_state['name'] == 'Alexey':
