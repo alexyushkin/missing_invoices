@@ -35,6 +35,6 @@ class MultiApp:
         st.error('Username/password is incorrect')
     elif st.session_state['authentication_status'] == None:
         st.warning('Please enter your username and password')
-
+ 
         # run the app function
 #         page['function']()
