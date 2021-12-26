@@ -25,9 +25,9 @@ if authentication_status:
     if st.session_state['authentication_status']:
         st.sidebar.write('Welcome, *%s!*' % (st.session_state['name']))
         if st.session_state['name'] == 'Test':
-            app1.function
+            app1
         if st.session_state['name'] == 'Alexey':
-            app2.function
+            app2
     elif st.session_state['authentication_status'] == False:
         st.error('Username/password is incorrect')
     elif st.session_state['authentication_status'] == None:
