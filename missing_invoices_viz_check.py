@@ -229,7 +229,7 @@ dates = [datetime.datetime.strptime(f"{e.split(' ')[2].split('.')[2]}-{e.split('
 name, authentication_status = authenticator.login('Login','sidebar')
 
 if authentication_status:
-    st.sidebar.header('Welcome, *%s*!' % (name))
+    st.sidebar.header('Welcome, *%s!*' % (name))
 #     st.sidebar.title('Welcome, *%s*!' % (name))
 #     st.sidebar.write('Welcome, *%s*!' % (name))
     # date = st.sidebar.date_input('Date', value=max(dates), min_value=min(dates), max_value=max(dates))
