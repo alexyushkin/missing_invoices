@@ -53,7 +53,7 @@ if authentication_status:
         if st.session_state['name'] == 'Test':
             app1.app()
         if st.session_state['name'] == 'Alexey':
-            app2.app()
+            app3.app()
     elif st.session_state['authentication_status'] == False:
         st.error('Username/password is incorrect')
     elif st.session_state['authentication_status'] == None:
