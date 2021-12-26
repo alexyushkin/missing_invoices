@@ -1,3 +1,4 @@
 name,username,hashed_password
 Test,test,$2b$12$nNaRSN.ojGQHPNTstNJMgexurYXl73lhJLyyyWgU.FcV7gU89AwZS
 Alexey,ayushkin,$2b$12$nNaRSN.ojGQHPNTstNJMgexurYXl73lhJLyyyWgU.FcV7gU89AwZS
+Admin,admin,$2b$12$nNaRSN.ojGQHPNTstNJMgexurYXl73lhJLyyyWgU.FcV7gU89AwZS
