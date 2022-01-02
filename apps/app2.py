@@ -53,7 +53,7 @@ def app():
         #HtmlFile = open("data/output.html", 'r', encoding='utf-8')
         #source_code = HtmlFile.read() 
         #components.iframe("data/output.html")# Save the data to a new file 
-        sf.to_csv('data/sf_data.csv', index=False)
+        sf.to_csv('sf_data.csv', index=False)
         
         #Generate a pandas profiling report
         #if st.button("Generate an analysis report"):
