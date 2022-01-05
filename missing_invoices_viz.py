@@ -329,12 +329,12 @@ else:
 
 min_date = min(min1, min2, min3)
 
-value = st.sidebar.radio('Select Period of Report', ['Current and Previous Month', 'Current Year', 'All Time'])
+value = st.sidebar.radio('Select Period of Report', ['Current and Previous Month', 'Current and Previous Year', 'All Time'])
 
 if value == 'Current and Previous Month':
     start = firstOfLastMonth
-elif value == 'Current Year':
-    start = firstOfThisYear
+elif value == 'Current and Previous Year':
+    start = firstOfLastYear
 else:
     start = min_date
 
