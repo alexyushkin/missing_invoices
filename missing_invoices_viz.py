@@ -699,14 +699,16 @@ hvac_Fig.xaxis.formatter = DatetimeTickFormatter(days="%b %d, %Y",
 
 columns_hvac = [
 # 	TableColumn(field="index", title="#", width=int(plot_width/16)),
-        TableColumn(field="Last_Install_Completion_Date__c", title="Date", formatter=DateFormatter(), width=int(plot_width*3/16)),
-	TableColumn(field="Final_Contract_Price__c", title="Amount", width=int(plot_width*3/16)),
+	TableColumn(field="Created", title="Created?", width=int(plot_width*1/16)),
+        TableColumn(field="Last_Install_Completion_Date__c", title="Date", formatter=DateFormatter(), width=int(plot_width*2/16)),
+	TableColumn(field="Final_Contract_Price__c", title="Amount", width=int(plot_width*2/16)),
+	TableColumn(field="Installer__c", title="Installer", width=int(plot_width*3/16)),
 	TableColumn(field="link", title="HVAC Contract ID", 
 		    formatter=HTMLTemplateFormatter(template='<a href="<%= value %>" target="_blank" rel="noopener"><%= Id %></a>'), 
-		    width=int(plot_width*5/16)),
+		    width=int(plot_width*4/16)),
 	TableColumn(field="Netsuite_Customer_ID__c", title="NS Customer ID", 
 		    formatter=HTMLTemplateFormatter(template='<a href="https://4556600.app.netsuite.com/app/common/entity/custjob.nl?id=<%= value %>" target="_blank" rel="noopener"><%= value %></a>'), 
-		    width=int(plot_width*5/16))
+		    width=int(plot_width*4/16))
     ]
 # columns_hvac = [
 # # 	TableColumn(field="index", title="#", width=int(plot_width/16)),
