@@ -659,6 +659,7 @@ data_table_wx = DataTable(source=data_cds3, columns=columns_wx, width=plot_width
 df4 = df4.loc[df4['Last_Install_Completion_Date__c'] >= start]
 # df4 = df4.loc[df4['Install_Completion_Date__c'] >= start]
 # df4 = df4.sort_values('Last_Install_Completion_Date__c', ascending=False)
+df4['Installer__c'] = df4['Installer__c'].fillna('')
 # Store the data in a ColumnDataSource
 data_cds4 = ColumnDataSource(df4)
 
