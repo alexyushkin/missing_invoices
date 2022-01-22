@@ -166,30 +166,30 @@ def app():
     plot_height = 500
     plot_width = 800
 
-    im = Image.open("image_10.jpg")
-    st.set_page_config(
-        page_title="Missing Customers & Invoices",
-        page_icon=im,
-    #     layout="wide",
-    )
+#     im = Image.open("image_10.jpg")
+#     st.set_page_config(
+#         page_title="Missing Customers & Invoices",
+#         page_icon=im,
+#     #     layout="wide",
+#     )
 
-    hide_streamlit_style = """
-    <style>
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    </style>
+#     hide_streamlit_style = """
+#     <style>
+#     #MainMenu {visibility: hidden;}
+#     footer {visibility: hidden;}
+#     </style>
 
-    """
-    st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
+#     """
+#     st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
 
-    padding = 0
-    st.markdown(f""" <style>
-        .reportview-container .main .block-container{{
-            padding-top: {padding}rem;
-            padding-right: {padding}rem;
-            padding-left: {padding}rem;
-            padding-bottom: {padding}rem;
-        }} </style> """, unsafe_allow_html=True)
+#     padding = 0
+#     st.markdown(f""" <style>
+#         .reportview-container .main .block-container{{
+#             padding-top: {padding}rem;
+#             padding-right: {padding}rem;
+#             padding-left: {padding}rem;
+#             padding-bottom: {padding}rem;
+#         }} </style> """, unsafe_allow_html=True)
 
     bucket = "celigo-df-check"
 
