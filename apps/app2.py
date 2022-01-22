@@ -11,14 +11,14 @@ def app():
     st.write("\n")
 
     # Code to read a single file 
-    uploaded_file_1 = st.file_uploader("Choose a file", type = ['csv', 'xlsx'])
+    uploaded_file_sf = st.file_uploader("Choose a file", type = ['csv', 'xlsx'])
     global sf
-    if uploaded_file is not None:
+    if uploaded_file_sf is not None:
         try:
-            sf = pd.read_csv(uploaded_file_1, encoding='latin1')
+            sf = pd.read_csv(uploaded_file_sf, encoding='latin1')
         except Exception as e:
             print(e)
-            sf = pd.read_excel(uploaded_file_1)
+            sf = pd.read_excel(uploaded_file_sf)
     
     
     
